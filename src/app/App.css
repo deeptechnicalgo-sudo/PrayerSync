@@ -1,0 +1,508 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+body {
+    background-color: #f5faf9 !important;
+    margin: 0;
+    padding: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: #2c463f;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 20px;
+    box-sizing: border-box;
+}
+
+.navbar-logo {
+    font-family: 'Libre Caslon Text', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #003829;
+    text-decoration: none;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-link {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6e827c;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+
+.navbar-link:hover,
+.navbar-link.active {
+    color: #003829;
+}
+
+.navbar-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #b19e68;
+    border-radius: 1px;
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: #6e827c;
+}
+
+.navbar-icon-btn {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.navbar-icon-btn:hover {
+    color: #003829;
+}
+
+.navbar-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.hero-section {
+    text-align: center;
+    max-width: 800px;
+    margin: 50px auto 44px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.hero-title {
+    font-family: 'Libre Caslon Text', serif;
+    font-size: 46px;
+    font-weight: 700;
+    color: #003829;
+    line-height: 1.15;
+    margin: 0 0 16px 0;
+    letter-spacing: -0.5px;
+}
+
+.hero-subtitle {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    color: #6e827c;
+    line-height: 1.6;
+    max-width: 580px;
+    margin: 0 auto;
+}
+
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 30px;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto 60px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+}
+
+.location-card {
+    background-color: #ffffff;
+    border: 1px solid #edf2f1;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 440px;
+    padding: 40px 36px;
+    box-shadow: 0 10px 40px rgba(0, 56, 41, 0.015);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.location-card-title {
+    font-family: 'Libre Caslon Text', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #003829;
+    margin: 0 0 28px 0;
+    line-height: 1.2;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.input-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #8c9e99;
+}
+
+.select-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.select-icon {
+    position: absolute;
+    left: 14px;
+    width: 16px;
+    height: 16px;
+    color: #8c9e99;
+    pointer-events: none;
+}
+
+.premium-select {
+    width: 100%;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2c463f;
+    background-color: #f4f7f6;
+    border: 1px solid #e1e8e6;
+    border-radius: 10px;
+    padding: 12px 14px 12px 42px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238c9e99' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    box-sizing: border-box;
+}
+
+.premium-select:hover {
+    border-color: #b19e68;
+    background-color: #edf2f0;
+}
+
+.premium-select:focus {
+    border-color: #003829;
+    box-shadow: 0 0 0 3px rgba(0, 56, 41, 0.05);
+}
+
+.calendar-button {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #003829;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 56, 41, 0.1);
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+.calendar-button:hover {
+    background-color: #002c20;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 56, 41, 0.15);
+}
+
+.calendar-button:active {
+    transform: translateY(0);
+}
+
+.calendar-button:disabled {
+    background-color: #cdd8d5;
+    color: #8c9e99;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.Prayertime {
+    background-color: #f4f7f6;
+    border: 1px solid #e1e8e6;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 500px;
+    padding: 40px 36px;
+    box-shadow: 0 10px 40px rgba(0, 56, 41, 0.015);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.schedule-title {
+    font-family: 'Libre Caslon Text', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #003829;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.location-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #5c726c;
+}
+
+.location-icon {
+    width: 13px;
+    height: 15px;
+    color: #8c9e99;
+    flex-shrink: 0;
+}
+
+.location-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #5c726c;
+}
+
+.date-badge {
+    background-color: #e3ebec;
+    color: #2c463f;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.schedule-divider {
+    position: relative;
+    height: 1px;
+    background-color: #e2e8e7;
+    margin: 20px 0 24px 0;
+    width: 100%;
+}
+
+.schedule-divider::before {
+    content: '';
+    position: absolute;
+    top: -0.5px;
+    left: 0;
+    width: 32%;
+    height: 2px;
+    background-color: #b19e68;
+    border-radius: 1px;
+}
+
+.prayer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.prayer-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 6px rgba(0, 56, 41, 0.01);
+    border-left: 4px solid transparent;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+}
+
+.prayer-card.current {
+    border-left: 4px solid #b19e68;
+    box-shadow: 0 4px 16px rgba(177, 158, 104, 0.08);
+}
+
+.prayer-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #70807c;
+}
+
+.prayer-card.current .prayer-name {
+    color: #003829;
+    font-weight: 700;
+}
+
+.prayer-time-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.current-badge {
+    background-color: #eadecc;
+    color: #8b753a;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 10px;
+}
+
+.prayer-time {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0e1f1a;
+    letter-spacing: -0.2px;
+}
+
+.prayer-card.current .prayer-time {
+    color: #003829;
+}
+
+.footer {
+    background-color: #e2e8e7;
+    width: 100%;
+    padding: 32px 20px;
+    margin-top: auto;
+    box-sizing: border-box;
+    border-top: 1px solid #d4dedc;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    gap: 16px;
+    box-sizing: border-box;
+}
+
+.footer-left {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    color: #5c726c;
+    font-weight: 500;
+}
+
+.footer-right {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-link {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    color: #5c726c;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    font-weight: 500;
+}
+
+.footer-link:hover {
+    color: #003829;
+}
+
+@media (max-width: 990px) {
+    .dashboard-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .location-card, 
+    .Prayertime {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 560px) {
+    .hero-title {
+        font-size: 34px;
+    }
+    
+    .navbar {
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px;
+    }
+    
+    .navbar-links {
+        gap: 20px;
+    }
+    
+    .location-card, 
+    .Prayertime {
+        padding: 28px 24px;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    
+    .footer-right {
+        justify-content: center;
+        gap: 16px;
+    }
+}
