@@ -12,8 +12,8 @@ export default function Home() {
 
     const [PrayerData, SetApi] = React.useState({});
     const [CountryData, SetCountry] = React.useState([]);
-    const [selecter, setsec] = React.useState("SA");
-    const [sel2, set2] = React.useState("Riyadh");
+    const [selecter, setsec] = React.useState("");
+    const [sel2, set2] = React.useState("");
     const [State, setSate] = React.useState([]);
     const [now, setNow] = React.useState(null);
 
@@ -264,7 +264,7 @@ export default function Home() {
                                 <line x1="2" y1="12" x2="22" y2="12"></line>
                                 <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                             </svg>
-                            <select value={selecter} onChange={(e) => setsec(e.target.value)} className="premium-select">
+                            <select value={selecter} onChange={(e) => setsec(e.target.value)} className="premium-select" >
                                 <option value="">Choose a country...</option>
                                 {MapofCount}
                             </select>
