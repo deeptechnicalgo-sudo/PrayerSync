@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { DataProvider } from "./Context/DarklightContext"
+import { DataAProvider } from "./Context/Arabic"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,8 +21,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning >
+      <DataProvider>
+        <DataAProvider> <body style={{ backgroundColor: "#0f1412" }}>{children}</body></DataAProvider>
+      </DataProvider>
 
-      <body >{children}</body>
+
+
     </html>
   );
 }

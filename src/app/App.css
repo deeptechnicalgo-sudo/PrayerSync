@@ -146,6 +146,8 @@ body {
     border-radius: 20px;
     width: 100%;
     max-width: 440px;
+    min-width: 300px;
+    flex: 1 1 400px;
     padding: 40px 36px;
     box-shadow: 0 10px 40px rgba(0, 56, 41, 0.015);
     display: flex;
@@ -168,6 +170,7 @@ body {
     gap: 8px;
     margin-bottom: 20px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .input-label {
@@ -180,8 +183,10 @@ body {
 .select-wrapper {
     position: relative;
     width: 100%;
+    min-width: 100%;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .select-icon {
@@ -191,10 +196,13 @@ body {
     height: 16px;
     color: #8c9e99;
     pointer-events: none;
+    z-index: 1;
 }
 
 .premium-select {
-    width: 100%;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     font-weight: 500;
@@ -202,7 +210,7 @@ body {
     background-color: #f4f7f6;
     border: 1px solid #e1e8e6;
     border-radius: 10px;
-    padding: 12px 14px 12px 42px;
+    padding: 12px 36px 12px 42px;
     outline: none;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -212,6 +220,7 @@ body {
     background-position: right 14px center;
     background-size: 16px;
     box-sizing: border-box;
+    display: block;
 }
 
 .premium-select:hover {
@@ -468,8 +477,8 @@ body {
         flex-direction: column;
         align-items: center;
     }
-    
-    .location-card, 
+
+    .location-card,
     .Prayertime {
         max-width: 500px;
     }
@@ -479,28 +488,28 @@ body {
     .hero-title {
         font-size: 34px;
     }
-    
+
     .navbar {
         flex-direction: column;
         gap: 16px;
         padding: 16px;
     }
-    
+
     .navbar-links {
         gap: 20px;
     }
-    
-    .location-card, 
+
+    .location-card,
     .Prayertime {
         padding: 28px 24px;
     }
-    
+
     .footer-content {
         flex-direction: column;
         text-align: center;
         gap: 12px;
     }
-    
+
     .footer-right {
         justify-content: center;
         gap: 16px;

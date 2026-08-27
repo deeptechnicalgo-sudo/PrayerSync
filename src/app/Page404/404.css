@@ -1,0 +1,30 @@
+button {
+    width: 100%;
+    background: transparent;
+
+}
+
+div {
+    display: flex;
+    justify-items: baseline, start;
+    display: block;
+    background-color: #fff;
+    height: max-content;
+
+}
+
+h1 {
+    color: rgb(224, 0, 0);
+    display: block;
+    justify-self: center;
+}
+
+p {
+    color: rgb(172, 172, 172);
+    justify-self: center;
+}
+
+body,
+* {
+    background-color: #fff;
+}
