@@ -1,0 +1,419 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+.ptime-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* TopAppBar Component */
+.top-app-bar {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    border-bottom: 1px solid #eef5f7;
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.top-app-bar__layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 72px;
+    padding: 0 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.top-app-bar__brand {
+    font-family: 'Libre Caslon Text', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #003829;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.top-app-bar__nav {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .top-app-bar__nav {
+        display: flex;
+        gap: 32px;
+    }
+}
+
+.nav-link {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6e827c;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    color: #003829;
+}
+
+.nav-link.active {
+    border-bottom: 2px solid #b19e68;
+    padding-bottom: 4px;
+}
+
+.top-app-bar__actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #003829;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn:hover {
+    background-color: rgba(0, 56, 41, 0.05);
+}
+
+.dark .icon-btn:hover {
+    background-color: rgba(149, 211, 186, 0.08);
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* Real-time Clock & Countdown */
+.time-header {
+    text-align: center;
+    padding: 24px 0;
+}
+
+.current-time {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 72px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #003829;
+    margin-bottom: 16px;
+    line-height: 1;
+    transition: color 0.25s ease;
+}
+
+.next-prayer-countdown {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    color: #735c00;
+    background-color: #ffe088;
+    padding: 8px 20px;
+    border-radius: 24px;
+    display: inline-block;
+    font-weight: 600;
+    transition: background-color 0.25s ease, color 0.25s ease;
+    animation: countdownPulse 3s ease-in-out infinite;
+}
+
+@keyframes countdownPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+.location-badge {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 0.25s ease;
+}
+
+/* Schedule Container */
+.schedule-container {
+    background-color: #ffffff;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 53, 39, 0.1);
+    padding: 32px;
+    box-shadow: 0 10px 40px rgba(0, 56, 41, 0.015);
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.schedule-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eef5f7;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.schedule-title {
+    font-family: 'Libre Caslon Text', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #003829;
+    margin: 0;
+    transition: color 0.25s ease;
+}
+
+.date-badge-pill {
+    background-color: #e3ebec;
+    color: #2c463f;
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Loading State */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 48px 0;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(0, 56, 41, 0.1);
+    border-top-color: #003829;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.dark .loading-spinner {
+    border-color: rgba(149, 211, 186, 0.15);
+    border-top-color: #95d3ba;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Prayer List */
+.prayer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.prayer-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    border-radius: 12px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border-inline-start: 4px solid transparent;
+    cursor: default;
+}
+
+.prayer-item:hover:not(.active) {
+    background-color: rgba(0, 56, 41, 0.02);
+}
+
+.dark .prayer-item:hover:not(.active) {
+    background-color: rgba(149, 211, 186, 0.03);
+}
+
+.prayer-item.active {
+    border-inline-start: 4px solid #b19e68;
+    box-shadow: 0 4px 16px rgba(177, 158, 104, 0.08);
+}
+
+.prayer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.prayer-name {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: #003527;
+    transition: color 0.25s ease;
+}
+
+.prayer-item.active .prayer-name {
+    font-weight: 700;
+}
+
+.prayer-period {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6e827c;
+    transition: color 0.25s ease;
+}
+
+.prayer-time-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.current-badge {
+    background-color: #eadecc;
+    color: #8b753a;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.prayer-time {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #003527;
+    letter-spacing: -0.3px;
+    transition: color 0.25s ease;
+}
+
+/* Footer Component */
+.footer {
+    background-color: #e2e8e7;
+    width: 100%;
+    padding: 32px 48px;
+    margin-top: auto;
+    box-sizing: border-box;
+    border-top: 1px solid #d4dedc;
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.footer__layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+    gap: 16px;
+}
+
+@media (min-width: 768px) {
+    .footer__layout {
+        flex-direction: row;
+    }
+}
+
+.footer__copyright {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 0.25s ease;
+}
+
+.footer__links {
+    display: flex;
+    gap: 24px;
+}
+
+.footer__link {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #5c726c;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer__link:hover {
+    color: #003829;
+}
+
+.dark .footer__link:hover {
+    color: #95d3ba;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .top-app-bar__layout {
+        padding: 0 16px;
+        height: 60px;
+    }
+
+    .main-content {
+        padding: 24px 16px;
+        gap: 24px;
+    }
+
+    .current-time {
+        font-size: 52px;
+    }
+
+    .schedule-container {
+        padding: 20px 16px;
+        border-radius: 16px;
+    }
+
+    .schedule-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .prayer-item {
+        padding: 14px 16px;
+    }
+
+    .prayer-time {
+        font-size: 18px;
+    }
+
+    .footer {
+        padding: 24px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .current-time {
+        font-size: 42px;
+    }
+
+    .top-app-bar__brand {
+        font-size: 20px;
+    }
+
+    .schedule-title {
+        font-size: 20px;
+    }
+}

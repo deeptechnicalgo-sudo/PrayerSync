@@ -1,15 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
+/* Night Light Filter */
+html.night-light-active {
+    filter: sepia(0.24) hue-rotate(335deg) brightness(0.96) contrast(0.96);
+    transition: filter 0.3s ease;
+}
+
+html.night-light-active::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    background: rgba(255, 175, 45, 0.06);
+    mix-blend-mode: multiply;
+    z-index: 999999;
+}
+
 body {
-    background-color: #f5faf9 !important;
+    background-color: #f5faf9;
     margin: 0;
     padding: 0;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     color: #2c463f;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
+
 
 .app-wrapper {
     display: flex;
@@ -358,6 +379,21 @@ body {
     border-radius: 1px;
 }
 
+[dir="rtl"] .schedule-divider::before {
+    left: auto;
+    right: 0;
+}
+
+[dir="rtl"] .select-icon {
+    left: auto;
+    right: 14px;
+}
+
+[dir="rtl"] .premium-select {
+    padding: 12px 42px 12px 36px;
+    background-position: left 14px center;
+}
+
 .prayer-list {
     display: flex;
     flex-direction: column;
@@ -373,15 +409,16 @@ body {
     border-radius: 10px;
     padding: 16px 20px;
     box-shadow: 0 2px 6px rgba(0, 56, 41, 0.01);
-    border-left: 4px solid transparent;
+    border-inline-start: 4px solid transparent;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     box-sizing: border-box;
 }
 
 .prayer-card.current {
-    border-left: 4px solid #b19e68;
+    border-inline-start: 4px solid #b19e68;
     box-shadow: 0 4px 16px rgba(177, 158, 104, 0.08);
 }
+
 
 .prayer-name {
     font-family: 'Plus Jakarta Sans', sans-serif;

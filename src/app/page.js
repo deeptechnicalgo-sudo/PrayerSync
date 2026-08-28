@@ -21,7 +21,7 @@ export default function Home() {
     const [State, setSate] = React.useState([]);
     const [now, setNow] = React.useState(null);
 
-    const { K, setk, is12Hours } = useData();
+    const { K, setk, is12Hours, monthEver } = useData();
     const { isarabic, setArabic } = useData2();
 
     useEffect(() => { setNow(new Date()); }, []);
@@ -59,12 +59,12 @@ export default function Home() {
         </option>
     ));
 
-    function formatToISO(timeString, addMins = 0) {
+    function formatToISO(timeString, addMins = 0, baseDate = null) {
         if (!timeString) return null;
         const cleanTime = timeString.split(" ")[0];
         const [hours, mins] = cleanTime.split(":").map(Number);
 
-        const eventDate = new Date();
+        const eventDate = baseDate ? new Date(baseDate) : new Date();
         eventDate.setHours(hours, mins + addMins, 0, 0);
 
         return eventDate;
@@ -103,7 +103,7 @@ export default function Home() {
         )
             .then((res) => res.json())
             .then((time) => SetApi(time));
-    }, [sel2, selecter]);
+    }, [sel2, selecter, formattedDate]);
 
     const fajrStart = formatToISO(FajrInt);
     const dhuhrStart = formatToISO(DhuhrInt);
@@ -155,8 +155,99 @@ export default function Home() {
         return lines.join("\r\n");
     }
 
-    function downloadICS() {
+    const openSubpage = (path) => {
+        window.open(path, "_blank", "width=800,height=650");
+    };
+
+    // Global KeyDown listener for Secret Command Prompt
+    useEffect(() => {
+        function handleGlobalKeyDown(event) {
+            // Check for Ctrl + C or Ctrl + M or Cmd + C
+            if ((event.ctrlKey || event.metaKey) && (event.key.toLowerCase() === "c" || event.key.toLowerCase() === "m")) {
+                const selection = typeof window !== "undefined" && window.getSelection ? window.getSelection().toString() : "";
+                // If user selected text to copy, let Ctrl+C perform normal copy
+                if (event.key.toLowerCase() === "c" && selection.length > 0) {
+                    return;
+                }
+
+                event.preventDefault();
+                const promptValue = prompt(isarabic ? "أدخل الأمر السري:" : "Enter Command:");
+                if (promptValue && promptValue.trim().toLowerCase() === "monthever") {
+                    openSubpage("/MonthEver");
+                }
+            }
+        }
+
+        window.addEventListener("keydown", handleGlobalKeyDown);
+        return () => window.removeEventListener("keydown", handleGlobalKeyDown);
+    }, [isarabic]);
+
+    async function downloadICS() {
         if (!events) return;
+
+        // If MonthEver mode is enabled, fetch and download the full month schedule
+        if (monthEver && sel2 && selecter && now) {
+            try {
+                const curYear = date.getFullYear();
+                const curMonth = date.getMonth() + 1;
+                const response = await fetch(
+                    `https://api.aladhan.com/v1/calendarByCity/${curYear}/${curMonth}?city=${encodeURIComponent(sel2)}&country=${encodeURIComponent(selecter)}&method=4`
+                );
+                const monthData = await response.json();
+
+                if (monthData?.data && Array.isArray(monthData.data) && monthData.data.length > 0) {
+                    const monthEvents = [];
+
+                    monthData.data.forEach((dayItem) => {
+                        const dateParts = dayItem.date?.gregorian?.date?.split("-"); // DD-MM-YYYY
+                        if (!dateParts || dateParts.length < 3) return;
+
+                        const dayNum = parseInt(dateParts[0], 10);
+                        const monthNum = parseInt(dateParts[1], 10) - 1;
+                        const yearNum = parseInt(dateParts[2], 10);
+
+                        const parseDayPrayer = (timeString) => {
+                            if (!timeString) return null;
+                            const cleanTime = timeString.split(" ")[0];
+                            const [h, m] = cleanTime.split(":").map(Number);
+                            const d = new Date(yearNum, monthNum, dayNum, h, m, 0, 0);
+                            return d;
+                        };
+
+                        const timings = dayItem.timings || {};
+                        const dayFajr = parseDayPrayer(timings.Fajr);
+                        const dayDhuhr = parseDayPrayer(timings.Dhuhr);
+                        const dayAsr = parseDayPrayer(timings.Asr);
+                        const dayMaghrib = parseDayPrayer(timings.Maghrib);
+                        const dayIsha = parseDayPrayer(timings.Isha);
+
+                        if (dayFajr) monthEvents.push({ title: isarabic ? "صلاة الفجر" : "Fajr Prayer", start: dayFajr, raw: timings.Fajr });
+                        if (dayDhuhr) monthEvents.push({ title: isarabic ? "صلاة الظهر" : "Dhuhr Prayer", start: dayDhuhr, raw: timings.Dhuhr });
+                        if (dayAsr) monthEvents.push({ title: isarabic ? "صلاة العصر" : "Asr Prayer", start: dayAsr, raw: timings.Asr });
+                        if (dayMaghrib) monthEvents.push({ title: isarabic ? "صلاة المغرب" : "Maghrib Prayer", start: dayMaghrib, raw: timings.Maghrib });
+                        if (dayIsha) monthEvents.push({ title: isarabic ? "صلاة العشاء" : "Isha Prayer", start: dayIsha, raw: timings.Isha });
+                    });
+
+                    if (monthEvents.length > 0) {
+                        const icsContent = buildICS(monthEvents);
+                        const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement("a");
+                        link.href = url;
+                        link.download = `prayer-times-month-${curYear}-${String(curMonth).padStart(2, "0")}.ics`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(url);
+                        return;
+                    }
+                }
+            } catch (err) {
+                console.error("MonthEver full-month export error:", err);
+            }
+        }
+
+        // Standard Single-Day Export
         const icsContent = buildICS(events);
         const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
         const url = URL.createObjectURL(blob);
@@ -241,7 +332,7 @@ export default function Home() {
     const locationText = sel2 ? (countryName ? `${sel2}, ${countryName}` : sel2) : (isarabic ? "يرجى تحديد الموقع" : "Choose location");
 
     return (
-        <div className="app-wrapper" style={{ backgroundColor: K ? "#0f1412" : "#f5faf9", minHeight: "100vh" }}>
+        <div className="app-wrapper" dir={isarabic ? "rtl" : "ltr"} style={{ backgroundColor: K ? "#0f1412" : "#f5faf9", minHeight: "100vh" }}>
             <header className="navbar" style={{ backgroundColor: K ? "#0f1412" : "#f5faf9" }}>
                 <a href="#" className="navbar-logo" style={{ color: K ? "#95d3ba" : "#003829" }}>
                     {isarabic ? "مزامنة الصلاة" : "PrayerSync"}
@@ -254,14 +345,14 @@ export default function Home() {
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={() => { window.open("/Page404", "_blank", "width=800,height=600"); }}>
+                            <Link href="/PTime" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={(e) => { }}>
                                 {isarabic ? "مواقيت الصلاة" : "Schedule"}
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={() => { window.open("/Page404", "_blank", "width=800,height=600"); }}>
-                                {isarabic ? "عن المطور والتطبيق" : "About Us"}
-                            </a>
+                            <Link href="/About" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={(e) => { }}>
+                                {isarabic ? "عن المطور والتطبيق" : "About Me"}
+                            </Link>
                         </li>
                     </ul>
                 </nav>
@@ -274,7 +365,7 @@ export default function Home() {
                             </svg>
                         </Link>
                     </button>
-                    <button className="navbar-icon-btn" aria-label="Help" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={() => { window.open("/Contact", "_blank", "width=800,height=600"); }}>
+                    <button className="navbar-icon-btn" aria-label="Help" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={() => openSubpage("/Contact")}>
                         <svg className="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="12" cy="12" r="10"></circle>
                             <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
@@ -283,6 +374,7 @@ export default function Home() {
                     </button>
                 </div>
             </header>
+
 
             <main className="hero-section">
                 <h1 className="hero-title" style={{ color: K ? "#95d3ba" : "#003829" }}>
@@ -375,7 +467,9 @@ export default function Home() {
                                 <line x1="3" y1="10" x2="21" y2="10"></line>
                                 <path d="M8 14h8M12 14v4"></path>
                             </svg>
-                            {isarabic ? "أضف إلى التقويم" : "Add to Calendar"}
+                            {isarabic
+                                ? (monthEver ? "أضف مواقيت الشهر للتقويم" : "أضف إلى التقويم")
+                                : (monthEver ? "Add Month to Calendar" : "Add to Calendar")}
                         </button>
                     ) : (
                         <button
@@ -392,7 +486,9 @@ export default function Home() {
                                 <line x1="8" y1="2" x2="8" y2="6"></line>
                                 <line x1="3" y1="10" x2="21" y2="10"></line>
                             </svg>
-                            {isarabic ? "أضف إلى التقويم" : "Add to Calendar"}
+                            {isarabic
+                                ? (monthEver ? "أضف مواقيت الشهر للتقويم" : "أضف إلى التقويم")
+                                : (monthEver ? "Add Month to Calendar" : "Add to Calendar")}
                         </button>
                     )}
                 </div>
@@ -481,8 +577,9 @@ export default function Home() {
                             href="#"
                             className="footer-link"
                             style={{ color: K ? "#4d6b62" : "#5c726c" }}
-                            onClick={() => {
-                                window.open("/Priacypolicy", "_blank", "width=800,height=600");
+                            onClick={(e) => {
+                                e.preventDefault();
+                                openSubpage("/Priacypolicy");
                             }}
                         >
                             {isarabic ? "سياسة الخصوصية" : "Privacy Policy"}
@@ -491,8 +588,9 @@ export default function Home() {
                             href="#"
                             className="footer-link"
                             style={{ color: K ? "#4d6b62" : "#5c726c" }}
-                            onClick={() => {
-                                window.open("/terms", "_blank", "width=800,height=600");
+                            onClick={(e) => {
+                                e.preventDefault();
+                                openSubpage("/terms");
                             }}
                         >
                             {isarabic ? "شروط الخدمة" : "Terms of Service"}
@@ -501,13 +599,15 @@ export default function Home() {
                             href="#"
                             className="footer-link"
                             style={{ color: K ? "#4d6b62" : "#5c726c" }}
-                            onClick={() => {
-                                window.open("/Contact", "_blank", "width=800,height=600");
+                            onClick={(e) => {
+                                e.preventDefault();
+                                openSubpage("/Contact");
                             }}
                         >
                             {isarabic ? "تواصل معنا" : "Contact Us"}
                         </a>
                     </div>
+
                 </div>
             </footer>
         </div>

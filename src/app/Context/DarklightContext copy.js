@@ -9,7 +9,6 @@ export function DataProvider({ children }) {
     const [nightLight, setNightLight] = useState(false);
     const [is12Hours, setIs12Hours] = useState(true);
     const [mounted, setMounted] = useState(false);
-
     const [monthEver, setMonthEverState] = useState(false);
 
     useEffect(() => {

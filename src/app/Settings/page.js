@@ -8,12 +8,16 @@ import { useData } from "../Context/DarklightContext";
 import { useData2 } from "../Context/Arabic";
 
 export default function SettingsPage() {
-    const { K, setk, is12Hours, setIs12Hours } = useData();
+    const { K, setk, nightLight, setNightLight, is12Hours, setIs12Hours } = useData();
     const { isarabic, setArabic } = useData2();
 
+    const openSubpage = (path) => {
+        window.open(path, "_blank", "width=800,height=650");
+    };
+
     return (
-        <div className="app-wrapper" style={{ backgroundColor: K ? "#0f1412" : "#f5faf9", minHeight: "100vh" }}>
-            {/* ── Navbar (Same as main page.js) ── */}
+        <div className="app-wrapper" dir={isarabic ? "rtl" : "ltr"} style={{ backgroundColor: K ? "#0f1412" : "#f5faf9", minHeight: "100vh" }}>
+            {/* ── Navbar ── */}
             <header className="navbar" style={{ backgroundColor: K ? "#0f1412" : "#f5faf9" }}>
                 <Link href="/" className="navbar-logo" style={{ color: K ? "#95d3ba" : "#003829" }}>
                     {isarabic ? "مزامنة الصلاة" : "PrayerSync"}
@@ -26,14 +30,14 @@ export default function SettingsPage() {
                             </Link>
                         </li>
                         <li>
-                            <a href="#" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={() => { window.open("/Page404", "_blank", "width=800,height=600"); }}>
+                            <a href="#" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={(e) => { e.preventDefault(); openSubpage("/Page404"); }}>
                                 {isarabic ? "مواقيت الصلاة" : "Schedule"}
                             </a>
                         </li>
                         <li>
-                            <a href="#" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={() => { window.open("/Page404", "_blank", "width=800,height=600"); }}>
-                                {isarabic ? "عن المطور والتطبيق" : "About Us"}
-                            </a>
+                            <Link href="/About" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>
+                                {isarabic ? "عن المطور والتطبيق" : "About Me"}
+                            </Link>
                         </li>
                     </ul>
                 </nav>
@@ -46,7 +50,7 @@ export default function SettingsPage() {
                             </svg>
                         </Link>
                     </button>
-                    <button className="navbar-icon-btn" aria-label="Help" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={() => window.open("/Contact", "_blank", "width=800,height=600")}>
+                    <button className="navbar-icon-btn" aria-label="Help" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={() => openSubpage("/Contact")}>
                         <svg className="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="12" cy="12" r="10"></circle>
                             <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
@@ -63,7 +67,7 @@ export default function SettingsPage() {
                         {isarabic ? "الإعدادات" : "Settings"}
                     </h1>
                     <p className="page-description" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
-                        {isarabic ? "خصّص تفضيلات رحلتك الروحية." : "Customize your spiritual journey preferences."}
+                        {isarabic ? "خصّص تفضيلات رحلتك الروحية ومظهر التطبيق." : "Customize your spiritual journey preferences and application appearance."}
                     </p>
                 </div>
 
@@ -152,7 +156,7 @@ export default function SettingsPage() {
                                             {isarabic ? "اللغة" : "Language"}
                                         </h3>
                                         <p className="setting-desc" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
-                                            {isarabic ? "لغة واجهة التطبيق." : "Interface language for the application."}
+                                            {isarabic ? "لغة واجهة التطبيق والتقويم." : "Interface language for the application and calendar."}
                                         </p>
                                     </div>
                                     <div className="toggle-group" style={{ backgroundColor: K ? "#111915" : "#eef5f7", borderColor: K ? "rgba(63, 73, 69, 0.4)" : undefined }}>
@@ -177,7 +181,7 @@ export default function SettingsPage() {
                             </div>
                         </section>
 
-                        {/* Appearance Section (with 2 appearance settings) */}
+                        {/* Appearance Section */}
                         <section className="settings-section" id="appearance" style={{ backgroundColor: K ? "#0b0f0d" : "#ffffff", border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
                             <h2 className="section-header" style={{ color: K ? "#95d3ba" : "#003829", borderBottomColor: K ? "rgba(63, 73, 69, 0.3)" : undefined }}>
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={K ? "#ffe088" : "#735c00"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -194,14 +198,14 @@ export default function SettingsPage() {
                                 {isarabic ? "المظهر" : "Appearance"}
                             </h2>
                             <div className="settings-group">
-                                {/* Appearance Setting 1: Night Vision / Dark Mode */}
+                                {/* Setting 1: Dark Mode / Night Vision */}
                                 <div className="setting-item">
                                     <div className="setting-info">
                                         <h3 className="setting-title" style={{ color: K ? "#c8e8dc" : "#161d1f" }}>
-                                            {isarabic ? "الوضع الليلي" : "Night Vision"}
+                                            {isarabic ? "الوضع الداكن" : "Dark Mode"}
                                         </h3>
                                         <p className="setting-desc" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
-                                            {isarabic ? "تبديل بين الوضع الداكن والفاتح." : "Toggle between dark and light mode."}
+                                            {isarabic ? "التبديل بين الوضع الداكن والوضع الفاتح الأنيق." : "Toggle between dark and light aesthetic themes."}
                                         </p>
                                     </div>
                                     <Switch
@@ -216,20 +220,20 @@ export default function SettingsPage() {
                                     />
                                 </div>
 
-                                {/* Appearance Setting 2: Night Light Filter */}
+                                {/* Setting 2: Night Light Mode (Blue-light filter) */}
                                 <div className="setting-item">
                                     <div className="setting-info">
                                         <h3 className="setting-title" style={{ color: K ? "#c8e8dc" : "#161d1f" }}>
-                                            {isarabic ? "الإضاءة المريحة" : "Night Light Mode"}
+                                            {isarabic ? "مرشح الإضاءة المريحة (Night Light)" : "Night Light Filter"}
                                         </h3>
                                         <p className="setting-desc" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
-                                            {isarabic ? "تخفيف إجهاد العين أثناء الليل." : "Reduce eye strain during night hours."}
+                                            {isarabic ? "تطبيق إضاءة دافئة لتخفيف إجهاد العين أثناء التصفح الليلي." : "Apply a warm amber tint to reduce eye strain and blue light."}
                                         </p>
                                     </div>
                                     <Switch
-                                        checked={K}
-                                        onChange={setk}
-                                        onColor="#003829"
+                                        checked={nightLight}
+                                        onChange={setNightLight}
+                                        onColor="#b19e68"
                                         offColor="#d1dbd8"
                                         checkedIcon={false}
                                         uncheckedIcon={false}
@@ -250,13 +254,13 @@ export default function SettingsPage() {
                         &copy; {new Date().getFullYear()} {isarabic ? "موسى محمد. جميع الحقوق محفوظة." : "Musa Mohammed. All rights reserved."}
                     </div>
                     <div className="footer-right">
-                        <a href="#" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }} onClick={() => window.open("/Priacypolicy", "_blank", "width=800,height=600")}>
+                        <a href="#" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }} onClick={(e) => { e.preventDefault(); openSubpage("/Priacypolicy"); }}>
                             {isarabic ? "سياسة الخصوصية" : "Privacy Policy"}
                         </a>
-                        <a href="#" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }} onClick={() => window.open("/terms", "_blank", "width=800,height=600")}>
+                        <a href="#" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }} onClick={(e) => { e.preventDefault(); openSubpage("/terms"); }}>
                             {isarabic ? "شروط الخدمة" : "Terms of Service"}
                         </a>
-                        <a href="#" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }} onClick={() => window.open("/Contact", "_blank", "width=800,height=600")}>
+                        <a href="#" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }} onClick={(e) => { e.preventDefault(); openSubpage("/Contact"); }}>
                             {isarabic ? "تواصل معنا" : "Contact Us"}
                         </a>
                     </div>

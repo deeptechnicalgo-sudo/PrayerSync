@@ -22,11 +22,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning >
       <DataProvider>
-        <DataAProvider> <body style={{ backgroundColor: "#0f1412" }}>{children}</body></DataAProvider>
+        <DataAProvider>
+          <body>{children}</body>
+        </DataAProvider>
       </DataProvider>
-
-
-
     </html>
   );
 }
+
