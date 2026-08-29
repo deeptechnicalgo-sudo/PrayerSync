@@ -14,10 +14,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+
 export const metadata = {
   title: "PrayerSync",
   description: "Put your prayer time to your Outlook or Google Calendar",
+  other: {
+    "google-adsense-account": "ca-pub-8383999192768244",
+  },
 };
+
+
 
 export default function RootLayout({ children }) {
   return (
