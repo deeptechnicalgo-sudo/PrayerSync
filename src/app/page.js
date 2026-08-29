@@ -345,7 +345,7 @@ export default function Home() {
                             </a>
                         </li>
                         <li>
-                            <Link href="/PTime" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={(e) => { }}>
+                            <Link href="/PTime" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={(e) => { window.open("/PTime", "_blank");}}>
                                 {isarabic ? "مواقيت الصلاة" : "Schedule"}
                             </Link>
                         </li>
