@@ -30,9 +30,9 @@ export default function SettingsPage() {
                             </Link>
                         </li>
                         <li>
-                            <a href="#" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={(e) => { e.preventDefault(); openSubpage("/Page404"); }}>
+                            <Link href="/PTime" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>
                                 {isarabic ? "مواقيت الصلاة" : "Schedule"}
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <Link href="/About" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>

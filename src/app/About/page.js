@@ -64,19 +64,15 @@ export default function AboutPage() {
                         </li>
 
                         <li>
-                            <a
-                                href="#"
+                            <Link
+                                href="/PTime"
                                 className="navbar-link"
                                 style={{
                                     color: K ? "#89938e" : "#6e827c",
                                 }}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    openSubpage("/Page404");
-                                }}
                             >
                                 {isarabic ? "مواقيت الصلاة" : "Schedule"}
-                            </a>
+                            </Link>
                         </li>
 
                         <li>

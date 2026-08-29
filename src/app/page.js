@@ -345,12 +345,15 @@ export default function Home() {
                             </a>
                         </li>
                         <li>
-                            <Link href="/PTime" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={(e) => { window.open("/PTime");}}>
+
+
+                            <Link href="/PTime" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>
+
                                 {isarabic ? "مواقيت الصلاة" : "Schedule"}
                             </Link>
                         </li>
                         <li>
-                            <Link href="/About" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={(e) => { }}>
+                            <Link href="/About" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>
                                 {isarabic ? "عن المطور والتطبيق" : "About Me"}
                             </Link>
                         </li>
