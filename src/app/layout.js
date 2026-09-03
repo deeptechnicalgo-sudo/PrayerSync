@@ -43,6 +43,7 @@ export default function RootLayout({ children }) {
               crossOrigin="anonymous"
               strategy="afterInteractive"
             />
+                <script src="https://pl31170217.profitableratecpmnetwork.com/b2/0c/9b/b20c9b27034926a92f7a52f983a6b915.js"></script>
           </body>
         </DataAProvider>
       </DataProvider>
