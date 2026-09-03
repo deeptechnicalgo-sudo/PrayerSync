@@ -558,10 +558,10 @@ return (
             </div>
         </div>
     
+<script src="https://pl31170217.profitableratecpmnetwork.com/b2/0c/9b/b20c9b27034926a92f7a52f983a6b915.js"></script>
 
                     
-
-                    <script>
+<script>
   atOptions = {
     'key' : '3822992078ebe3c6fb821c88d91d587b',
     'format' : 'iframe',
@@ -569,6 +569,9 @@ return (
     'width' : 320,
     'params' : {}
   };
+</script>
+<script src="https://www.highrevenueformat.com/3822992078ebe3c6fb821c88d91d587b/invoke.js"></script>
+
 </script>
 <script src="https://www.highrevenueformat.com/3822992078ebe3c6fb821c88d91d587b/invoke.js"></script>
 
