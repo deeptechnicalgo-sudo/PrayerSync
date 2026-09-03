@@ -575,6 +575,8 @@ return (
 </script>
 <script src="https://www.highrevenueformat.com/3822992078ebe3c6fb821c88d91d587b/invoke.js"></script>
 
+    <script src="https://pl31170937.profitableratecpmnetwork.com/32/8e/8c/328e8c2ce8711e00bbc8b91fdb77494d.js"></script>
+
 
         <footer
             className="footer"
