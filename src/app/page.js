@@ -973,5 +973,80 @@ export default function Home() {
                 </div>
             </footer>
         </div>
+<<<<<<< HEAD
     );
+=======
+    
+<script src="https://pl31170217.profitableratecpmnetwork.com/b2/0c/9b/b20c9b27034926a92f7a52f983a6b915.js"></script>
+
+                    
+<script>
+  atOptions = {
+    'key' : '3822992078ebe3c6fb821c88d91d587b',
+    'format' : 'iframe',
+    'height' : 50,
+    'width' : 320,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highrevenueformat.com/3822992078ebe3c6fb821c88d91d587b/invoke.js"></script>
+
+</script>
+<script src="https://www.highrevenueformat.com/3822992078ebe3c6fb821c88d91d587b/invoke.js"></script>
+
+    <script src="https://pl31170937.profitableratecpmnetwork.com/32/8e/8c/328e8c2ce8711e00bbc8b91fdb77494d.js"></script>
+
+
+        <footer
+            className="footer"
+            style={{
+                backgroundColor: K ? "#080c0a" : "#e2e8e7",
+                borderTop: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #d4dedc",
+            }}
+        >
+            <div className="footer-content">
+                <div className="footer-left" suppressHydrationWarning style={{ color: K ? "#4d6b62" : "#5c726c" }}>
+                    &copy; {now ? Year : ""} {isarabic ? "موسى محمد. جميع الحقوق محفوظة." : "Musa Mohammed. All rights reserved."}
+                </div>
+                <div className="footer-right">
+                    <a
+                        href="#"
+                        className="footer-link"
+                        style={{ color: K ? "#4d6b62" : "#5c726c" }}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            openSubpage("/Priacypolicy");
+                        }}
+                    >
+                        {isarabic ? "سياسة الخصوصية" : "Privacy Policy"}
+                    </a>
+                    <a
+                        href="#"
+                        className="footer-link"
+                        style={{ color: K ? "#4d6b62" : "#5c726c" }}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            openSubpage("/terms");
+                        }}
+                    >
+                        {isarabic ? "شروط الخدمة" : "Terms of Service"}
+                    </a>
+                    <a
+                        href="#"
+                        className="footer-link"
+                        style={{ color: K ? "#4d6b62" : "#5c726c" }}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            openSubpage("/Contact");
+                        }}
+                    >
+                        {isarabic ? "تواصل معنا" : "Contact Us"}
+                    </a>
+                </div>
+
+            </div>
+        </footer>
+    </div>
+);
+>>>>>>> origin/main
 }
