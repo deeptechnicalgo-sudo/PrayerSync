@@ -21,6 +21,7 @@ export const metadata = {
   description: "Put your prayer time to your Outlook or Google Calendar",
   other: {
     "google-adsense-account": "ca-pub-8383999192768244",
+    monetag: "a576e3547efeb8521364795d32ad5b05",
   },
 };
 
@@ -37,21 +38,21 @@ export default function RootLayout({ children }) {
         <DataProvider>
           <DataAProvider>
             <head>
-     <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-JVM4SDFJZK"
-        />
-        <Script id="google-analytics">
-          {`
+              <Script
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=G-JVM4SDFJZK"
+              />
+              <Script id="google-analytics">
+                {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
             gtag('config', 'G-JVM4SDFJZK');
           `}
-        </Script>
-        
-        </head>
+              </Script>
+
+            </head>
             <body>
               {children}
 
