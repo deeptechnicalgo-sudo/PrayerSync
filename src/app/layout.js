@@ -38,6 +38,7 @@ export default function RootLayout({ children }) {
         <DataProvider>
           <DataAProvider>
             <head>
+              <script src="https://5gvci.com/act/files/tag.min.js?z=11726628" data-cfasync="false" async></script>
               <Script
                 async
                 src="https://www.googletagmanager.com/gtag/js?id=G-JVM4SDFJZK"
