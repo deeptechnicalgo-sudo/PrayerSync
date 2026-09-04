@@ -38,7 +38,14 @@ export default function RootLayout({ children }) {
         <DataProvider>
           <DataAProvider>
             <head>
-
+              <Script id="monetag-ad">
+                {`
+    (function(s) {
+      s.dataset.zone = '11726834';
+      s.src = 'https://al5sm.com/tag.min.js';
+    })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+  `}
+              </Script>
               <Script src="https://5gvci.com/act/files/tag.min.js?z=11726628" data-cfasync="false" async />
               <Script
                 async
