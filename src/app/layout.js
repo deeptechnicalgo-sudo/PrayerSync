@@ -38,6 +38,17 @@ export default function RootLayout({ children }) {
         <DataProvider>
           <DataAProvider>
             <head>
+
+              <Script id="monetag-zone-11726998">
+                {`
+    (function(s) {
+      s.dataset.zone = '11726998';
+      s.src = 'https://nap5k.com/tag.min.js';
+    })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+  `}
+              </Script>
+
+
               <Script id="monetag-ad">
                 {`
     (function(s) {
