@@ -32,39 +32,9 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <head>
-
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(s){
-                s.dataset.zone='11726998',
-                s.src='https://nap5k.com/tag.min.js'
-              })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))
-            `,
-          }}
-        />
-
-
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function(s){
-                s.dataset.zone='11726834',
-                s.src='https://al5sm.com/tag.min.js'
-              })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))
-            `,
-          }}
-        />
-
-
-        <Script
-          id="monetag-zone-11726628"
-          src="https://5gvci.com/act/files/tag.min.js?z=11726628"
-          data-cfasync="false"
-          strategy="afterInteractive"
-        />
-
-
+      
+        <script>(function(s){s.dataset.zone='11730978',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+      <script src="https://5gvci.com/act/files/tag.min.js?z=11726628" data-cfasync="false" async></script>
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-JVM4SDFJZK"
