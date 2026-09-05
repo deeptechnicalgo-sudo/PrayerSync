@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useData, CALCULATION_METHODS } from "../Context/DarklightContext";
 import { useData2 } from "../Context/Arabic";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Banner from "../componetads/BannerH"
 
 export default function SettingsPage() {
     const {
@@ -74,7 +75,7 @@ export default function SettingsPage() {
 
             const savedTasks = localStorage.getItem("prayersync_spiritual_tasks");
             if (savedTasks) setTasks(JSON.parse(savedTasks));
-        } catch (e) {}
+        } catch (e) { }
     }, []);
 
     const toggleHabit = (key) => {
@@ -83,7 +84,7 @@ export default function SettingsPage() {
         try {
             const todayStr = new Date().toISOString().split("T")[0];
             localStorage.setItem(`prayersync_habits_${todayStr}`, JSON.stringify(updated));
-        } catch (e) {}
+        } catch (e) { }
     };
 
     const addSpiritualTask = (e) => {
@@ -95,25 +96,25 @@ export default function SettingsPage() {
         ];
         setTasks(updated);
         setNewTaskText("");
-        try { localStorage.setItem("prayersync_spiritual_tasks", JSON.stringify(updated)); } catch (e) {}
+        try { localStorage.setItem("prayersync_spiritual_tasks", JSON.stringify(updated)); } catch (e) { }
     };
 
     const toggleTask = (id) => {
         const updated = tasks.map((t) => t.id === id ? { ...t, done: !t.done } : t);
         setTasks(updated);
-        try { localStorage.setItem("prayersync_spiritual_tasks", JSON.stringify(updated)); } catch (e) {}
+        try { localStorage.setItem("prayersync_spiritual_tasks", JSON.stringify(updated)); } catch (e) { }
     };
 
     const deleteTask = (id) => {
         const updated = tasks.filter((t) => t.id !== id);
         setTasks(updated);
-        try { localStorage.setItem("prayersync_spiritual_tasks", JSON.stringify(updated)); } catch (e) {}
+        try { localStorage.setItem("prayersync_spiritual_tasks", JSON.stringify(updated)); } catch (e) { }
     };
 
     const updateQuranPages = (delta) => {
         const val = Math.max(0, quranPages + delta);
         setQuranPages(val);
-        try { localStorage.setItem("prayersync_quran_pages", String(val)); } catch (e) {}
+        try { localStorage.setItem("prayersync_quran_pages", String(val)); } catch (e) { }
     };
 
     const openSubpage = (path) => {
@@ -1017,6 +1018,7 @@ export default function SettingsPage() {
                     </div>
                 </div>
             </main>
+            <Banner />
 
             <footer className="footer" style={{ backgroundColor: K ? "#080c0a" : "#e2e8e7", borderTop: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #d4dedc" }}>
                 <div className="footer-content">
