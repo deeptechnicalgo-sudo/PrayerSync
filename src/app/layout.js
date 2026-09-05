@@ -21,7 +21,8 @@ export const metadata = {
   other: {
     "google-adsense-account": "ca-pub-8383999192768244",
     monetag: "a576e3547efeb8521364795d32ad5b05",
-    clckd:"712de51b17d966f3fa784fdf3f75bffd"
+    clckd:"712de51b17d966f3fa784fdf3f75bffd",
+    
   },
 };
 
@@ -33,7 +34,7 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <head>
-      
+        <meta name="admaven-placement" content="Bpdk5rdr4" />
         
         <Script
           async
