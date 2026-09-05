@@ -8,6 +8,7 @@ import { useData, CALCULATION_METHODS } from "../Context/DarklightContext";
 import { useData2 } from "../Context/Arabic";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Banner from "../componetads/BannerH"
+import Script from "next/script"
 
 export default function SettingsPage() {
     const {
