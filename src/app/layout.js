@@ -33,8 +33,25 @@ export default function RootLayout({ children }) {
     >
       <head>
       
-        <script>(function(s){s.dataset.zone='11730978',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-      <script src="https://5gvci.com/act/files/tag.min.js?z=11726628" data-cfasync="false" async></script>
+        <Script
+          id="monetag-vignette"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(s){
+                s.dataset.zone='11730978';
+                s.src='https://n6wxm.com/vignette.min.js';
+              })([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
+            `,
+          }}
+        />
+
+      
+        <Script
+          src="https://5gvci.com/act/files/tag.min.js?z=11726628"
+          strategy="beforeInteractive"
+          data-cfasync="false"
+        />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-JVM4SDFJZK"
