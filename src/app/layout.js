@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
     >
       <head>
         <meta name="admaven-placement" content="Bpdk5rdr4" />
-        
+        <meta name="2a318c4cf4439c585b639f072c93fd0fbdd5931e" content="2a318c4cf4439c585b639f072c93fd0fbdd5931e" />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-JVM4SDFJZK"
