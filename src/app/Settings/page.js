@@ -1019,11 +1019,9 @@ export default function SettingsPage() {
                     </div>
                 </div>
             </main>
-            <Script
-                src="//conventionalresponse.com/bpX/VBs.dGGvlr0FYHWbcp/ceLmq9eu/ZqUyljk-P/TYcTznOADocox/NYDFkXtTNyzmM/4hN/z/EY1BMLwb"
-                strategy="afterInteractive"
-                referrerPolicy="no-referrer-when-downgrade"
-            />
+
+
+            <Banner />
 
 
             <footer className="footer" style={{ backgroundColor: K ? "#080c0a" : "#e2e8e7", borderTop: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #d4dedc" }}>
