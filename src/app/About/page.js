@@ -1,27 +1,18 @@
 
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Link from "next/link";
 import "../App.css";
 import "./App.css";
 import { useData } from "../Context/DarklightContext";
 import { useData2 } from "../Context/Arabic";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function AboutPage() {
     const { K } = useData();
     const { isarabic } = useData2();
-    const [now, setNow] = useState(null);
-
-    useEffect(() => {
-        setNow(new Date());
-    }, []);
-
-    const Year = now ? now.getFullYear() : new Date().getFullYear();
-
-    const openSubpage = (path) => {
-        window.open(path, "_blank", "width=800,height=650");
-    };
 
     return (
         <div
@@ -33,113 +24,7 @@ export default function AboutPage() {
                 minHeight: "100vh",
             }}
         >
-            <header
-                className="navbar"
-                style={{
-                    backgroundColor: K ? "#0f1412" : "#f5faf9",
-                }}
-            >
-                <Link
-                    href="/"
-                    className="navbar-logo"
-                    style={{
-                        color: K ? "#95d3ba" : "#003829",
-                    }}
-                >
-                    {isarabic ? "مزامنة الصلاة" : "PrayerSync"}
-                </Link>
-
-                <nav>
-                    <ul className="navbar-links">
-                        <li>
-                            <Link
-                                href="/"
-                                className="navbar-link"
-                                style={{
-                                    color: K ? "#89938e" : "#6e827c",
-                                }}
-                            >
-                                {isarabic ? "الصفحة الرئيسة" : "Home"}
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link
-                                href="/PTime"
-                                className="navbar-link"
-                                style={{
-                                    color: K ? "#89938e" : "#6e827c",
-                                }}
-                            >
-                                {isarabic ? "مواقيت الصلاة" : "Schedule"}
-                            </Link>
-                        </li>
-
-                        <li>
-                            <Link
-                                href="/About"
-                                className="navbar-link active"
-                                style={{
-                                    color: K ? "#ffe088" : "#003829",
-                                }}
-                            >
-                                {isarabic ? "عن المطور والتطبيق" : "About Me"}
-                            </Link>
-                        </li>
-                    </ul>
-                </nav>
-
-                <div className="navbar-actions">
-                    <Link
-                        href="/Settings"
-                        className="navbar-icon-btn"
-                        aria-label="Settings"
-                        style={{
-                            color: K ? "#89938e" : "#6e827c",
-                            display: "inline-flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            textDecoration: "none",
-                        }}
-                    >
-                        <svg
-                            className="navbar-icon"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <circle cx="12" cy="12" r="3" />
-                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                        </svg>
-                    </Link>
-
-                    <button
-                        className="navbar-icon-btn"
-                        aria-label="Help"
-                        style={{
-                            color: K ? "#89938e" : "#6e827c",
-                        }}
-                        onClick={() => openSubpage("/Contact")}
-                    >
-                        <svg
-                            className="navbar-icon"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-                            <line x1="12" y1="17" x2="12.01" y2="17" />
-                        </svg>
-                    </button>
-                </div>
-            </header>
+            <Header currentPath="/About" />
 
             <main className="about-main">
 
@@ -436,74 +321,7 @@ export default function AboutPage() {
 
             </main>
 
-            <footer
-                className="footer"
-                style={{
-                    backgroundColor: K ? "#080c0a" : "#e2e8e7",
-                    borderTop: K
-                        ? "1px solid rgba(63, 73, 69, 0.3)"
-                        : "1px solid #d4dedc",
-                }}
-            >
-                <div className="footer-content">
-                    <div
-                        className="footer-left"
-                        suppressHydrationWarning
-                        style={{
-                            color: K ? "#4d6b62" : "#5c726c",
-                        }}
-                    >
-                        &copy; {now ? Year : ""}{" "}
-                        {isarabic
-                            ? "موسى محمد. جميع الحقوق محفوظة."
-                            : "Musa Mohammed. All rights reserved."}
-                    </div>
-
-                    <div className="footer-right">
-                        <a
-                            href="#"
-                            className="footer-link"
-                            style={{
-                                color: K ? "#4d6b62" : "#5c726c",
-                            }}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                openSubpage("/Priacypolicy");
-                            }}
-                        >
-                            {isarabic ? "سياسة الخصوصية" : "Privacy Policy"}
-                        </a>
-
-                        <a
-                            href="#"
-                            className="footer-link"
-                            style={{
-                                color: K ? "#4d6b62" : "#5c726c",
-                            }}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                openSubpage("/terms");
-                            }}
-                        >
-                            {isarabic ? "شروط الخدمة" : "Terms of Service"}
-                        </a>
-
-                        <a
-                            href="#"
-                            className="footer-link"
-                            style={{
-                                color: K ? "#4d6b62" : "#5c726c",
-                            }}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                openSubpage("/Contact");
-                            }}
-                        >
-                            {isarabic ? "تواصل معنا" : "Contact Us"}
-                        </a>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

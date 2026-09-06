@@ -7,8 +7,6 @@ import Link from "next/link";
 import { useData, CALCULATION_METHODS } from "../Context/DarklightContext";
 import { useData2 } from "../Context/Arabic";
 import { signIn, signOut, useSession } from "next-auth/react";
-import Banner from "../componetads/BannerH"
-import Script from "next/script"
 
 export default function SettingsPage() {
     const {
@@ -116,10 +114,6 @@ export default function SettingsPage() {
         const val = Math.max(0, quranPages + delta);
         setQuranPages(val);
         try { localStorage.setItem("prayersync_quran_pages", String(val)); } catch (e) { }
-    };
-
-    const openSubpage = (path) => {
-        window.open(path, "_blank", "width=800,height=650");
     };
 
     const baseUrl = "https://prayer-sync.vercel.app";
@@ -238,6 +232,11 @@ export default function SettingsPage() {
                             </Link>
                         </li>
                         <li>
+                            <Link href="/guides" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>
+                                {isarabic ? "الأدلة والشروحات" : "Guides"}
+                            </Link>
+                        </li>
+                        <li>
                             <Link href="/About" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>
                                 {isarabic ? "عن المطور والتطبيق" : "About Me"}
                             </Link>
@@ -251,13 +250,13 @@ export default function SettingsPage() {
                             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                         </svg>
                     </Link>
-                    <button className="navbar-icon-btn" aria-label="Help" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={() => openSubpage("/Contact")}>
+                    <Link href="/Contact" className="navbar-icon-btn" aria-label="Help" style={{ color: K ? "#89938e" : "#6e827c", display: "inline-flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>
                         <svg className="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="12" cy="12" r="10"></circle>
                             <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
                             <line x1="12" y1="17" x2="12.01" y2="17"></line>
                         </svg>
-                    </button>
+                    </Link>
                 </div>
             </header>
 
@@ -1021,7 +1020,7 @@ export default function SettingsPage() {
             </main>
 
 
-            <Banner />
+            
 
 
             <footer className="footer" style={{ backgroundColor: K ? "#080c0a" : "#e2e8e7", borderTop: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #d4dedc" }}>
@@ -1030,15 +1029,18 @@ export default function SettingsPage() {
                         &copy; {new Date().getFullYear()} {isarabic ? "موسى محمد. جميع الحقوق محفوظة." : "Musa Mohammed. All rights reserved."}
                     </div>
                     <div className="footer-right">
-                        <a href="#" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }} onClick={(e) => { e.preventDefault(); openSubpage("/Priacypolicy"); }}>
+                        <Link href="/guides" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }}>
+                            {isarabic ? "الأدلة والشروحات" : "Guides"}
+                        </Link>
+                        <Link href="/Priacypolicy" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }}>
                             {isarabic ? "سياسة الخصوصية" : "Privacy Policy"}
-                        </a>
-                        <a href="#" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }} onClick={(e) => { e.preventDefault(); openSubpage("/terms"); }}>
+                        </Link>
+                        <Link href="/terms" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }}>
                             {isarabic ? "شروط الخدمة" : "Terms of Service"}
-                        </a>
-                        <a href="#" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }} onClick={(e) => { e.preventDefault(); openSubpage("/Contact"); }}>
+                        </Link>
+                        <Link href="/Contact" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }}>
                             {isarabic ? "تواصل معنا" : "Contact Us"}
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </footer>

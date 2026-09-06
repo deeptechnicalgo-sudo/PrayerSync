@@ -16,13 +16,57 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "PrayerSync",
-  description: "Put your prayer time to your Outlook or Google Calendar",
+  metadataBase: new URL("https://prayer-sync.vercel.app"),
+  title: {
+    default: "PrayerSync - Islamic Prayer Times & Smart Calendar Sync",
+    template: "%s | PrayerSync",
+  },
+  description: "Accurate Islamic prayer times, astronomical calculation methods (MWL, ISNA, Umm al-Qura), and seamless automatic synchronization with Google Calendar, Apple Calendar, and Microsoft Outlook.",
+  keywords: [
+    "prayer times",
+    "islamic calendar sync",
+    "google calendar prayer times",
+    "outlook prayer times",
+    "apple calendar prayer times",
+    "athan times",
+    "namaz schedule",
+    "fajr dhuhr asr maghrib isha",
+    "prayer times calculation methods",
+    "webcal prayer feed"
+  ],
+  authors: [{ name: "PrayerSync Team", url: "https://prayer-sync.vercel.app" }],
+  creator: "Musa Mohammed",
+  publisher: "PrayerSync",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    alternateLocale: "ar_SA",
+    url: "https://prayer-sync.vercel.app",
+    siteName: "PrayerSync",
+    title: "PrayerSync - Islamic Prayer Times & Smart Calendar Sync",
+    description: "Accurate Islamic prayer times and automated calendar synchronization with Google, Apple, and Outlook calendars.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PrayerSync - Islamic Prayer Times & Smart Calendar Sync",
+    description: "Accurate Islamic prayer times and automated calendar synchronization.",
+  },
+  alternates: {
+    canonical: "https://prayer-sync.vercel.app",
+  },
   other: {
     "google-adsense-account": "ca-pub-8383999192768244",
-    monetag: "a576e3547efeb8521364795d32ad5b05",
-    clckd:"712de51b17d966f3fa784fdf3f75bffd",
-    
   },
 };
 
@@ -34,8 +78,7 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <head>
-        <meta name="admaven-placement" content="Bpdk5rdr4" />
-        <meta name="2a318c4cf4439c585b639f072c93fd0fbdd5931e" content="2a318c4cf4439c585b639f072c93fd0fbdd5931e" />
+       
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-JVM4SDFJZK"

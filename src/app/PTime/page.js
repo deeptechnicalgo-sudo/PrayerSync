@@ -233,10 +233,6 @@ export default function Ptime() {
     const Month = now ? date.toLocaleString(isarabic ? "ar" : "default", { month: "long" }) : null;
     const Year = now ? date.getFullYear() : null;
 
-    const openSubpage = (path) => {
-        window.open(path, "_blank", "width=800,height=650");
-    };
-
     const prayerList = PRAYER_KEYS.map((key) => ({
         key,
         name: isarabic ? PRAYER_NAMES[key].ar : PRAYER_NAMES[key].en,
@@ -288,6 +284,13 @@ export default function Ptime() {
                             {isarabic ? "المواقيت" : "Schedule"}
                         </span>
                         <Link
+                            href="/guides"
+                            className="nav-link"
+                            style={{ color: K ? "#6b8a7e" : "#6e827c" }}
+                        >
+                            {isarabic ? "الأدلة" : "Guides"}
+                        </Link>
+                        <Link
                             href="/About"
                             className="nav-link"
                             style={{ color: K ? "#6b8a7e" : "#6e827c" }}
@@ -307,17 +310,18 @@ export default function Ptime() {
                                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                             </svg>
                         </Link>
-                        <button
+                        <Link
+                            href="/Contact"
                             className="icon-btn"
-                            style={{ color: K ? "#6b8a7e" : "#003829" }}
-                            onClick={() => openSubpage("/Contact")}
+                            aria-label="Contact"
+                            style={{ color: K ? "#6b8a7e" : "#003829", display: "inline-flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}
                         >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
                                 <line x1="12" y1="17" x2="12.01" y2="17"></line>
                             </svg>
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </header>
@@ -471,30 +475,34 @@ export default function Ptime() {
                         &copy; {now ? Year : ""} {isarabic ? "موسى محمد. جميع الحقوق محفوظة." : "Musa Mohammed. All rights reserved."}
                     </div>
                     <div className="footer__links">
-                        <a
+                        <Link
                             className="footer__link"
-                            href="#"
+                            href="/guides"
                             style={{ color: K ? "#4d6b62" : "#5c726c" }}
-                            onClick={(e) => { e.preventDefault(); openSubpage("/Priacypolicy"); }}
+                        >
+                            {isarabic ? "الأدلة والشروحات" : "Guides"}
+                        </Link>
+                        <Link
+                            className="footer__link"
+                            href="/Priacypolicy"
+                            style={{ color: K ? "#4d6b62" : "#5c726c" }}
                         >
                             {isarabic ? "سياسة الخصوصية" : "Privacy Policy"}
-                        </a>
-                        <a
+                        </Link>
+                        <Link
                             className="footer__link"
-                            href="#"
+                            href="/terms"
                             style={{ color: K ? "#4d6b62" : "#5c726c" }}
-                            onClick={(e) => { e.preventDefault(); openSubpage("/terms"); }}
                         >
                             {isarabic ? "شروط الخدمة" : "Terms of Service"}
-                        </a>
-                        <a
+                        </Link>
+                        <Link
                             className="footer__link"
-                            href="#"
+                            href="/Contact"
                             style={{ color: K ? "#4d6b62" : "#5c726c" }}
-                            onClick={(e) => { e.preventDefault(); openSubpage("/Contact"); }}
                         >
                             {isarabic ? "تواصل معنا" : "Contact Us"}
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </footer>

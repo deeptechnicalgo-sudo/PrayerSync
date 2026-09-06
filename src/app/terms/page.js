@@ -1,100 +1,136 @@
 "use client";
+import React from "react";
+import Link from "next/link";
+import "../App.css";
 import "../subpage.css";
 import { useData } from "../Context/DarklightContext";
 import { useData2 } from "../Context/Arabic";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function TermsPage() {
     const { K } = useData();
     const { isarabic } = useData2();
 
-    const handleBack = () => {
-        if (typeof window !== "undefined") {
-            if (window.opener) {
-                window.close();
-            } else if (window.history.length > 1) {
-                window.history.back();
-            } else {
-                window.location.href = "/";
-            }
-        }
-    };
+    const termsList = [
+        {
+            en_title: "1. Acceptance of Terms",
+            ar_title: "١. الموافقة والالتزام بالشروط",
+            en_body: "By accessing or using PrayerSync, you agree to be bound by these Terms of Service. If you do not agree to all terms and conditions, you must discontinue using our services immediately.",
+            ar_body: "باستخدامك لمنصة وتطبيق PrayerSync، فإنك تُقر وتوافق على الالتزام الكامل بشروط الخدمة هذه. إذا كنت لا توافق على أي بند منها، فيرجى التوقف عن استخدام خدماتنا فوراً.",
+        },
+        {
+            en_title: "2. Intellectual Property & Code Integrity",
+            ar_title: "٢. الملكية الفكرية وحماية الكود المصدري",
+            en_body: "All intellectual property rights, trademarks, algorithms, UI designs, graphics, branding, and proprietary logic powering PrayerSync belong exclusively to Musa Mohammed and authorized maintainers. You may not copy, reverse-engineer, redistribute, or commercially exploit any part without prior written authorization.",
+            ar_body: "كافة حقوق الملكية الفكرية، والعلامات التجارية، والخوارزميات الفلكية، وتصاميم واجهة المستخدم والكود المصدري لمنصة PrayerSync هي ملكية حصرية للمطور موسى محمد والقائمين على المشروع. يحظر نسخ أو تفكيك أو إعادة توزيع أو استغلال أي جزء من النظام تجارياً دون إذن كتابي مسبق.",
+        },
+        {
+            en_title: "3. Calendar Services & Data Reliability",
+            ar_title: "٣. خدمات مزامنة التقويم ودقة الحسابات",
+            en_body: "PrayerSync calculates prayer times using established astronomical algorithms and published regional conventions (e.g. Umm al-Qura, Muslim World League). While we take extreme measures to ensure astronomical precision, users are encouraged to verify mosque-specific Iqama times in their local communities.",
+            ar_body: "تعتمد منصة PrayerSync في حساب مواقيت الصلاة على أدق المعادلات الفلكية المعتمدة عالمياً (مثل تقويم أم القرى ورابطة العالم الإسلامي). ورغم حرصنا التام على الدقة الفلكية المتناهية، يُنصح دائماً بمراعاة أوقات الإقامة الفعلية المعتمدة في مسجد حيك أو مدينتك.",
+        },
+        {
+            en_title: "4. Permitted Use & Fair Consumption",
+            ar_title: "٤. الاستخدام المشروع والتغذية التقنية (Webcal)",
+            en_body: "You are granted a revocable, non-exclusive license to use our web interface and subscribe to Webcal feeds for personal, non-commercial productivity. Abusive automated hammering of our calendar generation endpoints is strictly prohibited.",
+            ar_body: "يُمنح المستخدم ترخيصاً شخصياً غير حصري لاستخدام المنصة والاشتراك في روابط التغذية التقنية (Webcal) لتنظيم العبادات والإنتاجية الشخصية. يحظر تماماً محاولة إغراق الخوادم بالطلبات البرمجية الضارة أو التحميل العشوائي المفرط.",
+        },
+        {
+            en_title: "5. Modifications & Updates",
+            ar_title: "٥. تحديث وتعديل شروط الخدمة",
+            en_body: "We reserve the right to revise these Terms of Service at any time to reflect legal changes or technical updates. Continued use of PrayerSync after changes are posted constitutes full acceptance of revised terms.",
+            ar_body: "نحتفظ بالحق في تعديل شروط الخدمة هذه عند الضرورة لملائمة التحديثات القانونية أو التقنية. استمرارك في استخدام المنصة بعد نشر الشروط المحدثة يُعد قبولاً ضمنياً ومباشراً لها.",
+        },
+    ];
 
     return (
-        <div className="subpage-wrapper" dir={isarabic ? "rtl" : "ltr"} style={{ backgroundColor: K ? "#0f1412" : "#f5faf9", color: K ? "#c8e8dc" : "#2c463f" }}>
-            {/* Top bar */}
-            <div className="subpage-topbar" style={{ backgroundColor: K ? "#0f1412" : "#f5faf9", borderBottomColor: K ? "rgba(63,73,69,0.3)" : "#edf2f1" }}>
-                <button
-                    type="button"
-                    onClick={handleBack}
-                    className="subpage-back-btn"
-                    style={{
-                        backgroundColor: K ? "#1a2520" : "#ffffff",
-                        color: K ? "#95d3ba" : "#003829",
-                        borderColor: K ? "rgba(63,73,69,0.4)" : "#e1e8e6",
-                    }}
-                >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <polyline points="15 18 9 12 15 6" />
-                    </svg>
-                    {isarabic ? "رجوع" : "Back"}
-                </button>
-            </div>
+        <div
+            className="app-wrapper"
+            dir={isarabic ? "rtl" : "ltr"}
+            style={{
+                backgroundColor: K ? "#0f1412" : "#f5faf9",
+                color: K ? "#c8e8dc" : "#2c463f",
+                minHeight: "100vh",
+                display: "flex",
+                flexDirection: "column",
+            }}
+        >
+            <Header currentPath="/terms" />
 
-            {/* Content */}
-            <div className="subpage-content">
-                <h1 className="subpage-title" style={{ color: K ? "#95d3ba" : "#003829" }}>
-                    {isarabic ? "شروط الخدمة" : "Terms of Service"}
-                </h1>
-                <p className="subpage-subtitle" style={{ color: K ? "#6b8a7e" : "#8c9e99" }}>
-                    {isarabic
-                        ? "باستخدامك لهذا التطبيق، فإنك توافق صراحة على هذه الشروط والأحكام."
-                        : "By accessing or using this application, you agree to these Terms of Service."}
-                </p>
+            <main className="subpage-content" style={{ maxWidth: "860px", margin: "0 auto", padding: "40px 20px", flex: 1, width: "100%", boxSizing: "border-box" }}>
+                <div style={{ marginBottom: "32px", textAlign: isarabic ? "right" : "left" }}>
+                    <h1 className="subpage-title" style={{ color: K ? "#95d3ba" : "#003829", fontSize: "2.4rem", fontWeight: "800", marginBottom: "8px" }}>
+                        {isarabic ? "شروط وأحكام الخدمة" : "Terms of Service"}
+                    </h1>
+                    <p className="subpage-subtitle" style={{ color: K ? "#6b8a7e" : "#8c9e99", fontSize: "1.1rem", lineHeight: "1.6" }}>
+                        {isarabic
+                            ? "تحكم هذه الشروط استخدامك لتطبيق ومنصة PrayerSync وميزات التزامن الفلكي والتقويم."
+                            : "These Terms of Service govern your access to PrayerSync, astronomical calculations, and calendar sync services."}
+                    </p>
+                </div>
 
-                {[
-                    {
-                        en_title: "1. Changes to These Terms",
-                        ar_title: "١. التغييرات على هذه الشروط",
-                        en_body: "We reserve the right to change, update, or modify these Terms of Service at any time without prior approval from users. Your continued use of the application after changes are published constitutes acceptance of the updated Terms.",
-                        ar_body: "نحتفظ بالحق في تغيير أو تحديث أو تعديل شروط الخدمة هذه في أي وقت دون الحاجة لموافقة مسبقة. استمرارك في استخدام التطبيق بعد نشر التغييرات يُعد قبولاً تاماً للشروط المحدّثة.",
-                    },
-                    {
-                        en_title: "2. Ownership and Copyright",
-                        ar_title: "٢. الملكية وحقوق النشر",
-                        en_body: "This application and its original materials are our property or are used under appropriate authorization. This includes: source code, software, user interface, designs, graphics, logos and branding, and text. All such materials are protected by applicable copyright and intellectual property laws.",
-                        ar_body: "هذا التطبيق وجميع مواده الأصلية وتصاميمه وكوده البرمجي هي ملكية فكرية محمية بالكامل بموجب قوانين حقوق النشر والملكية الفكرية الدولية والمحلية.",
-                    },
-                    {
-                        en_title: "3. Prohibited Copying",
-                        ar_title: "٣. النسخ المحظور",
-                        en_body: "You may not copy, reproduce, duplicate, modify, distribute, publish, sell, or redistribute the source code or any substantial portion of the source code of this application without our prior written permission.",
-                        ar_body: "لا يجوز نسخ أو إعادة إنتاج أو تعديل أو توزيع أو نشر أو بيع الكود المصدري أو أي جزء جوهري من التطبيق دون الحصول على إذن كتابي رسمي ومسبق منا.",
-                    },
-                    {
-                        en_title: "4. Legal Enforcement",
-                        ar_title: "٤. الحماية والتطبيق القانوني",
-                        en_body: "If you violate these Terms or unlawfully use our copyrighted materials or source code, we reserve the right to take appropriate legal action and seek any remedies available under applicable law.",
-                        ar_body: "في حال انتهاك هذه الشروط أو استخدام المواد المحمية بحقوق النشر بشكل غير قانوني، نحتفظ بكامل الحق في اتخاذ الإجراءات القانونية اللازمة والمطالبة بالتعويضات.",
-                    },
-                    {
-                        en_title: "5. Acceptance",
-                        ar_title: "٥. الموافقة والالتزام",
-                        en_body: "By using this application, you acknowledge that you have read and agreed to these Terms of Service. If you do not agree to these Terms, you must not use the application.",
-                        ar_body: "باستخدامك لهذا التطبيق، فإنك تُقر بأنك قد قرأت ووافقت على جميع شروط الخدمة هذه. إذا كنت لا توافق، يرجى التوقف عن استخدام التطبيق.",
-                    },
-                ].map((item, i) => (
-                    <div className="subpage-section" key={i}>
-                        <div className="subpage-section-title" style={{ color: K ? "#ffe088" : "#8c9e99" }}>
-                            {isarabic ? item.ar_title : item.en_title}
-                        </div>
-                        <div className="subpage-card" style={{ backgroundColor: K ? "#0b0f0d" : "#ffffff", borderColor: K ? "rgba(63,73,69,0.3)" : "#edf2f1" }}>
-                            <p className="subpage-body" style={{ margin: 0, color: K ? "#a0c4b8" : "#4a6660" }}>
+                <div style={{ display: "grid", gap: "20px", marginBottom: "40px" }}>
+                    {termsList.map((item, i) => (
+                        <div
+                            className="subpage-card"
+                            key={i}
+                            style={{
+                                backgroundColor: K ? "#0b0f0d" : "#ffffff",
+                                borderColor: K ? "rgba(63,73,69,0.3)" : "#edf2f1",
+                                padding: "24px",
+                                borderRadius: "14px",
+                                border: "1px solid",
+                                boxShadow: K ? "none" : "0 4px 12px rgba(0,0,0,0.03)"
+                            }}
+                        >
+                            <h2 style={{ color: K ? "#ffe088" : "#004d38", fontSize: "1.2rem", fontWeight: "700", marginTop: 0, marginBottom: "10px" }}>
+                                {isarabic ? item.ar_title : item.en_title}
+                            </h2>
+                            <p style={{ margin: 0, color: K ? "#a0c4b8" : "#4a6660", lineHeight: "1.7", fontSize: "14px" }}>
                                 {isarabic ? item.ar_body : item.en_body}
                             </p>
                         </div>
+                    ))}
+                </div>
+
+                <div
+                    style={{
+                        padding: "20px",
+                        borderRadius: "12px",
+                        backgroundColor: K ? "#111915" : "#eef5f7",
+                        border: K ? "1px solid rgba(149, 211, 186, 0.2)" : "1px solid #c8ddd8",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        flexWrap: "wrap",
+                        gap: "12px"
+                    }}
+                >
+                    <div style={{ fontSize: "13px", color: K ? "#89938e" : "#5c726c" }}>
+                        {isarabic
+                            ? "للاطلاع على كيفية معالجة ملفات تعريف الارتباط والإعلانات، تفضل بزيارة سياسة الخصوصية."
+                            : "For full disclosures regarding cookies, advertising, and data safety, review our Privacy Policy."}
                     </div>
-                ))}
-            </div>
+                    <Link
+                        href="/Priacypolicy"
+                        style={{
+                            padding: "8px 16px",
+                            borderRadius: "8px",
+                            backgroundColor: K ? "#95d3ba" : "#003829",
+                            color: K ? "#0b0f0d" : "#ffffff",
+                            textDecoration: "none",
+                            fontWeight: "700",
+                            fontSize: "13px"
+                        }}
+                    >
+                        {isarabic ? "سياسة الخصوصية ←" : "Privacy Policy →"}
+                    </Link>
+                </div>
+            </main>
+
+            <Footer />
         </div>
     );
 }

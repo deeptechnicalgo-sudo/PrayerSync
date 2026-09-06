@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useData } from "./Context/DarklightContext";
 import { useData2 } from "./Context/Arabic";
 import { useSession, signIn } from "next-auth/react";
+import Footer from "./components/Footer";
 
 countries.registerLocale(en);
 countries.registerLocale(ar);
@@ -296,10 +297,6 @@ export default function Home() {
         return lines.join("\r\n");
     }
 
-    const openSubpage = (path) => {
-        window.open(path, "_blank", "width=800,height=650");
-    };
-
     const baseUrl = "https://prayer-sync.vercel.app";
     const prayersQuery = Object.keys(selectedPrayers || {}).filter((k) => selectedPrayers[k]).join(",");
     const offsetsQuery = Object.entries(minuteOffsets || {}).map(([k, v]) => `${k}:${v}`).join(",");
@@ -522,9 +519,9 @@ export default function Home() {
                 <nav>
                     <ul className="navbar-links">
                         <li>
-                            <a href="#" className="navbar-link active" style={{ color: K ? "#ffe088" : "#003829" }}>
+                            <Link href="/" className="navbar-link active" style={{ color: K ? "#ffe088" : "#003829" }}>
                                 {isarabic ? "الصفحة الرئيسة" : "Home"}
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <Link href="/PTime" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>
@@ -532,8 +529,18 @@ export default function Home() {
                             </Link>
                         </li>
                         <li>
+                            <Link href="/guides" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>
+                                {isarabic ? "الأدلة والشروحات" : "Guides"}
+                            </Link>
+                        </li>
+                        <li>
                             <Link href="/Settings" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>
-                                {isarabic ? "الجدولة الذكية" : "Smart Scheduling"}
+                                {isarabic ? "الجدولة والإنتاجية" : "Settings"}
+                            </Link>
+                        </li>
+                        <li>
+                            <Link href="/About" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>
+                                {isarabic ? "عن التطبيق" : "About"}
                             </Link>
                         </li>
                     </ul>
@@ -545,13 +552,13 @@ export default function Home() {
                             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
                         </svg>
                     </Link>
-                    <button className="navbar-icon-btn" aria-label="Help" style={{ color: K ? "#89938e" : "#6e827c" }} onClick={() => openSubpage("/Contact")}>
+                    <Link href="/Contact" className="navbar-icon-btn" aria-label="Contact" style={{ color: K ? "#89938e" : "#6e827c", display: "inline-flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>
                         <svg className="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="12" cy="12" r="10"></circle>
                             <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
                             <line x1="12" y1="17" x2="12.01" y2="17"></line>
                         </svg>
-                    </button>
+                    </Link>
                 </div>
             </header>
 
@@ -948,30 +955,428 @@ export default function Home() {
                 </div>
             )}
 
-            <footer
-                className="footer"
-                style={{
-                    backgroundColor: K ? "#080c0a" : "#e2e8e7",
-                    borderTop: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #d4dedc",
-                }}
-            >
-                <div className="footer-content">
-                    <div className="footer-left" suppressHydrationWarning style={{ color: K ? "#4d6b62" : "#5c726c" }}>
-                        &copy; {now ? Year : ""} {isarabic ? "موسى محمد. جميع الحقوق محفوظة." : "Musa Mohammed. All rights reserved."}
+            <section className="rich-content-section" style={{ maxWidth: "1100px", margin: "40px auto 20px auto", padding: "0 20px", width: "100%", boxSizing: "border-box" }}>
+                {/* JSON-LD Structured Data for Google SEO and FAQ rich snippet */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "FAQPage",
+                            "mainEntity": [
+                                {
+                                    "@type": "Question",
+                                    "name": isarabic ? "كيف يتم تحديث مواقيت الصلاة في التقويم تلقائياً على مدار العام؟" : "How does PrayerSync automatically adjust prayer times throughout the year?",
+                                    "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": isarabic
+                                            ? "عند الاشتراك عبر رابط التغذية المباشرة (Webcal)، يتصل تطبيق التقويم (سواء كان Google Calendar أو Apple أو Outlook) بخادمنا بشكل دوري كل 12-24 ساعة لتحديث المواعيد وفق أدق الحسابات الفلكية للموقع المختار دون أي تدخل يدوي."
+                                            : "When subscribing via our dynamic Webcal feed, your calendar software (Google Calendar, Apple, Outlook) polls our servers periodically (every 12-24 hours) to fetch updated astronomical timings based on your exact latitude and longitude without manual imports."
+                                    }
+                                },
+                                {
+                                    "@type": "Question",
+                                    "name": isarabic ? "هل يؤدي تنزيل مواقيت الصلاة إلى ازدحام تقويمي أو إرسال تنبيهات مزعجة؟" : "Will syncing prayer times crowd my calendar or send annoying notifications?",
+                                    "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": isarabic
+                                            ? "كلا، يمكنك تخصيص الصلوات المراد مزامنتها بدقة (مثلاً صلاتي الظهر والعصر فقط لساعات العمل)، كما يمكنك إيقاف التنبيهات الصوتية أو جعل الحالة 'مشغول' لحجز وقت الصلاة ومنع الاجتماعات المتداخلة."
+                                            : "No. You can selectively choose which prayers to sync (e.g. Dhuhr & Asr for corporate workday blocks) and configure audio reminders or calendar 'Busy' availability to shield your worship from meeting overlaps."
+                                    }
+                                },
+                                {
+                                    "@type": "Question",
+                                    "name": isarabic ? "ما هو الفرق بين طريقة أم القرى ورابطة العالم الإسلامي و ISNA؟" : "What is the difference between Umm Al-Qura, MWL, and ISNA calculation methods?",
+                                    "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": isarabic
+                                            ? "تعتمد كل هيئة فلكية زاوية انخفاض معينة للشمس تحت الأفق؛ فأم القرى تعتمد زاوية 18.5 درجة للفجر و90 دقيقة بعد المغرب للعشاء (120 دقيقة في رمضان)، بينما تعتمد رابطة العالم الإسلامي 18 درجة للفجر و17 درجة للعشاء، وتعتمد ISNA زاوية 15 درجة لكليهما."
+                                            : "Each organization uses specific solar depression angles beneath the horizon. Umm al-Qura uses 18.5° for Fajr and fixed 90 mins post-sunset for Isha (120 min in Ramadan). Muslim World League (MWL) applies 18° for Fajr and 17° for Isha, while ISNA uses 15° for both twilights."
+                                    }
+                                },
+                                {
+                                    "@type": "Question",
+                                    "name": isarabic ? "هل يحتفظ موقع PrayerSync بأي بيانات شخصية أو موقعي الجغرافي؟" : "Does PrayerSync store any personal data or location logs?",
+                                    "acceptedAnswer": {
+                                        "@type": "Answer",
+                                        "text": isarabic
+                                            ? "نحن نتبع سياسة الخصوصية الصارمة (Zero Server-Side Retention)؛ يتم حساب المواقيت وتخزين التفضيلات محلياً في متصفحك عبر localStorage، ولا يتم تسجيل سجل تحركاتك أو موقعك الجغرافي على خوادمنا نهائياً."
+                                            : "We enforce zero server-side retention. Prayer calculations and user preferences are handled locally in your browser's localStorage. We never log, store, or sell location coordinates or calendar events."
+                                    }
+                                }
+                            ]
+                        })
+                    }}
+                />
+
+                {/* Section 1: Detailed Synchronization Guide */}
+                <div style={{
+                    backgroundColor: K ? "#0b0f0d" : "#ffffff",
+                    border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e1e8e6",
+                    borderRadius: "16px",
+                    padding: "36px 28px",
+                    marginBottom: "32px",
+                    boxShadow: K ? "none" : "0 4px 20px rgba(0, 56, 41, 0.04)"
+                }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
+                        <span style={{ fontSize: "28px" }}>📅</span>
+                        <div>
+                            <h2 style={{ margin: 0, color: K ? "#95d3ba" : "#003829", fontSize: "1.6rem", fontWeight: "800" }}>
+                                {isarabic ? "دليل المزامنة الشامل لتقاويم Google و Apple و Outlook" : "Comprehensive Calendar Synchronization Guide"}
+                            </h2>
+                            <p style={{ margin: "4px 0 0 0", color: K ? "#89938e" : "#5c726c", fontSize: "14px" }}>
+                                {isarabic ? "خطوات بسيطة وسريعة لربط مواقيت الصلاة مع جميع أجهزتك وتطبيقاتك اليومية" : "Step-by-step instructions to integrate prayer schedules seamlessly across all your devices"}
+                            </p>
+                        </div>
                     </div>
-                    <div className="footer-right">
-                        <a href="#" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }} onClick={(e) => { e.preventDefault(); openSubpage("/Priacypolicy"); }}>
-                            {isarabic ? "سياسة الخصوصية" : "Privacy Policy"}
-                        </a>
-                        <a href="#" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }} onClick={(e) => { e.preventDefault(); openSubpage("/terms"); }}>
-                            {isarabic ? "شروط الخدمة" : "Terms of Service"}
-                        </a>
-                        <a href="#" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }} onClick={(e) => { e.preventDefault(); openSubpage("/Contact"); }}>
-                            {isarabic ? "تواصل معنا" : "Contact Us"}
-                        </a>
+
+                    <p style={{ color: K ? "#c8e8dc" : "#2c463f", lineHeight: "1.8", fontSize: "15px", marginBottom: "24px" }}>
+                        {isarabic
+                            ? "صُمم PrayerSync ليكون حلقة الوصل الذكية بين الحساب الفلكي الدقيق لمواقيت الصلاة، وبين التقويم الرقمي الذي تعتمد عليه في جدول أعمالك اليومي. بدلاً من الاعتماد على التطبيقات التي تتطلب فتحها يدوياً أو تفوتك إشعاراتها، تظهر أوقات الصلاة كأحداث تقويم أساسية تنبهك وتمنع الاجتماعات المتعارضة."
+                            : "PrayerSync bridges the gap between high-precision astronomical prayer calculation and your daily digital workflow. Instead of relying on standalone mobile apps that you must manually remember to open, prayer times populate directly inside your primary calendar, protecting your spiritual obligations during busy workweeks."}
+                    </p>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
+                        <div style={{ padding: "20px", borderRadius: "12px", backgroundColor: K ? "#111915" : "#f5faf9", border: K ? "1px solid rgba(149, 211, 186, 0.2)" : "1px solid #ddecde" }}>
+                            <div style={{ fontSize: "16px", fontWeight: "700", color: K ? "#ffe088" : "#004d38", marginBottom: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
+                                <span>📱</span> {isarabic ? "تقويم Apple (iPhone, iPad, Mac)" : "Apple Calendar (iOS & macOS)"}
+                            </div>
+                            <ol style={{ margin: 0, paddingInlineStart: "20px", color: K ? "#a0c4b8" : "#4a6660", fontSize: "13px", lineHeight: "1.8" }}>
+                                <li>{isarabic ? "انسخ رابط التغذية المباشرة (Webcal Feed) من زر المزامنة أعلاه." : "Copy the live Webcal Feed URL from the sync button above."}</li>
+                                <li>{isarabic ? "افتح الإعدادات على جهازك > التقويم > الحسابات > إضافة حساب تقويم مشترك." : "Open Settings > Calendar > Accounts > Add Subscribed Calendar."}</li>
+                                <li>{isarabic ? "الصق الرابط واضغط 'حفظ' لتحديث المواعيد آلياً في الخلفية." : "Paste the link and hit Save for automatic periodic background updates."}</li>
+                            </ol>
+                        </div>
+
+                        <div style={{ padding: "20px", borderRadius: "12px", backgroundColor: K ? "#111915" : "#f5faf9", border: K ? "1px solid rgba(149, 211, 186, 0.2)" : "1px solid #ddecde" }}>
+                            <div style={{ fontSize: "16px", fontWeight: "700", color: K ? "#ffe088" : "#004d38", marginBottom: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
+                                <span>🌐</span> {isarabic ? "تقويم Google Calendar" : "Google Calendar (Web & Android)"}
+                            </div>
+                            <ol style={{ margin: 0, paddingInlineStart: "20px", color: K ? "#a0c4b8" : "#4a6660", fontSize: "13px", lineHeight: "1.8" }}>
+                                <li>{isarabic ? "يمكنك النقر على 'مزامنة بضغطة زر مع Google' للإضافة الفورية عبر OAuth." : "Click '1-Click Sync with Google' for instantaneous authenticated insertion."}</li>
+                                <li>{isarabic ? "أو افتح تقويم Google على المتصفح > تقاويم أخرى (+) > من عنوان URL." : "Or open Google Calendar on web > Other Calendars (+) > From URL."}</li>
+                                <li>{isarabic ? "الصق رابط التغذية وسيقوم تقويم Google بتحديث المواعيد تلقائياً." : "Paste the Webcal URL and Google will auto-refresh times rolling forward."}</li>
+                            </ol>
+                        </div>
+
+                        <div style={{ padding: "20px", borderRadius: "12px", backgroundColor: K ? "#111915" : "#f5faf9", border: K ? "1px solid rgba(149, 211, 186, 0.2)" : "1px solid #ddecde" }}>
+                            <div style={{ fontSize: "16px", fontWeight: "700", color: K ? "#ffe088" : "#004d38", marginBottom: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
+                                <span>💼</span> {isarabic ? "تقويم Microsoft Outlook و Office 365" : "Microsoft Outlook & Teams"}
+                            </div>
+                            <ol style={{ margin: 0, paddingInlineStart: "20px", color: K ? "#a0c4b8" : "#4a6660", fontSize: "13px", lineHeight: "1.8" }}>
+                                <li>{isarabic ? "في تطبيق Outlook، انتقل إلى عرض التقويم واضغط 'إضافة تقويم'." : "In Outlook, navigate to Calendar view and click 'Add Calendar'."}</li>
+                                <li>{isarabic ? "اختر 'الاشتراك من الويب' (Subscribe from web) والصق الرابط." : "Choose 'Subscribe from web' and insert your custom Webcal link."}</li>
+                                <li>{isarabic ? "تنعكس مواعيد الصلاة فوراً في Microsoft Teams لمنع تعارض الاجتماعات." : "Times reflect in Teams to automatically prevent conflicting meeting bookings."}</li>
+                            </ol>
+                        </div>
                     </div>
                 </div>
-            </footer>
+
+                {/* Section 2: Astronomical Calculation Methods Explanation */}
+                <div style={{
+                    backgroundColor: K ? "#0b0f0d" : "#ffffff",
+                    border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e1e8e6",
+                    borderRadius: "16px",
+                    padding: "36px 28px",
+                    marginBottom: "32px",
+                    boxShadow: K ? "none" : "0 4px 20px rgba(0, 56, 41, 0.04)"
+                }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
+                        <span style={{ fontSize: "28px" }}>🕌</span>
+                        <div>
+                            <h2 style={{ margin: 0, color: K ? "#95d3ba" : "#003829", fontSize: "1.6rem", fontWeight: "800" }}>
+                                {isarabic ? "شرح طرق الحساب الفلكية والمعايير الفقهية المعتمدة" : "Astronomical Calculation Methods & Fiqh Standards"}
+                            </h2>
+                            <p style={{ margin: "4px 0 0 0", color: K ? "#89938e" : "#5c726c", fontSize: "14px" }}>
+                                {isarabic ? "كيف تُحسب زوايا الشفق، وما الفرق بين المنهجيات الفلكية حول العالم؟" : "Understanding solar angles, twilight definitions, and regional astronomical conventions"}
+                            </p>
+                        </div>
+                    </div>
+
+                    <p style={{ color: K ? "#c8e8dc" : "#2c463f", lineHeight: "1.8", fontSize: "15px", marginBottom: "20px" }}>
+                        {isarabic
+                            ? "تعتمد مواقيت الصلاة الشرعية على موقع الشمس بالنسبة للأفق الأرضي. تختلف المنظمات والهيئات الإسلامية العالمية في تحديد زاوية انخفاض مركز قرص الشمس تحت الأفق لتعريف الفجر الصادق واختفاء الشفق الأحمر أو الأبيض لصلاتي الفجر والعشاء:"
+                            : "Islamic prayer times rely on precise celestial mechanics—specifically the sun's altitude relative to the local geometric horizon. Major Islamic institutions apply specific solar depression angles to determine true astronomical dawn (Fajr) and twilight disappearance (Isha):"}
+                    </p>
+
+                    <div style={{ overflowX: "auto" }}>
+                        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px", textAlign: isarabic ? "right" : "left" }}>
+                            <thead>
+                                <tr style={{ borderBottom: K ? "2px solid rgba(149, 211, 186, 0.3)" : "2px solid #003829" }}>
+                                    <th style={{ padding: "12px 14px", color: K ? "#ffe088" : "#003829", fontWeight: "700" }}>{isarabic ? "الهيئة / الطريقة الفلكية" : "Authority / Method"}</th>
+                                    <th style={{ padding: "12px 14px", color: K ? "#ffe088" : "#003829", fontWeight: "700" }}>{isarabic ? "زاوية الفجر" : "Fajr Angle"}</th>
+                                    <th style={{ padding: "12px 14px", color: K ? "#ffe088" : "#003829", fontWeight: "700" }}>{isarabic ? "معيار العشاء" : "Isha Parameter"}</th>
+                                    <th style={{ padding: "12px 14px", color: K ? "#ffe088" : "#003829", fontWeight: "700" }}>{isarabic ? "نطاق الاستخدام الشائع" : "Primary Region"}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style={{ borderBottom: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
+                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#95d3ba" : "#003829" }}>{isarabic ? "جامعة أم القرى (مكة المكرمة)" : "Umm Al-Qura (Makkah)"}</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>18.5°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>{isarabic ? "٩٠ دقيقة بعد المغرب (١٢٠ في رمضان)" : "90 min after Maghrib (120 in Ramadan)"}</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#89938e" : "#6e827c" }}>{isarabic ? "المملكة العربية السعودية والخليج العربي" : "Saudi Arabia & Arabian Peninsula"}</td>
+                                </tr>
+                                <tr style={{ borderBottom: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
+                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#95d3ba" : "#003829" }}>{isarabic ? "رابطة العالم الإسلامي (MWL)" : "Muslim World League (MWL)"}</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>18.0°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>17.0°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#89938e" : "#6e827c" }}>{isarabic ? "أوروبا، الشرق الأقصى، وأجزاء من آسيا" : "Europe, Far East & Global Standard"}</td>
+                                </tr>
+                                <tr style={{ borderBottom: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
+                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#95d3ba" : "#003829" }}>{isarabic ? "الجمعية الإسلامية لأمريكا الشمالية (ISNA)" : "Islamic Society of North America (ISNA)"}</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>15.0°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>15.0°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#89938e" : "#6e827c" }}>{isarabic ? "الولايات المتحدة الأمريكية وكندا" : "USA & Canada"}</td>
+                                </tr>
+                                <tr style={{ borderBottom: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
+                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#95d3ba" : "#003829" }}>{isarabic ? "الهيئة العامة المصرية للمساحة" : "Egyptian General Authority of Survey"}</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>19.5°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>17.5°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#89938e" : "#6e827c" }}>{isarabic ? "مصر، شمال أفريقيا، والشرق الأوسط" : "Egypt, North Africa, Levant"}</td>
+                                </tr>
+                                <tr>
+                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#95d3ba" : "#003829" }}>{isarabic ? "جامعة العلوم الإسلامية بكراتشي" : "Univ. of Islamic Sciences, Karachi"}</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>18.0°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>18.0°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#89938e" : "#6e827c" }}>{isarabic ? "باكستان، الهند، بنغلاديش، وأفغانستان" : "Pakistan, India, Bangladesh"}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {/* Section 3: Privacy, Calendar Security & Work Shield */}
+                <div style={{
+                    backgroundColor: K ? "#0b0f0d" : "#ffffff",
+                    border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e1e8e6",
+                    borderRadius: "16px",
+                    padding: "36px 28px",
+                    marginBottom: "32px",
+                    boxShadow: K ? "none" : "0 4px 20px rgba(0, 56, 41, 0.04)"
+                }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
+                        <span style={{ fontSize: "28px" }}>🛡️</span>
+                        <div>
+                            <h2 style={{ margin: 0, color: K ? "#95d3ba" : "#003829", fontSize: "1.6rem", fontWeight: "800" }}>
+                                {isarabic ? "الخصوصية الصارمة وحماية التقويم الشخصي وساعات العمل" : "Calendar Privacy, Work Shield & Meeting Protection"}
+                            </h2>
+                            <p style={{ margin: "4px 0 0 0", color: K ? "#89938e" : "#5c726c", fontSize: "14px" }}>
+                                {isarabic ? "مبدأ انعدام تخزين البيانات (Zero-Data Retention) وكيف نحمي خصوصيتك" : "Why our minimal-permission architecture protects your corporate and personal confidentiality"}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
+                        <div>
+                            <h3 style={{ color: K ? "#ffe088" : "#003829", fontSize: "1.1rem", fontWeight: "700", marginBottom: "8px" }}>
+                                {isarabic ? "🔒 خصوصية الموقع التامة" : "🔒 Zero Location Storage"}
+                            </h3>
+                            <p style={{ color: K ? "#a0c4b8" : "#4a6660", lineHeight: "1.7", fontSize: "14px" }}>
+                                {isarabic
+                                    ? "على عكس التطبيقات التجارية التي تتبع موقعك وترسل بياناتك لشركات الإعلانات، يعمل PrayerSync بحسابات فورية ومحلية. إحداثياتك لا تُحفظ في قواعد بيانات خارجية ولا تباع لأي طرف ثالث."
+                                    : "Unlike commercial mobile apps that continuously log your background GPS movements for telemetry brokers, PrayerSync runs on local ephemeral computation. Your coordinates are never monetized or stored."}
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 style={{ color: K ? "#ffe088" : "#003829", fontSize: "1.1rem", fontWeight: "700", marginBottom: "8px" }}>
+                                {isarabic ? "💼 حماية اجتماعات العمل (Smart Work Shield)" : "💼 Smart Corporate Meeting Shield"}
+                            </h3>
+                            <p style={{ color: K ? "#a0c4b8" : "#4a6660", lineHeight: "1.7", fontSize: "14px" }}>
+                                {isarabic
+                                    ? "عند تفعيل خاصية 'مشغول' في إعدادات التقويم، تُحجز فترة الصلاة والاستعداد كفترة انشغال رسمية في أنظمة مثل Google Meet و Teams، مما يمنع زملائك من جدولة اجتماعات فوق وقت الصلاة."
+                                    : "When you mark events as 'Busy', your corporate calendar in Google Meet and Microsoft Teams automatically blocks colleagues from booking meetings over prayer and Wudu windows."}
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 style={{ color: K ? "#ffe088" : "#003829", fontSize: "1.1rem", fontWeight: "700", marginBottom: "8px" }}>
+                                {isarabic ? "🧹 أداة التنظيف وإلغاء المزامنة بضغطة زر" : "🧹 Instant Calendar Wipe & Reset"}
+                            </h3>
+                            <p style={{ color: K ? "#a0c4b8" : "#4a6660", lineHeight: "1.7", fontSize: "14px" }}>
+                                {isarabic
+                                    ? "هل انتقلت إلى مدينة جديدة أو غيرت وظيفتك؟ تتيح لك لوحة الإعدادات زر 'حذف مواقيت الصلاة السابقة' لمسح كافة الأحداث التي أنشأها التطبيق دفعة واحدة دون التأثير على مواعيدك الشخصية الأخرى."
+                                    : "Moved to a new timezone or switched employers? Our Settings dashboard includes a one-click 'Wipe & Reset' tool to remove all PrayerSync events cleanly without touching your personal agendas."}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Section 4: Frequently Asked Questions (FAQ) */}
+                <div style={{
+                    backgroundColor: K ? "#0b0f0d" : "#ffffff",
+                    border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e1e8e6",
+                    borderRadius: "16px",
+                    padding: "36px 28px",
+                    marginBottom: "32px",
+                    boxShadow: K ? "none" : "0 4px 20px rgba(0, 56, 41, 0.04)"
+                }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+                        <span style={{ fontSize: "28px" }}>❓</span>
+                        <div>
+                            <h2 style={{ margin: 0, color: K ? "#95d3ba" : "#003829", fontSize: "1.6rem", fontWeight: "800" }}>
+                                {isarabic ? "الأسئلة الشائعة (Frequently Asked Questions)" : "Frequently Asked Questions (FAQ)"}
+                            </h2>
+                            <p style={{ margin: "4px 0 0 0", color: K ? "#89938e" : "#5c726c", fontSize: "14px" }}>
+                                {isarabic ? "إجابات مفصلة لأهم التساؤلات الفنية والفقهية حول مزامنة التقويم" : "Answers to common technical, Fiqh, and synchronization questions"}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style={{ display: "grid", gap: "16px" }}>
+                        {[
+                            {
+                                q_ar: "كيف يتم تحديث مواقيت الصلاة في التقويم تلقائياً؟",
+                                q_en: "How does the calendar feed stay updated throughout the seasons?",
+                                a_ar: "عند استخدامك لرابط Webcal، يقوم تطبيق التقويم الخاص بك بطلب التحديث من خادمنا دورياً (كل 12-24 ساعة). يقوم الخادم بحساب مواقيت الشهر القادم بناءً على إحداثياتك، وبذلك تظل المواعيد محدثة على مدار الفصول دون أي تدخل يدوي منك.",
+                                a_en: "When subscribed to our dynamic Webcal feed, your calendar software contacts our server at regular intervals (typically every 12 to 24 hours). The feed generates rolling schedules based on precise solar coordinates for upcoming weeks."
+                            },
+                            {
+                                q_ar: "هل يمكنني مزامنة صلوات معينة فقط (كالظهر والعصر) لتقويم العمل؟",
+                                q_en: "Can I selectively sync only specific prayers, like Dhuhr and Asr, for my work calendar?",
+                                a_ar: "نعم تماماً! يوفر PrayerSync ميزة 'الجدولة الانتقائية' من لوحة الإعدادات، حيث يمكنك إلغاء تفعيل الفجر والمغرب والعشاء من تقويم العمل والاحتفاظ فقط بصلاتي الظهر والعصر لحماية وقت عملك من الاجتماعات المتداخلة.",
+                                a_en: "Yes! In the Settings dashboard under 'Smart Work Shield', you can selectively toggle off Fajr, Maghrib, or Isha and sync only Dhuhr and Asr to protect your office hours from meeting conflicts."
+                            },
+                            {
+                                q_ar: "ما هو الفرق بين التنزيل كملف (.ics) والاشتراك برابط (Webcal)؟",
+                                q_en: "What is the difference between downloading an (.ics) file and subscribing via (Webcal)?",
+                                a_ar: "ملف (.ics) هو لقطة ثابتة (Snapshot) للأوقات في شهر معين؛ لا يتحدث تلقائياً بعد انتهائه. أما رابط (Webcal) فهو اشتراك ديناميكي متجدد تلقائياً يتحدث للأشهر القادمة بشكل مستمر دون الحاجة لإعادة تنزيل ملفات.",
+                                a_en: "An (.ics) file is a static offline snapshot for a specific month that requires re-importing once the period ends. A Webcal feed is a dynamic live subscription that rolls forward automatically without manual intervention."
+                            },
+                            {
+                                q_ar: "كيف يتعامل التطبيق مع التوقيت الصيفي (Daylight Saving Time)؟",
+                                q_en: "Does PrayerSync automatically account for Daylight Saving Time (DST)?",
+                                a_ar: "نعم، يتم ضبط إزاحات التوقيت الصيفي تلقائياً وفق التوقيت المحلي لبلدك ومنطقتك الزمنية (IANA Timezone)، وتتم الحسابات الفلكية للشمس وفق الإحداثيات الدقيقة بصرف النظر عن تقديم أو تأخير الساعة.",
+                                a_en: "Yes. Our engine uses standard IANA timezone databases and local solar transit equations, ensuring that DST transitions are seamlessly applied without any manual clock corrections."
+                            },
+                            {
+                                q_ar: "لماذا تختلف مواقيت الصلاة أحياناً بدقائق معدودة بين مساجد نفس المدينة؟",
+                                q_en: "Why do prayer times sometimes differ by a few minutes between local mosques?",
+                                a_ar: "يعود ذلك إما لاختلاف طريقة الحساب الفلكية المعتمدة (كزوايا الفجر والعشاء)، أو لاختلاف مذهب حساب وقت صلاة العصر (بين الجمهور والحنفية)، أو لإضافة دقائق أمان محلية (Offsets). يمكنك ضبط هذه الفروق يدوياً بدقة الدقيقة عبر صفحة الإعدادات.",
+                                a_en: "Slight variances typically stem from differing twilight depression angles, Asr jurisprudence (standard vs Hanafi), or local administrative mosque buffers. PrayerSync allows you to fine-tune minute offsets per prayer in Settings."
+                            }
+                        ].map((faq, idx) => (
+                            <div
+                                key={idx}
+                                style={{
+                                    padding: "20px",
+                                    borderRadius: "12px",
+                                    backgroundColor: K ? "#111915" : "#f5faf9",
+                                    border: K ? "1px solid rgba(63, 73, 69, 0.25)" : "1px solid #e1e8e6"
+                                }}
+                            >
+                                <h3 style={{ margin: "0 0 8px 0", color: K ? "#ffe088" : "#004d38", fontSize: "1.1rem", fontWeight: "700" }}>
+                                    {isarabic ? faq.q_ar : faq.q_en}
+                                </h3>
+                                <p style={{ margin: 0, color: K ? "#a0c4b8" : "#4a6660", lineHeight: "1.7", fontSize: "14px" }}>
+                                    {isarabic ? faq.a_ar : faq.a_en}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Section 5: Featured Specialized Guides Hub */}
+                <div style={{
+                    backgroundColor: K ? "#0b0f0d" : "#ffffff",
+                    border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e1e8e6",
+                    borderRadius: "16px",
+                    padding: "36px 28px",
+                    marginBottom: "40px",
+                    boxShadow: K ? "none" : "0 4px 20px rgba(0, 56, 41, 0.04)"
+                }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", flexWrap: "wrap", gap: "12px" }}>
+                        <div>
+                            <h2 style={{ margin: 0, color: K ? "#95d3ba" : "#003829", fontSize: "1.6rem", fontWeight: "800" }}>
+                                📚 {isarabic ? "أدلة وشروحات PrayerSync التخصصية" : "Specialized In-Depth Knowledge Guides"}
+                            </h2>
+                            <p style={{ margin: "4px 0 0 0", color: K ? "#89938e" : "#5c726c", fontSize: "14px" }}>
+                                {isarabic ? "مقالات فلكية وتقنية تفصيلية لتوسيع معرفتك بأوقات الصلاة والإنتاجية الإسلامية" : "Deep-dive astronomical and productivity articles written for Muslims worldwide"}
+                            </p>
+                        </div>
+                        <Link
+                            href="/guides"
+                            style={{
+                                padding: "10px 18px",
+                                borderRadius: "8px",
+                                backgroundColor: K ? "#95d3ba" : "#003829",
+                                color: K ? "#0b0f0d" : "#ffffff",
+                                textDecoration: "none",
+                                fontWeight: "700",
+                                fontSize: "13px"
+                            }}
+                        >
+                            {isarabic ? "عرض كافة الأدلة ←" : "Explore All Guides →"}
+                        </Link>
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px" }}>
+                        {[
+                            {
+                                href: "/guides/prayer-calculation-methods",
+                                title_ar: "طرق حساب مواقيت الصلاة الفلكية",
+                                title_en: "Prayer Calculation Methods",
+                                desc_ar: "مقارنة شاملة بين معايير أم القرى، رابطة العالم الإسلامي، و ISNA وزوايا الشفق.",
+                                desc_en: "Deep dive into solar depression angles and astronomical twilight standards."
+                            },
+                            {
+                                href: "/guides/calendar-sync-tutorial",
+                                title_ar: "دليل مزامنة التقويم خطوة بخطوة",
+                                title_en: "Calendar Sync Tutorial",
+                                desc_ar: "خطوات تفصيلية مصورة لربط تقاويم Google و Apple و Outlook عبر Webcal.",
+                                desc_en: "Visual step-by-step setup for iOS, Android, macOS and Windows."
+                            },
+                            {
+                                href: "/guides/asr-calculation-difference",
+                                title_ar: "فقه وفلك حساب وقت صلاة العصر",
+                                title_en: "Asr Calculation Differences",
+                                desc_ar: "الفارق بين مذهب الجمهور (ظل المثل) والمذهب الحنفي (ظل المثلين).",
+                                desc_en: "Understanding shadow-length ratios between Standard and Hanafi schools."
+                            },
+                            {
+                                href: "/guides/high-latitudes",
+                                title_ar: "مواقيت الصلاة في خطوط العرض العليا",
+                                title_en: "High-Latitude Prayer Times",
+                                desc_ar: "حلول اختفاء الشفق وظاهرة شمس منتصف الليل في الدول الإسكندنافية وشمال أوروبا.",
+                                desc_en: "Solutions for regions where twilight persists throughout summer nights."
+                            },
+                            {
+                                href: "/guides/workplace-prayer-productivity",
+                                title_ar: "الصلاة والإنتاجية في بيئات العمل الحديثة",
+                                title_en: "Workplace Prayer Productivity",
+                                desc_ar: "كيف تحمي أوقات صلاتك في الشركات وبيئات العمل وتمنع تعارض الاجتماعات.",
+                                desc_en: "How professionals maintain spiritual focus during intense corporate schedules."
+                            }
+                        ].map((guide, idx) => (
+                            <Link
+                                key={idx}
+                                href={guide.href}
+                                style={{
+                                    padding: "18px",
+                                    borderRadius: "12px",
+                                    backgroundColor: K ? "#111915" : "#f5faf9",
+                                    border: K ? "1px solid rgba(149, 211, 186, 0.2)" : "1px solid #ddecde",
+                                    textDecoration: "none",
+                                    display: "block",
+                                    transition: "transform 0.2s, border-color 0.2s"
+                                }}
+                            >
+                                <div style={{ fontSize: "14px", fontWeight: "700", color: K ? "#95d3ba" : "#003829", marginBottom: "6px" }}>
+                                    {isarabic ? guide.title_ar : guide.title_en}
+                                </div>
+                                <div style={{ fontSize: "12px", color: K ? "#89938e" : "#5c726c", lineHeight: "1.6" }}>
+                                    {isarabic ? guide.desc_ar : guide.desc_en}
+                                </div>
+                                <div style={{ marginTop: "10px", fontSize: "12px", fontWeight: "700", color: K ? "#ffe088" : "#854d0e" }}>
+                                    {isarabic ? "قراءة المقال ←" : "Read Article →"}
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <Footer />
         </div>
     );
 }
