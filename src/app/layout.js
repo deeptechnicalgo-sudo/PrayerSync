@@ -55,12 +55,12 @@ export const metadata = {
     url: "https://prayer-sync.vercel.app",
     siteName: "PrayerSync",
     title: "PrayerSync - Islamic Prayer Times & Smart Calendar Sync",
-    description: "Accurate Islamic prayer times and automated calendar synchronization with Google, Apple, and Outlook calendars.",
+    description: "PrayerSync helps you sync local prayer times with Google Calendar and Outlook, making it easier to organize your daily schedule around your prayers.",
   },
   twitter: {
     card: "summary_large_image",
     title: "PrayerSync - Islamic Prayer Times & Smart Calendar Sync",
-    description: "Accurate Islamic prayer times and automated calendar synchronization.",
+    description: "PrayerSync helps you sync local prayer times with Google Calendar and Outlook, making it easier to organize your daily schedule around your prayers.",
   },
   alternates: {
     canonical: "https://prayer-sync.vercel.app",
