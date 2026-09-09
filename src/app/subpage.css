@@ -72,17 +72,20 @@ body, html {
 
 .subpage-title {
     font-family: 'Libre Caslon Text', serif;
-    font-size: 32px;
+    font-size: clamp(24px, 4.5vw, 32px);
     font-weight: 700;
     color: #003829;
     margin-bottom: 8px;
-    line-height: 1.2;
+    line-height: 1.25;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .subpage-subtitle {
-    font-size: 14px;
+    font-size: clamp(13px, 2vw, 14px);
     color: #8c9e99;
-    margin-bottom: 36px;
+    margin-bottom: 28px;
+    line-height: 1.5;
 }
 
 .subpage-section {
@@ -268,4 +271,39 @@ body, html {
     background: #002c20;
     transform: translateY(-1px);
 }
+
+@media (max-width: 640px) {
+    .subpage-topbar {
+        padding: 14px 16px;
+    }
+
+    .subpage-content {
+        margin: 24px auto;
+        padding: 0 16px 40px;
+    }
+
+    .subpage-card {
+        padding: 16px 14px;
+        border-radius: 12px;
+    }
+
+    .contact-card-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .contact-email,
+    .contact-copy-btn {
+        width: 100%;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    .settings-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
 

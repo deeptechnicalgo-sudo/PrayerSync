@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useData, CALCULATION_METHODS } from "../Context/DarklightContext";
 import { useData2 } from "../Context/Arabic";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Header from "../components/Header";
 
 export default function SettingsPage() {
     const {
@@ -213,52 +214,19 @@ export default function SettingsPage() {
     const habitsCount = Object.values(dailyHabits).filter(Boolean).length;
     const habitsPercent = Math.round((habitsCount / Object.keys(dailyHabits).length) * 100);
 
+    const tabsList = [
+        { id: "smart", icon: "🛡️", labelAr: "حماية العمل", labelEn: "Work Shield" },
+        { id: "habits", icon: "📿", labelAr: "السنن والأذكار", labelEn: "Sunnah & Habits" },
+        { id: "islamic", icon: "🌙", labelAr: "المناسبات الهجرية", labelEn: "Islamic Events" },
+        { id: "tasks", icon: "📖", labelAr: "القرآن والمهام", labelEn: "Quran & Tasks" },
+        { id: "fiqh", icon: "🕌", labelAr: "طرق الحساب", labelEn: "Calculations" },
+        { id: "family", icon: "👨‍👩‍👧‍👦", labelAr: "مزامنة العائلة", labelEn: "Family & Webcal" },
+        { id: "general", icon: "⚙️", labelAr: "إعدادات عامة", labelEn: "General" },
+    ];
+
     return (
         <div className="app-wrapper" dir={isarabic ? "rtl" : "ltr"} style={{ backgroundColor: K ? "#0f1412" : "#f5faf9", minHeight: "100vh" }}>
-            <header className="navbar" style={{ backgroundColor: K ? "#0f1412" : "#f5faf9" }}>
-                <Link href="/" className="navbar-logo" style={{ color: K ? "#95d3ba" : "#003829" }}>
-                    {isarabic ? "مزامنة الصلاة" : "PrayerSync"}
-                </Link>
-                <nav>
-                    <ul className="navbar-links">
-                        <li>
-                            <Link href="/" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>
-                                {isarabic ? "الصفحة الرئيسة" : "Home"}
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/PTime" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>
-                                {isarabic ? "مواقيت الصلاة" : "Schedule"}
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/guides" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>
-                                {isarabic ? "الأدلة والشروحات" : "Guides"}
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/About" className="navbar-link" style={{ color: K ? "#89938e" : "#6e827c" }}>
-                                {isarabic ? "عن المطور والتطبيق" : "About Me"}
-                            </Link>
-                        </li>
-                    </ul>
-                </nav>
-                <div className="navbar-actions">
-                    <Link href="/Settings" className="navbar-icon-btn" aria-label="Settings" style={{ color: K ? "#ffe088" : "#003829", display: "inline-flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>
-                        <svg className="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="12" cy="12" r="3"></circle>
-                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                        </svg>
-                    </Link>
-                    <Link href="/Contact" className="navbar-icon-btn" aria-label="Help" style={{ color: K ? "#89938e" : "#6e827c", display: "inline-flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}>
-                        <svg className="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                        </svg>
-                    </Link>
-                </div>
-            </header>
+            <Header currentPath="/Settings" />
 
             <main className="main-content" style={{ backgroundColor: K ? "#0f1412" : "#f5faf9", color: K ? "#c8e8dc" : "#161d1f" }}>
                 <div className="page-header">
@@ -270,6 +238,31 @@ export default function SettingsPage() {
                             ? "تتبع العبادات اليومية، المناسبات الهجرية، حماية أوقات العمل، والتزامن مع Google Calendar."
                             : "Track Sunnah habits, Islamic holidays, protect your calendar during work, and customize Fiqh calculations."}
                     </p>
+                </div>
+
+                {/* Mobile / Tablet Horizontal Tab Scroller (< 1024px) */}
+                <div className="settings-mobile-tabs-container">
+                    <div className="settings-mobile-tabs" role="tablist" aria-label="Settings Categories">
+                        {tabsList.map((tab) => (
+                            <button
+                                key={tab.id}
+                                type="button"
+                                role="tab"
+                                aria-selected={activeTab === tab.id}
+                                className={`mobile-tab-btn ${activeTab === tab.id ? "active" : ""}`}
+                                onClick={() => setActiveTab(tab.id)}
+                                style={{
+                                    backgroundColor: activeTab === tab.id ? (K ? "#1a2520" : "#ffffff") : (K ? "#111915" : "#eef5f7"),
+                                    color: activeTab === tab.id ? (K ? "#95d3ba" : "#003829") : (K ? "#89938e" : "#5c726c"),
+                                    borderColor: activeTab === tab.id ? (K ? "#95d3ba" : "#003829") : (K ? "rgba(63,73,69,0.3)" : "#e1e8e6"),
+                                    boxShadow: activeTab === tab.id ? "0 2px 8px rgba(0,0,0,0.08)" : "none",
+                                }}
+                            >
+                                <span className="mobile-tab-icon">{tab.icon}</span>
+                                <span className="mobile-tab-label">{isarabic ? tab.labelAr : tab.labelEn}</span>
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
                 <div className="settings-layout">

@@ -15,6 +15,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5faf9" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f1412" },
+  ],
+};
+
 export const metadata = {
   metadataBase: new URL("https://prayer-sync.vercel.app"),
   title: {
@@ -24,7 +34,7 @@ export const metadata = {
   description: "Accurate Islamic prayer times, astronomical calculation methods (MWL, ISNA, Umm al-Qura), and seamless automatic synchronization with Google Calendar, Apple Calendar, and Microsoft Outlook.",
   keywords: [
     "prayer times",
-    "islamic calendar sync",
+    "L",
     "google calendar prayer times",
     "outlook prayer times",
     "apple calendar prayer times",
