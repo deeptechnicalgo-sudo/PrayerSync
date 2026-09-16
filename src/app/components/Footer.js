@@ -43,6 +43,13 @@ export default function Footer() {
                         {isarabic ? "الأدلة والشروحات" : "Guides"}
                     </Link>
                     <Link
+                        href="/faq"
+                        className="footer-link"
+                        style={{ color: K ? "#4d6b62" : "#5c726c" }}
+                    >
+                        {isarabic ? "الأسئلة الشائعة" : "FAQ"}
+                    </Link>
+                    <Link
                         href="/Priacypolicy"
                         className="footer-link"
                         style={{ color: K ? "#4d6b62" : "#5c726c" }}

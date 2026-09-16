@@ -22,6 +22,12 @@ export default function sitemap() {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/faq`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/guides/prayer-calculation-methods`,
       lastModified: now,
       changeFrequency: "monthly",

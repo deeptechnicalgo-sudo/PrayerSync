@@ -34,7 +34,7 @@ export const metadata = {
   description: "Accurate Islamic prayer times, astronomical calculation methods (MWL, ISNA, Umm al-Qura), and seamless automatic synchronization with Google Calendar, Apple Calendar, and Microsoft Outlook.",
   keywords: [
     "prayer times",
-    "L",
+    "Islamic prayer times",
     "google calendar prayer times",
     "outlook prayer times",
     "apple calendar prayer times",
@@ -42,7 +42,11 @@ export const metadata = {
     "namaz schedule",
     "fajr dhuhr asr maghrib isha",
     "prayer times calculation methods",
-    "webcal prayer feed"
+    "webcal prayer feed",
+    "salah schedule",
+    "qibla direction",
+    "Muslim calendar sync",
+    "prayer reminder app"
   ],
   authors: [{ name: "PrayerSync Team", url: "https://prayer-sync.vercel.app" }],
   creator: "Musa Mohammed",
@@ -104,7 +108,7 @@ export default function RootLayout({ children }) {
         </Script>
       </head>
 
-      <body>
+      <body suppressHydrationWarning>
         <SessionProvider>
           <DataProvider>
             <DataAProvider>

@@ -58,6 +58,12 @@ export default function Header({ currentPath = "" }) {
             active: currentPath.startsWith("/guides"),
         },
         {
+            href: "/faq",
+            label: isarabic ? "الأسئلة الشائعة" : "FAQ",
+            icon: "❓",
+            active: currentPath === "/faq",
+        },
+        {
             href: "/About",
             label: isarabic ? "عن المطور والتطبيق" : "About Me",
             icon: "👤",
