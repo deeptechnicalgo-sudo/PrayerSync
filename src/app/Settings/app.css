@@ -1,32 +1,32 @@
   :root {
-      /* Colors */
-      --color-background: #f4fafd;
-      --color-surface: #f4fafd;
+      /* Colors - Light Theme (Warm Cream & Terracotta) */
+      --color-background: #faf7f2;
+      --color-surface: #faf7f2;
       --color-surface-container-lowest: #ffffff;
-      --color-surface-container-low: #eef5f7;
-      --color-surface-container: #e8eff1;
-      --color-surface-container-high: #e2e9ec;
-      --color-surface-container-highest: #dde4e6;
-      --color-surface-variant: #dde4e6;
+      --color-surface-container-low: #f6f0e8;
+      --color-surface-container: #ece4d9;
+      --color-surface-container-high: #e4d9cc;
+      --color-surface-container-highest: #ddd0c2;
+      --color-surface-variant: #ece4d9;
 
-      --color-on-background: #161d1f;
-      --color-on-surface: #161d1f;
-      --color-on-surface-variant: #404944;
+      --color-on-background: #241a15;
+      --color-on-surface: #241a15;
+      --color-on-surface-variant: #7c6b5e;
 
-      --color-primary: #003527;
-      --color-primary-container: #064e3b;
+      --color-primary: #b85d38;
+      --color-primary-container: #a34f2d;
       --color-on-primary: #ffffff;
-      --color-on-primary-container: #80bea6;
+      --color-on-primary-container: #f6e0d6;
 
-      --color-secondary: #735c00;
+      --color-secondary: #8e4324;
       --color-on-secondary: #ffffff;
 
-      --color-outline: #707974;
-      --color-outline-variant: #bfc9c3;
+      --color-outline: #8c7d70;
+      --color-outline-variant: #ece4d9;
 
       /* Typography */
       --font-family-headline: 'Libre Caslon Text', serif;
-      --font-family-body: 'Manrope', sans-serif;
+      --font-family-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 
       --font-size-headline-xl: 48px;
       --line-height-headline-xl: 56px;
@@ -49,6 +49,34 @@
       --spacing-gutter: 24px;
       --spacing-section-gap: 80px;
       --container-max: 1200px;
+  }
+
+  [data-theme="dark"],
+  .dark {
+      /* Colors - Dark Theme (Midnight Navy & Radiant Gold) */
+      --color-background: #0b0f19;
+      --color-surface: #0b0f19;
+      --color-surface-container-lowest: #121a2b;
+      --color-surface-container-low: #0c121e;
+      --color-surface-container: #162137;
+      --color-surface-container-high: #1c273e;
+      --color-surface-container-highest: #23314d;
+      --color-surface-variant: #1c273e;
+
+      --color-on-background: #ccd6e6;
+      --color-on-surface: #ffffff;
+      --color-on-surface-variant: #8b9cb5;
+
+      --color-primary: #f3ba42;
+      --color-primary-container: #deb133;
+      --color-on-primary: #0b0f19;
+      --color-on-primary-container: #ffffff;
+
+      --color-secondary: #f3ba42;
+      --color-on-secondary: #0b0f19;
+
+      --color-outline: #8b9cb5;
+      --color-outline-variant: #1c273e;
   }
 
   /* Base Styles */
@@ -334,8 +362,7 @@
 
   .settings-section {
       background-color: var(--color-surface-container-lowest);
-      border: 1px solid rgba(191, 201, 195, 0.3);
-      /* outline-variant/30 */
+      border: 1px solid var(--color-surface-variant);
       border-radius: 12px;
       padding: 24px;
   }
@@ -415,7 +442,7 @@
       background-color: var(--color-surface-container-low);
       border-radius: 8px;
       padding: 4px;
-      border: 1px solid rgba(191, 201, 195, 0.3);
+      border: 1px solid var(--color-surface-variant);
   }
 
   .toggle-btn {
@@ -447,7 +474,6 @@
   @media (min-width: 768px) {
       .select-wrapper {
           width: 256px;
-          /* 64 * 4 */
       }
   }
 
@@ -455,7 +481,7 @@
       appearance: none;
       width: 100%;
       background-color: var(--color-surface-container-lowest);
-      border: 1px solid rgba(191, 201, 195, 0.5);
+      border: 1px solid var(--color-surface-variant);
       color: var(--color-on-surface);
       font-size: var(--font-size-body-md);
       line-height: var(--line-height-body-md);
@@ -467,8 +493,8 @@
 
   .select-input:focus {
       outline: none;
-      border-color: var(--color-secondary);
-      box-shadow: 0 0 0 1px var(--color-secondary);
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 1px var(--color-primary);
   }
 
   .select-icon {
@@ -477,7 +503,7 @@
       right: 12px;
       transform: translateY(-50%);
       pointer-events: none;
-      color: var(--color-secondary);
+      color: var(--color-primary);
       display: flex;
       align-items: center;
   }
@@ -495,13 +521,12 @@
       justify-content: space-between;
       padding: 16px;
       border-radius: 8px;
-      background-color: rgba(238, 245, 247, 0.5);
-      /* surface-container-low/50 */
+      background-color: var(--color-surface-container-low);
       transition: background-color 0.2s;
   }
 
   .notification-item:hover {
-      background-color: var(--color-surface-container-low);
+      background-color: var(--color-surface-container);
   }
 
   .notification-info {
@@ -514,12 +539,16 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background-color: rgba(6, 78, 59, 0.1);
-      /* primary-container/10 */
+      background-color: rgba(184, 93, 56, 0.12);
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--color-primary);
+  }
+
+  [data-theme="dark"] .notification-icon,
+  .dark .notification-icon {
+      background-color: rgba(243, 186, 66, 0.15);
   }
 
   .notification-title {
@@ -567,8 +596,7 @@
   }
 
   .switch-input:focus+.switch-track {
-      box-shadow: 0 0 0 2px rgba(115, 92, 0, 0.5);
-      /* secondary/50 */
+      box-shadow: 0 0 0 2px var(--color-primary);
   }
 
   .switch-input:checked+.switch-track {
@@ -634,7 +662,12 @@
   }
 
   .btn-outline:hover {
-      background-color: rgba(0, 53, 39, 0.05);
+      background-color: rgba(184, 93, 56, 0.08);
+  }
+
+  [data-theme="dark"] .btn-outline:hover,
+  .dark .btn-outline:hover {
+      background-color: rgba(243, 186, 66, 0.12);
   }
 
   .btn-primary {

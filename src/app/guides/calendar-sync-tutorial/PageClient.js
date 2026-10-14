@@ -13,14 +13,15 @@ export default function CalendarSyncTutorialPage() {
     const { isarabic } = useData2();
     const [activeStep, setActiveStep] = useState(null);
 
-    const bg = K ? "#0f1412" : "#f5faf9";
-    const text = K ? "#c8e8dc" : "#2c463f";
-    const cardBg = K ? "#111915" : "#ffffff";
-    const cardBorder = K ? "rgba(63,73,69,0.35)" : "#e2ede9";
-    const accent = K ? "#95d3ba" : "#003829";
-    const subText = K ? "#7a9e90" : "#5a7a72";
-    const stepBg = K ? "#0d1613" : "#f0f7f4";
-    const highlightBg = K ? "#162520" : "#e8f5f0";
+    const bg = K ? "#0b0f19" : "#faf7f2";
+    const text = K ? "#ccd6e6" : "#4a3c31";
+    const title = K ? "#ffffff" : "#241a15";
+    const cardBg = K ? "#121a2b" : "#ffffff";
+    const cardBorder = K ? "#1c273e" : "#ece4d9";
+    const accent = K ? "#f3ba42" : "#b85d38";
+    const subText = K ? "#8b9cb5" : "#7c6b5e";
+    const stepBg = K ? "#0c121e" : "#f6f0e8";
+    const highlightBg = K ? "#0c121e" : "#f6f0e8";
 
     const platforms = [
         {
@@ -147,7 +148,7 @@ export default function CalendarSyncTutorialPage() {
                     <div style={{ display: "inline-block", background: "linear-gradient(135deg, #667eea44, #764ba244)", border: "1px solid #667eea55", borderRadius: "8px", padding: "4px 12px", fontSize: "12px", fontWeight: "700", color: "#a78bfa", marginBottom: "16px", letterSpacing: "0.5px" }}>
                         {isarabic ? "📅 دليل عملي" : "📅 STEP-BY-STEP TUTORIAL"}
                     </div>
-                    <h1 style={{ fontSize: "2.4rem", fontWeight: "800", color: K ? "#ffffff" : "#001a13", lineHeight: 1.2, marginBottom: "16px" }}>
+                    <h1 style={{ fontSize: "2.4rem", fontWeight: "800", color: title, lineHeight: 1.2, marginBottom: "16px" }}>
                         {isarabic
                             ? "دليل مزامنة تقويم الصلاة الشامل"
                             : "Complete Calendar Sync Tutorial"}
@@ -171,7 +172,7 @@ export default function CalendarSyncTutorialPage() {
                 </div>
 
                 {/* What is WebCal */}
-                <section style={{ background: highlightBg, border: `1px solid ${K ? "rgba(149,211,186,0.25)" : "#b8dfd3"}`, borderRadius: "14px", padding: "24px", marginBottom: "32px" }}>
+                <section style={{ background: highlightBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "24px", marginBottom: "32px" }}>
                     <h2 style={{ color: accent, fontSize: "1.2rem", fontWeight: "700", marginTop: 0, marginBottom: "12px" }}>
                         {isarabic ? "🔗 ما هو WebCal وICS؟" : "🔗 What is WebCal / ICS?"}
                     </h2>
@@ -184,7 +185,7 @@ export default function CalendarSyncTutorialPage() {
 
                 {/* Platform Tabs */}
                 <div style={{ marginBottom: "40px" }}>
-                    <h2 style={{ fontSize: "1.6rem", fontWeight: "700", color: K ? "#ffffff" : "#001a13", marginBottom: "8px" }}>
+                    <h2 style={{ fontSize: "1.6rem", fontWeight: "700", color: title, marginBottom: "8px" }}>
                         {isarabic ? "اختر تطبيق تقويمك" : "Choose Your Calendar App"}
                     </h2>
                     <p style={{ color: subText, marginBottom: "24px", fontSize: "14px" }}>
@@ -202,7 +203,7 @@ export default function CalendarSyncTutorialPage() {
                             >
                                 <span style={{ fontSize: "2rem" }}>{platform.icon}</span>
                                 <div style={{ flex: 1 }}>
-                                    <div style={{ fontWeight: "700", fontSize: "1.1rem", color: activeStep === platform.id ? platform.color : (K ? "#ffffff" : "#001a13") }}>
+                                    <div style={{ fontWeight: "700", fontSize: "1.1rem", color: activeStep === platform.id ? platform.color : title }}>
                                         {isarabic ? platform.name_ar : platform.name_en}
                                     </div>
                                     <div style={{ fontSize: "13px", color: subText, marginTop: "2px" }}>
@@ -234,7 +235,7 @@ export default function CalendarSyncTutorialPage() {
 
                 {/* Troubleshooting */}
                 <section style={{ marginBottom: "40px" }}>
-                    <h2 style={{ fontSize: "1.6rem", fontWeight: "700", color: K ? "#ffffff" : "#001a13", marginBottom: "8px" }}>
+                    <h2 style={{ fontSize: "1.6rem", fontWeight: "700", color: title, marginBottom: "8px" }}>
                         {isarabic ? "🔧 استكشاف الأخطاء وإصلاحها" : "🔧 Troubleshooting Common Issues"}
                     </h2>
                     <p style={{ color: subText, marginBottom: "24px", fontSize: "14px" }}>
@@ -243,7 +244,7 @@ export default function CalendarSyncTutorialPage() {
                     <div style={{ display: "grid", gap: "16px" }}>
                         {troubleshooting.map((item, i) => (
                             <div key={i} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "12px", padding: "20px" }}>
-                                <div style={{ fontWeight: "600", color: K ? "#ffe088" : "#5c3c00", marginBottom: "8px", fontSize: "14.5px" }}>
+                                <div style={{ fontWeight: "600", color: accent, marginBottom: "8px", fontSize: "14.5px" }}>
                                     ❓ {isarabic ? item.q_ar : item.q_en}
                                 </div>
                                 <div style={{ color: text, lineHeight: "1.6", fontSize: "14px" }}>
@@ -255,9 +256,9 @@ export default function CalendarSyncTutorialPage() {
                 </section>
 
                 {/* CTA */}
-                <div style={{ background: `linear-gradient(135deg, ${K ? "#0d2820" : "#eaf7f2"}, ${K ? "#162520" : "#d4f0e4"})`, border: `1px solid ${K ? "rgba(149,211,186,0.3)" : "#a8d9c8"}`, borderRadius: "16px", padding: "32px", textAlign: "center" }}>
+                <div style={{ background: highlightBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "32px", textAlign: "center" }}>
                     <div style={{ fontSize: "2rem", marginBottom: "12px" }}>⚡</div>
-                    <h3 style={{ color: accent, fontSize: "1.3rem", fontWeight: "700", marginTop: 0, marginBottom: "12px" }}>
+                    <h3 style={{ color: title, fontSize: "1.3rem", fontWeight: "700", marginTop: 0, marginBottom: "12px" }}>
                         {isarabic ? "ابدأ المزامنة الآن" : "Start Syncing Now"}
                     </h3>
                     <p style={{ color: subText, marginBottom: "20px", fontSize: "14px" }}>
@@ -265,7 +266,7 @@ export default function CalendarSyncTutorialPage() {
                             ? "يستغرق إعداد مزامنة تقويم الصلاة أقل من دقيقة واحدة."
                             : "Setting up your prayer calendar sync takes less than one minute."}
                     </p>
-                    <Link href="/" style={{ display: "inline-block", background: accent, color: K ? "#0b0f0d" : "#ffffff", padding: "12px 28px", borderRadius: "8px", textDecoration: "none", fontWeight: "700", fontSize: "14px" }}>
+                    <Link href="/" style={{ display: "inline-block", background: accent, color: K ? "#0b0f19" : "#ffffff", padding: "12px 28px", borderRadius: "8px", textDecoration: "none", fontWeight: "700", fontSize: "14px" }}>
                         {isarabic ? "الذهاب إلى PrayerSync ←" : "Go to PrayerSync →"}
                     </Link>
                 </div>

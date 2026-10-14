@@ -76,8 +76,8 @@ export default function Header({ currentPath = "" }) {
             ref={navRef}
             className="navbar"
             style={{
-                backgroundColor: K ? "#0f1412" : "#f5faf9",
-                borderBottom: K ? "1px solid rgba(63, 73, 69, 0.25)" : "1px solid rgba(0, 56, 41, 0.06)",
+                backgroundColor: K ? "#0b0f19" : "#faf7f2",
+                borderBottom: K ? "1px solid #1c273e" : "1px solid #ece4d9",
                 position: "relative",
                 zIndex: 100,
             }}
@@ -87,11 +87,12 @@ export default function Header({ currentPath = "" }) {
                     href="/"
                     className="navbar-logo"
                     style={{
-                        color: K ? "#95d3ba" : "#003829",
+                        color: K ? "#ffffff" : "#8e4324",
                     }}
                     onClick={() => setMobileMenuOpen(false)}
                 >
-                    {isarabic ? "مزامنة الصلاة" : "PrayerSync"}
+                    {K && <span className="navbar-logo-dot" style={{ backgroundColor: "#f3ba42" }} />}
+                    {"PrayerConnect"}
                 </Link>
 
                 {/* Desktop navigation */}
@@ -104,8 +105,8 @@ export default function Header({ currentPath = "" }) {
                                     className={`navbar-link ${link.active ? "active" : ""}`}
                                     style={{
                                         color: link.active
-                                            ? (K ? "#ffe088" : "#003829")
-                                            : (K ? "#89938e" : "#6e827c"),
+                                            ? (K ? "#f3ba42" : "#8e4324")
+                                            : (K ? "#94a3b8" : "#70645d"),
                                     }}
                                 >
                                     {link.label}
@@ -123,7 +124,9 @@ export default function Header({ currentPath = "" }) {
                         aria-label="Settings"
                         title={isarabic ? "الإعدادات والإنتاجية" : "Settings & Productivity"}
                         style={{
-                            color: currentPath === "/Settings" ? (K ? "#ffe088" : "#003829") : (K ? "#89938e" : "#6e827c"),
+                            backgroundColor: K ? "#151e30" : "#f0e8df",
+                            borderColor: K ? "#1e293b" : "#e5dbcf",
+                            color: currentPath === "/Settings" ? (K ? "#f3ba42" : "#8e4324") : (K ? "#94a3b8" : "#70645d"),
                         }}
                         onClick={() => setMobileMenuOpen(false)}
                     >
@@ -147,7 +150,9 @@ export default function Header({ currentPath = "" }) {
                         aria-label="Contact"
                         title={isarabic ? "تواصل معنا" : "Contact"}
                         style={{
-                            color: currentPath === "/Contact" ? (K ? "#ffe088" : "#003829") : (K ? "#89938e" : "#6e827c"),
+                            backgroundColor: K ? "#151e30" : "#f0e8df",
+                            borderColor: K ? "#1e293b" : "#e5dbcf",
+                            color: currentPath === "/Contact" ? (K ? "#f3ba42" : "#8e4324") : (K ? "#94a3b8" : "#70645d"),
                         }}
                         onClick={() => setMobileMenuOpen(false)}
                     >
@@ -174,12 +179,12 @@ export default function Header({ currentPath = "" }) {
                         aria-expanded={mobileMenuOpen}
                         onClick={() => setMobileMenuOpen((prev) => !prev)}
                         style={{
-                            color: K ? "#95d3ba" : "#003829",
+                            color: K ? "#ffffff" : "#8e4324",
                         }}
                     >
-                        <span className={`hamburger-bar ${mobileMenuOpen ? "open" : ""}`} style={{ backgroundColor: K ? "#95d3ba" : "#003829" }} />
-                        <span className={`hamburger-bar ${mobileMenuOpen ? "open" : ""}`} style={{ backgroundColor: K ? "#95d3ba" : "#003829" }} />
-                        <span className={`hamburger-bar ${mobileMenuOpen ? "open" : ""}`} style={{ backgroundColor: K ? "#95d3ba" : "#003829" }} />
+                        <span className={`hamburger-bar ${mobileMenuOpen ? "open" : ""}`} style={{ backgroundColor: K ? "#ffffff" : "#8e4324" }} />
+                        <span className={`hamburger-bar ${mobileMenuOpen ? "open" : ""}`} style={{ backgroundColor: K ? "#ffffff" : "#8e4324" }} />
+                        <span className={`hamburger-bar ${mobileMenuOpen ? "open" : ""}`} style={{ backgroundColor: K ? "#ffffff" : "#8e4324" }} />
                     </button>
                 </div>
             </div>
@@ -188,8 +193,8 @@ export default function Header({ currentPath = "" }) {
             <div
                 className={`navbar-mobile-drawer ${mobileMenuOpen ? "open" : ""}`}
                 style={{
-                    backgroundColor: K ? "#0b100e" : "#ffffff",
-                    borderColor: K ? "rgba(63, 73, 69, 0.4)" : "#e1e8e6",
+                    backgroundColor: K ? "#0c121e" : "#ffffff",
+                    borderColor: K ? "#1c273e" : "#ece4d9",
                 }}
             >
                 <nav className="mobile-nav-list" aria-label="Mobile Navigation">
@@ -200,27 +205,27 @@ export default function Header({ currentPath = "" }) {
                             className={`mobile-nav-item ${link.active ? "active" : ""}`}
                             style={{
                                 color: link.active
-                                    ? (K ? "#ffe088" : "#003829")
-                                    : (K ? "#b5c7c0" : "#4a6660"),
+                                    ? (K ? "#f3ba42" : "#8e4324")
+                                    : (K ? "#cbd5e1" : "#5c5048"),
                                 backgroundColor: link.active
-                                    ? (K ? "rgba(255, 224, 136, 0.08)" : "rgba(0, 56, 41, 0.05)")
+                                    ? (K ? "rgba(243, 186, 66, 0.12)" : "rgba(184, 93, 56, 0.08)")
                                     : "transparent",
                             }}
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             <span className="mobile-nav-icon">{link.icon}</span>
                             <span className="mobile-nav-label">{link.label}</span>
-                            {link.active && <span className="mobile-active-dot" style={{ backgroundColor: K ? "#ffe088" : "#b19e68" }} />}
+                            {link.active && <span className="mobile-active-dot" style={{ backgroundColor: K ? "#f3ba42" : "#b85d38" }} />}
                         </Link>
                     ))}
-                    
-                    <div className="mobile-drawer-divider" style={{ backgroundColor: K ? "rgba(63, 73, 69, 0.4)" : "#edf2f1" }} />
-                    
+
+                    <div className="mobile-drawer-divider" style={{ backgroundColor: K ? "#1c273e" : "#ece4d9" }} />
+
                     <div className="mobile-drawer-footer">
                         <Link
                             href="/Settings"
                             className="mobile-drawer-secondary-link"
-                            style={{ color: K ? "#89938e" : "#6e827c" }}
+                            style={{ color: K ? "#94a3b8" : "#70645d" }}
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             ⚙️ {isarabic ? "مركز الإعدادات والإنتاجية" : "Settings & Preferences"}
@@ -228,7 +233,7 @@ export default function Header({ currentPath = "" }) {
                         <Link
                             href="/Contact"
                             className="mobile-drawer-secondary-link"
-                            style={{ color: K ? "#89938e" : "#6e827c" }}
+                            style={{ color: K ? "#94a3b8" : "#70645d" }}
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             💬 {isarabic ? "المساعدة والدعم" : "Contact & Support"}

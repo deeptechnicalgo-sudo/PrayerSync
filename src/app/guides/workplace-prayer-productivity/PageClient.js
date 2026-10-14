@@ -13,13 +13,14 @@ export default function WorkplacePrayerPage() {
     const { isarabic } = useData2();
     const [expandedFaq, setExpandedFaq] = useState(null);
 
-    const bg = K ? "#0f1412" : "#f5faf9";
-    const text = K ? "#c8e8dc" : "#2c463f";
-    const cardBg = K ? "#111915" : "#ffffff";
-    const cardBorder = K ? "rgba(63,73,69,0.35)" : "#e2ede9";
-    const accent = K ? "#95d3ba" : "#003829";
-    const subText = K ? "#7a9e90" : "#5a7a72";
-    const highlightBg = K ? "#162520" : "#eef8f3";
+    const bg = K ? "#0b0f19" : "#faf7f2";
+    const text = K ? "#ccd6e6" : "#4a3c31";
+    const title = K ? "#ffffff" : "#241a15";
+    const cardBg = K ? "#121a2b" : "#ffffff";
+    const cardBorder = K ? "#1c273e" : "#ece4d9";
+    const accent = K ? "#f3ba42" : "#b85d38";
+    const subText = K ? "#8b9cb5" : "#7c6b5e";
+    const highlightBg = K ? "#0c121e" : "#f6f0e8";
 
     const strategies = [
         {
@@ -125,7 +126,7 @@ export default function WorkplacePrayerPage() {
                     <div style={{ display: "inline-block", background: "#10b98122", border: "1px solid #10b98144", borderRadius: "8px", padding: "4px 12px", fontSize: "12px", fontWeight: "700", color: "#34d399", marginBottom: "16px", letterSpacing: "0.5px" }}>
                         {isarabic ? "💼 دليل المحترفين" : "💼 PROFESSIONAL GUIDE"}
                     </div>
-                    <h1 style={{ fontSize: "2.4rem", fontWeight: "800", color: K ? "#ffffff" : "#001a13", lineHeight: 1.2, marginBottom: "16px" }}>
+                    <h1 style={{ fontSize: "2.4rem", fontWeight: "800", color: title, lineHeight: 1.2, marginBottom: "16px" }}>
                         {isarabic
                             ? "الصلاة في بيئة العمل: دليل المحترفين والمديرين"
                             : "Prayer at Work: The Professional's Complete Guide"}
@@ -139,7 +140,7 @@ export default function WorkplacePrayerPage() {
 
                 {/* Prayer Duration Overview */}
                 <section style={{ marginBottom: "36px" }}>
-                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: K ? "#ffffff" : "#001a13", marginBottom: "16px" }}>
+                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: title, marginBottom: "16px" }}>
                         {isarabic ? "⏱️ مدة كل صلاة في العمل" : "⏱️ How Long Does Each Prayer Take?"}
                     </h2>
                     <p style={{ color: subText, marginBottom: "20px", fontSize: "14px" }}>
@@ -181,7 +182,7 @@ export default function WorkplacePrayerPage() {
 
                 {/* Strategies */}
                 <section style={{ marginBottom: "40px" }}>
-                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: K ? "#ffffff" : "#001a13", marginBottom: "24px" }}>
+                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: title, marginBottom: "24px" }}>
                         {isarabic ? "🛡️ استراتيجيات عملية مجرّبة" : "🛡️ Proven Practical Strategies"}
                     </h2>
                     <div style={{ display: "grid", gap: "20px" }}>
@@ -210,7 +211,7 @@ export default function WorkplacePrayerPage() {
 
                 {/* FAQ */}
                 <section style={{ marginBottom: "40px" }}>
-                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: K ? "#ffffff" : "#001a13", marginBottom: "20px" }}>
+                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: title, marginBottom: "20px" }}>
                         {isarabic ? "أسئلة شائعة" : "Frequently Asked Questions"}
                     </h2>
                     {faqs.map((faq, i) => (
@@ -218,7 +219,7 @@ export default function WorkplacePrayerPage() {
                             <button
                                 type="button"
                                 onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}
-                                style={{ width: "100%", textAlign: "left", background: cardBg, padding: "18px 20px", cursor: "pointer", color: accent, fontWeight: "600", fontSize: "14.5px", border: "none", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px" }}
+                                style={{ width: "100%", textAlign: "left", background: cardBg, padding: "18px 20px", cursor: "pointer", color: title, fontWeight: "600", fontSize: "14.5px", border: "none", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px" }}
                             >
                                 {isarabic ? faq.q_ar : faq.q_en}
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, transform: expandedFaq === i ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s" }}>
@@ -235,9 +236,9 @@ export default function WorkplacePrayerPage() {
                 </section>
 
                 {/* CTA */}
-                <div style={{ background: `linear-gradient(135deg, ${K ? "#0d2820" : "#eaf7f2"}, ${K ? "#162520" : "#d4f0e4"})`, border: `1px solid ${K ? "rgba(149,211,186,0.3)" : "#a8d9c8"}`, borderRadius: "16px", padding: "28px", textAlign: "center" }}>
+                <div style={{ background: highlightBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "28px", textAlign: "center" }}>
                     <div style={{ fontSize: "2rem", marginBottom: "12px" }}>📅</div>
-                    <h3 style={{ color: accent, fontSize: "1.2rem", fontWeight: "700", marginTop: 0, marginBottom: "12px" }}>
+                    <h3 style={{ color: title, fontSize: "1.2rem", fontWeight: "700", marginTop: 0, marginBottom: "12px" }}>
                         {isarabic ? "أضف مواقيت الصلاة لتقويم عملك الآن" : "Add Prayer Times to Your Work Calendar Now"}
                     </h3>
                     <p style={{ color: subText, marginBottom: "20px", fontSize: "14px" }}>
@@ -246,7 +247,7 @@ export default function WorkplacePrayerPage() {
                             : "Seamless automatic sync with Google Calendar & Outlook — your prayer times always stay up to date."}
                     </p>
                     <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
-                        <Link href="/" style={{ display: "inline-block", background: accent, color: K ? "#0b0f0d" : "#ffffff", padding: "12px 28px", borderRadius: "8px", textDecoration: "none", fontWeight: "700", fontSize: "14px" }}>
+                        <Link href="/" style={{ display: "inline-block", background: accent, color: K ? "#0b0f19" : "#ffffff", padding: "12px 28px", borderRadius: "8px", textDecoration: "none", fontWeight: "700", fontSize: "14px" }}>
                             {isarabic ? "ابدأ المزامنة ←" : "Start Syncing →"}
                         </Link>
                         <Link href="/guides/calendar-sync-tutorial" style={{ display: "inline-block", background: "transparent", border: `1px solid ${cardBorder}`, color: subText, padding: "12px 28px", borderRadius: "8px", textDecoration: "none", fontWeight: "600", fontSize: "14px" }}>

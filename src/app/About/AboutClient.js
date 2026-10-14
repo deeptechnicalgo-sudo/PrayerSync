@@ -13,13 +13,24 @@ export default function AboutClient() {
     const { K } = useData();
     const { isarabic } = useData2();
 
+    // New palette tokens
+    const bg   = K ? "#0b0f19" : "#faf7f2";
+    const text  = K ? "#ccd6e6" : "#4a3c31";
+    const title = K ? "#ffffff" : "#241a15";
+    const accent= K ? "#f3ba42" : "#b85d38";
+    const muted = K ? "#8b9cb5" : "#7c6b5e";
+    const cardBg= K ? "#121a2b" : "#ffffff";
+    const cardBorder = K ? "#1c273e" : "#ece4d9";
+    const inset = K ? "#0c121e" : "#f6f0e8";
+    const insetBorder = K ? "#1c273e" : "#ddd4c8";
+
     return (
         <div
             className="app-wrapper"
             dir={isarabic ? "rtl" : "ltr"}
             style={{
-                backgroundColor: K ? "#0f1412" : "#f5faf9",
-                color: K ? "#c8e8dc" : "#2c463f",
+                backgroundColor: bg,
+                color: text,
                 minHeight: "100vh",
             }}
         >
@@ -30,9 +41,7 @@ export default function AboutClient() {
                 <section className="about-hero">
                     <h1
                         className="about-hero-title"
-                        style={{
-                            color: K ? "#95d3ba" : "#003829",
-                        }}
+                        style={{ color: title }}
                     >
                         {isarabic
                             ? "الصلاة جزء من يومك."
@@ -41,13 +50,11 @@ export default function AboutClient() {
 
                     <p
                         className="about-hero-subtitle"
-                        style={{
-                            color: K ? "#6b8a7e" : "#6e827c",
-                        }}
+                        style={{ color: muted }}
                     >
                         {isarabic
-                            ? "صُمم PrayerSync لمساعدتك على تنظيم مواقيت الصلاة مع جدولك اليومي، من خلال إضافتها مباشرةً إلى تقويمك إلى جانب اجتماعاتك ومواعيدك."
-                            : "PrayerSync was created to help you organize your prayer times alongside your daily schedule by adding them directly to your calendar with your meetings and appointments."}
+                            ? "صُمم PrayerConnect لمساعدتك على تنظيم مواقيت الصلاة مع جدولك اليومي، من خلال إضافتها مباشرةً إلى تقويمك إلى جانب اجتماعاتك ومواعيدك."
+                            : "PrayerConnect was created to help you organize your prayer times alongside your daily schedule by adding them directly to your calendar with your meetings and appointments."}
                     </p>
                 </section>
 
@@ -55,28 +62,24 @@ export default function AboutClient() {
                     <div
                         className="about-card about-story-card"
                         style={{
-                            backgroundColor: K ? "#111915" : "#ffffff",
-                            border: K
-                                ? "1px solid rgba(63, 73, 69, 0.4)"
-                                : "1px solid #e1e8e6",
+                            backgroundColor: cardBg,
+                            border: `1px solid ${cardBorder}`,
                             boxShadow: K
                                 ? "0 4px 20px rgba(0,0,0,0.25)"
-                                : "0 4px 20px rgba(0, 56, 41, 0.04)",
+                                : "0 4px 20px rgba(184, 93, 56, 0.05)",
                         }}
                     >
                         <h2
                             className="about-card-title"
-                            style={{
-                                color: K ? "#95d3ba" : "#003829",
-                            }}
+                            style={{ color: title }}
                         >
                             <span
                                 className="about-card-icon"
                                 style={{
                                     backgroundColor: K
-                                        ? "rgba(149, 211, 186, 0.15)"
-                                        : "#e2ece9",
-                                    color: K ? "#ffe088" : "#003829",
+                                        ? "rgba(243, 186, 66, 0.15)"
+                                        : "#f6ede4",
+                                    color: accent,
                                 }}
                             >
                                 ✨
@@ -84,62 +87,37 @@ export default function AboutClient() {
                             {isarabic ? "قصتنا" : "Our Story"}
                         </h2>
 
-                        <p
-                            className="about-card-body"
-                            style={{
-                                color: K ? "#a0c4b8" : "#4a6660",
-                            }}
-                        >
+                        <p className="about-card-body" style={{ color: text }}>
                             {isarabic
                                 ? "كان أبي لديه جدول مليء بالاجتماعات والعمل. لكن في كثير من الأحيان، كانت مواعيد الاجتماعات تتعارض مع أوقات الصلاة."
                                 : "My father had a schedule filled with meetings and work. But many times, his meetings would conflict with prayer times."}
                         </p>
 
-                        <p
-                            className="about-card-body"
-                            style={{
-                                color: K ? "#a0c4b8" : "#4a6660",
-                            }}
-                        >
+                        <p className="about-card-body" style={{ color: text }}>
                             {isarabic
                                 ? "كان يريد أن يحافظ على صلاته في وقتها، وفي نفس الوقت يريد أن يعرف زملاؤه في العمل متى سيكون غير متاح بسبب الصلاة، حتى لا يظن أحد أنه يتجاهل اجتماعًا أو رسالة."
                                 : "He wanted to maintain his prayers on time while also letting his colleagues know when he would be unavailable for prayer, so no one would think he was ignoring a meeting or a message."}
                         </p>
 
-                        <p
-                            className="about-card-body"
-                            style={{
-                                color: K ? "#c8e8dc" : "#243b34",
-                            }}
-                        >
+                        <p className="about-card-body" style={{ color: title }}>
                             <strong>
                                 {isarabic
-                                    ? "\"ماذا لو كانت أوقات الصلاة موجودة مباشرة في تقويمي، مثل أي موعد آخر؟\""
+                                    ? "\"ماذا لو كانت أوقات الصلاة موجودة مباشرة في تقويمي، مثل أي موعد آخر?\""
                                     : "\"What if prayer times were directly in my calendar, just like any other appointment?\""}
                             </strong>
                         </p>
 
-                        <p
-                            className="about-card-body"
-                            style={{
-                                color: K ? "#a0c4b8" : "#4a6660",
-                            }}
-                        >
+                        <p className="about-card-body" style={{ color: text }}>
                             {isarabic
-                                ? "ومن هنا بدأت فكرة PrayerSync. يساعدك PrayerSync على إضافة مواقيت الصلاة المحلية إلى تقويمك، حتى تظهر بجانب اجتماعاتك ومواعيدك اليومية."
-                                : "And that is where the idea of PrayerSync began. PrayerSync helps you add your local prayer times to your calendar, allowing them to appear alongside your meetings and daily plans."}
+                                ? "ومن هنا بدأت فكرة PrayerConnect. يساعدك PrayerConnect على إضافة مواقيت الصلاة المحلية إلى تقويمك، حتى تظهر بجانب اجتماعاتك ومواعيدك اليومية."
+                                : "And that is where the idea of PrayerConnect began. PrayerConnect helps you add your local prayer times to your calendar, allowing them to appear alongside your meetings and daily plans."}
                         </p>
 
-                        <p
-                            className="about-card-body"
-                            style={{
-                                color: K ? "#a0c4b8" : "#4a6660",
-                            }}
-                        >
-                            <strong>
+                        <p className="about-card-body" style={{ color: text }}>
+                            <strong style={{ color: accent }}>
                                 {isarabic
-                                    ? "PrayerSync — لأن صلاتك جزء من جدول يومك."
-                                    : "PrayerSync — Because prayer is part of your daily schedule."}
+                                    ? "PrayerConnect — لأن صلاتك جزء من جدول يومك."
+                                    : "PrayerConnect — Because prayer is part of your daily schedule."}
                             </strong>
                         </p>
                     </div>
@@ -147,27 +125,21 @@ export default function AboutClient() {
                     <div
                         className="about-card about-developer-card"
                         style={{
-                            backgroundColor: K
-                                ? "rgba(149, 211, 186, 0.08)"
-                                : "#e2ece9",
-                            border: K
-                                ? "1px solid rgba(149, 211, 186, 0.25)"
-                                : "1px solid #c9dcd6",
+                            backgroundColor: inset,
+                            border: `1px solid ${insetBorder}`,
                         }}
                     >
                         <h2
                             className="about-card-title"
-                            style={{
-                                color: K ? "#95d3ba" : "#003829",
-                            }}
+                            style={{ color: title }}
                         >
                             <span
                                 className="about-card-icon"
                                 style={{
                                     backgroundColor: K
-                                        ? "rgba(255, 224, 136, 0.15)"
-                                        : "#d0e2dc",
-                                    color: K ? "#ffe088" : "#003829",
+                                        ? "rgba(243, 186, 66, 0.15)"
+                                        : "#f6ede4",
+                                    color: accent,
                                 }}
                             >
                                 💻
@@ -175,45 +147,25 @@ export default function AboutClient() {
                             {isarabic ? "عن المطور" : "The Developer"}
                         </h2>
 
-                        <p
-                            className="about-card-body"
-                            style={{
-                                color: K ? "#c8e8dc" : "#243b34",
-                            }}
-                        >
+                        <p className="about-card-body" style={{ color: text }}>
                             {isarabic
-                                ? "تم تطوير PrayerSync من قبل Musa Mohammed — Deep Technical Go، بدافع من فكرة بسيطة: كيف يمكن للتكنولوجيا أن تساعدنا على تنظيم حياتنا اليومية دون أن تجعلنا نغفل عن صلاتنا؟"
-                                : "PrayerSync was developed by Musa Mohammed — Deep Technical Go, driven by a simple idea: how can technology help us organize our daily lives without making us lose sight of our prayers?"}
+                                ? "تم تطوير PrayerConnect من قبل Musa Mohammed — Deep Technical Go، بدافع من فكرة بسيطة: كيف يمكن للتكنولوجيا أن تساعدنا على تنظيم حياتنا اليومية دون أن تجعلنا نغفل عن صلاتنا؟"
+                                : "PrayerConnect was developed by Musa Mohammed — Deep Technical Go, driven by a simple idea: how can technology help us organize our daily lives without making us lose sight of our prayers?"}
                         </p>
 
-                        <p
-                            className="about-card-body"
-                            style={{
-                                color: K ? "#c8e8dc" : "#243b34",
-                            }}
-                        >
+                        <p className="about-card-body" style={{ color: text }}>
                             {isarabic
                                 ? "بدأ المشروع من موقف واقعي داخل العائلة، عندما كانت اجتماعات العمل تتعارض أحيانًا مع أوقات الصلاة. ومن هنا جاءت فكرة دمج مواقيت الصلاة مباشرةً مع التقويم، بحيث تصبح الصلاة جزءًا واضحًا من الجدول اليومي."
                                 : "The project began with a real situation within the family, where work meetings would sometimes conflict with prayer times. This led to the idea of integrating prayer times directly into calendars, making prayer a clear part of the daily schedule."}
                         </p>
 
-                        <p
-                            className="about-card-body"
-                            style={{
-                                color: K ? "#c8e8dc" : "#243b34",
-                            }}
-                        >
+                        <p className="about-card-body" style={{ color: text }}>
                             {isarabic
-                                ? "تم بناء PrayerSync ليكون بسيطًا، عمليًا، وسهل الاستخدام، مع التركيز على تجربة المستخدم وربط مواقيت الصلاة بالتقويمات الرقمية التي يعتمد عليها الناس يوميًا."
-                                : "PrayerSync was built to be simple, practical, and easy to use, with a focus on user experience and connecting prayer times with the digital calendars people rely on every day."}
+                                ? "تم بناء PrayerConnect ليكون بسيطًا، عمليًا، وسهل الاستخدام، مع التركيز على تجربة المستخدم وربط مواقيت الصلاة بالتقويمات الرقمية التي يعتمد عليها الناس يوميًا."
+                                : "PrayerConnect was built to be simple, practical, and easy to use, with a focus on user experience and connecting prayer times with the digital calendars people rely on every day."}
                         </p>
 
-                        <p
-                            className="about-card-body"
-                            style={{
-                                color: K ? "#c8e8dc" : "#243b34",
-                            }}
-                        >
+                        <p className="about-card-body" style={{ color: title }}>
                             <strong>
                                 {isarabic
                                     ? "صُنع بفكرة بسيطة، بهدف مفيد."
@@ -224,18 +176,16 @@ export default function AboutClient() {
                         <div
                             className="developer-badge"
                             style={{
-                                backgroundColor: K ? "#1a2520" : "#ffffff",
-                                color: K ? "#95d3ba" : "#003829",
-                                border: K
-                                    ? "1px solid rgba(149, 211, 186, 0.3)"
-                                    : "1px solid #b8cec7",
+                                backgroundColor: cardBg,
+                                color: accent,
+                                border: `1px solid ${cardBorder}`,
                             }}
                         >
                             <span>👤</span>
                             <span>
                                 {isarabic
-                                    ? "موسى محمد — المطور ومنشئ PrayerSync"
-                                    : "Musa Mohammed — Developer & Creator of PrayerSync"}
+                                    ? "موسى محمد — المطور ومنشئ PrayerConnect"
+                                    : "Musa Mohammed — Developer & Creator of PrayerConnect"}
                             </span>
                         </div>
                     </div>
@@ -243,25 +193,21 @@ export default function AboutClient() {
                     <div
                         className="about-card about-mission-card"
                         style={{
-                            backgroundColor: K ? "#111915" : "#ffffff",
-                            border: K
-                                ? "1px solid rgba(63, 73, 69, 0.4)"
-                                : "1px solid #e1e8e6",
+                            backgroundColor: cardBg,
+                            border: `1px solid ${cardBorder}`,
                             boxShadow: K
                                 ? "0 4px 20px rgba(0,0,0,0.25)"
-                                : "0 4px 20px rgba(0, 56, 41, 0.04)",
+                                : "0 4px 20px rgba(184, 93, 56, 0.05)",
                         }}
                     >
                         <div
                             className="mission-icon-wrap"
                             style={{
                                 backgroundColor: K
-                                    ? "rgba(149, 211, 186, 0.12)"
-                                    : "#e2ece9",
-                                color: K ? "#95d3ba" : "#003829",
-                                border: K
-                                    ? "1px solid rgba(149, 211, 186, 0.2)"
-                                    : "1px solid #d4dedc",
+                                    ? "rgba(243, 186, 66, 0.12)"
+                                    : "#f6ede4",
+                                color: accent,
+                                border: `1px solid ${insetBorder}`,
                             }}
                         >
                             <svg
@@ -281,19 +227,14 @@ export default function AboutClient() {
 
                         <h2
                             className="about-card-title"
-                            style={{
-                                color: K ? "#95d3ba" : "#003829",
-                            }}
+                            style={{ color: title }}
                         >
                             {isarabic ? "رسالتنا" : "Our Mission"}
                         </h2>
 
                         <p
                             className="about-card-body"
-                            style={{
-                                color: K ? "#a0c4b8" : "#4a6660",
-                                fontSize: "16px",
-                            }}
+                            style={{ color: text, fontSize: "16px" }}
                         >
                             {isarabic
                                 ? "نسعى إلى بناء أدوات رقمية بسيطة وعملية تساعد الناس على تنظيم أوقاتهم مع الحفاظ على صلاتهم كجزء أساسي من يومهم."
@@ -302,14 +243,11 @@ export default function AboutClient() {
 
                         <p
                             className="about-card-body"
-                            style={{
-                                color: K ? "#a0c4b8" : "#4a6660",
-                                fontSize: "16px",
-                            }}
+                            style={{ color: text, fontSize: "16px" }}
                         >
                             {isarabic
-                                ? "نؤمن بأن التكنولوجيا يجب أن تدعم أهدافنا ونوايانا، لا أن تشتت انتباهنا عنها. لذلك صُمم PrayerSync ليكون جسرًا بين حياتنا الرقمية وعبادتنا اليومية."
-                                : "We believe technology should support our goals and intentions rather than distract us from them. PrayerSync was designed to be a bridge between our digital lives and daily worship."}
+                                ? "نؤمن بأن التكنولوجيا يجب أن تدعم أهدافنا ونوايانا، لا أن تشتت انتباهنا عنها. لذلك صُمم PrayerConnect ليكون جسرًا بين حياتنا الرقمية وعبادتنا اليومية."
+                                : "We believe technology should support our goals and intentions rather than distract us from them. PrayerConnect was designed to be a bridge between our digital lives and daily worship."}
                         </p>
                     </div>
                 </div>

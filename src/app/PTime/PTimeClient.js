@@ -4,6 +4,8 @@ import "./app.css";
 import Link from "next/link";
 import { useData } from "../Context/DarklightContext";
 import { useData2 } from "../Context/Arabic";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const PRAYER_KEYS = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
@@ -244,101 +246,21 @@ export default function PtimeClient() {
 
     return (
         <div
-            className={`ptime-wrapper ${K ? "dark" : "light"}`}
+            className={`ptime-wrapper app-wrapper ${K ? "dark" : "light"}`}
             dir={isarabic ? "rtl" : "ltr"}
             style={{
-                backgroundColor: K ? "#0f1412" : "#f5faf9",
+                backgroundColor: K ? "#0b0f19" : "#faf7f2",
                 minHeight: "100vh",
             }}
         >
-            <header
-                className="top-app-bar"
-                style={{
-                    backgroundColor: K ? "#0f1412" : "#f5faf9",
-                    borderBottomColor: K ? "rgba(63,73,69,0.3)" : "#eef5f7",
-                }}
-            >
-                <div className="top-app-bar__layout">
-                    <Link
-                        href="/"
-                        className="top-app-bar__brand"
-                        style={{ color: K ? "#95d3ba" : "#003829" }}
-                    >
-                        {isarabic ? "مزامنة الصلاة" : "Prayer Sync"}
-                    </Link>
-                    <nav className="top-app-bar__nav">
-                        <Link
-                            href="/"
-                            className="nav-link"
-                            style={{ color: K ? "#6b8a7e" : "#6e827c" }}
-                        >
-                            {isarabic ? "الرئيسة" : "Home"}
-                        </Link>
-                        <span
-                            className="nav-link active"
-                            style={{
-                                color: K ? "#ffe088" : "#003829",
-                                borderBottomColor: K ? "#ffe088" : "#b19e68",
-                            }}
-                        >
-                            {isarabic ? "المواقيت" : "Schedule"}
-                        </span>
-                        <Link
-                            href="/guides"
-                            className="nav-link"
-                            style={{ color: K ? "#6b8a7e" : "#6e827c" }}
-                        >
-                            {isarabic ? "الأدلة" : "Guides"}
-                        </Link>
-                        <Link
-                            href="/faq"
-                            className="nav-link"
-                            style={{ color: K ? "#6b8a7e" : "#6e827c" }}
-                        >
-                            {isarabic ? "الأسئلة الشائعة" : "FAQ"}
-                        </Link>
-                        <Link
-                            href="/About"
-                            className="nav-link"
-                            style={{ color: K ? "#6b8a7e" : "#6e827c" }}
-                        >
-                            {isarabic ? "عن التطبيق" : "About"}
-                        </Link>
-                    </nav>
-                    <div className="top-app-bar__actions">
-                        <Link
-                            href="/Settings"
-                            className="icon-btn"
-                            aria-label="Settings"
-                            style={{ color: K ? "#6b8a7e" : "#003829", display: "inline-flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}
-                        >
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <circle cx="12" cy="12" r="3"></circle>
-                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                            </svg>
-                        </Link>
-                        <Link
-                            href="/Contact"
-                            className="icon-btn"
-                            aria-label="Contact"
-                            style={{ color: K ? "#6b8a7e" : "#003829", display: "inline-flex", alignItems: "center", justifyContent: "center", textDecoration: "none" }}
-                        >
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                            </svg>
-                        </Link>
-                    </div>
-                </div>
-            </header>
+            <Header currentPath="/PTime" />
 
             <main className="main-content">
                 <section className="time-header">
                     <div
                         className="current-time"
                         suppressHydrationWarning
-                        style={{ color: K ? "#95d3ba" : "#003829" }}
+                        style={{ color: K ? "#ffffff" : "#241a15" }}
                     >
                         {timeString}
                     </div>
@@ -347,8 +269,9 @@ export default function PtimeClient() {
                             className="next-prayer-countdown"
                             suppressHydrationWarning
                             style={{
-                                backgroundColor: K ? "rgba(255,224,136,0.12)" : "#ffe088",
-                                color: K ? "#ffe088" : "#735c00",
+                                backgroundColor: K ? "rgba(243, 186, 66, 0.15)" : "#faede0",
+                                color: K ? "#f3ba42" : "#8d4427",
+                                border: K ? "1px solid rgba(243, 186, 66, 0.35)" : "1px solid #c8764b",
                             }}
                         >
                             {countdown}
@@ -358,11 +281,11 @@ export default function PtimeClient() {
                         <div
                             className="location-badge"
                             style={{
-                                color: K ? "#5a7a70" : "#5c726c",
+                                color: K ? "#8290a6" : "#70645d",
                                 marginTop: "12px",
                             }}
                         >
-                            <svg width="14" height="14" viewBox="0 0 12 14" fill="currentColor" style={{ verticalAlign: "middle", marginInlineEnd: "6px" }}>
+                            <svg width="14" height="14" viewBox="0 0 12 14" fill="currentColor" style={{ verticalAlign: "middle", marginInlineEnd: "6px", color: K ? "#f3ba42" : "#b85d38" }}>
                                 <path d="M6 0C2.68629 0 0 2.68629 0 6C0 9.75 6 14 6 14C6 14 12 9.75 12 6C12 2.68629 9.31371 0 6 0ZM6 8.25C4.75736 8.25 3.75 7.24264 3.75 6C3.75 4.75736 4.75736 3.75 6 3.75C7.24264 3.75 8.25 4.75736 8.25 6C8.25 7.24264 7.24264 8.25 6 8.25Z" />
                             </svg>
                             {locationName}
@@ -373,16 +296,16 @@ export default function PtimeClient() {
                 <section
                     className="schedule-container"
                     style={{
-                        backgroundColor: K ? "#0b0f0d" : "#ffffff",
-                        border: K ? "1px solid rgba(63,73,69,0.3)" : "1px solid rgba(0,53,39,0.1)",
+                        backgroundColor: K ? "#121a2b" : "#ffffff",
+                        border: K ? "1px solid #1c273e" : "1px solid #ece4d9",
+                        boxShadow: K ? "0 10px 40px rgba(0, 0, 0, 0.4)" : "0 10px 30px rgba(90, 60, 40, 0.04)",
                     }}
                 >
-                    <div className="schedule-header-row">
+                    <div className="schedule-header-row" style={{ borderBottomColor: K ? "#1c273e" : "#ece4d9" }}>
                         <h2
                             className="schedule-title"
                             style={{
-                                color: K ? "#95d3ba" : "#003829",
-                                borderBottomColor: K ? "rgba(63,73,69,0.3)" : "#eef5f7",
+                                color: K ? "#ffffff" : "#241a15",
                             }}
                         >
                             {isarabic ? "مواقيت الصلاة اليوم" : "Today's Schedule"}
@@ -392,8 +315,9 @@ export default function PtimeClient() {
                                 className="date-badge-pill"
                                 suppressHydrationWarning
                                 style={{
-                                    backgroundColor: K ? "#1a2520" : "#e3ebec",
-                                    color: K ? "#95d3ba" : "#2c463f",
+                                    backgroundColor: K ? "#151e30" : "#f5ede4",
+                                    color: K ? "#cbd5e1" : "#8d5738",
+                                    border: K ? "1px solid #23314d" : "1px solid #ece4d9",
                                 }}
                             >
                                 {`${Month} ${Day}, ${Year}`}
@@ -402,8 +326,8 @@ export default function PtimeClient() {
                     </div>
 
                     {loading ? (
-                        <div className="loading-state" style={{ color: K ? "#5a7a70" : "#6e827c" }}>
-                            <div className="loading-spinner"></div>
+                        <div className="loading-state" style={{ color: K ? "#8290a6" : "#70645d" }}>
+                            <div className="loading-spinner" style={{ borderTopColor: K ? "#f3ba42" : "#b85d38" }}></div>
                             {isarabic ? "جارٍ تحميل المواقيت..." : "Loading prayer times..."}
                         </div>
                     ) : (
@@ -415,9 +339,17 @@ export default function PtimeClient() {
                                     suppressHydrationWarning
                                     style={{
                                         backgroundColor: prayer.isCurrent
-                                            ? (K ? "rgba(149,211,186,0.06)" : "rgba(0,53,39,0.03)")
-                                            : "transparent",
-                                        borderInlineStartColor: prayer.isCurrent ? "#b19e68" : "transparent",
+                                            ? (K ? "#162137" : "#faede0")
+                                            : (K ? "#0c121e" : "#f6f0ea"),
+                                        border: prayer.isCurrent
+                                            ? (K ? "1px solid #f3ba42" : "1px solid #c8764b")
+                                            : (K ? "1px solid #182236" : "1px solid transparent"),
+                                        borderInlineStart: prayer.isCurrent
+                                            ? (K ? "4px solid #f3ba42" : "4px solid #c8764b")
+                                            : "4px solid transparent",
+                                        boxShadow: prayer.isCurrent
+                                            ? (K ? "0 0 16px rgba(243, 186, 66, 0.2)" : "0 4px 16px rgba(184, 93, 56, 0.12)")
+                                            : "none",
                                     }}
                                 >
                                     <div className="prayer-info">
@@ -425,8 +357,9 @@ export default function PtimeClient() {
                                             className="prayer-name"
                                             style={{
                                                 color: prayer.isCurrent
-                                                    ? (K ? "#95d3ba" : "#003829")
-                                                    : (K ? "#6b8a7e" : "#003527"),
+                                                    ? (K ? "#e2e8f0" : "#8d4427")
+                                                    : (K ? "#94a3b8" : "#241a15"),
+                                                fontWeight: prayer.isCurrent ? 700 : 600,
                                             }}
                                         >
                                             {prayer.name}
@@ -434,7 +367,7 @@ export default function PtimeClient() {
                                         <span
                                             className="prayer-period"
                                             style={{
-                                                color: K ? "#4d6b62" : "#404944",
+                                                color: K ? "#8290a6" : "#8a7d75",
                                             }}
                                         >
                                             {prayer.period}
@@ -445,8 +378,8 @@ export default function PtimeClient() {
                                             <span
                                                 className="current-badge"
                                                 style={{
-                                                    backgroundColor: K ? "rgba(255,224,136,0.12)" : "#eadecc",
-                                                    color: K ? "#ffe088" : "#8b753a",
+                                                    backgroundColor: K ? "#f3ba42" : "#a64d29",
+                                                    color: K ? "#0b0f19" : "#ffffff",
                                                 }}
                                             >
                                                 {isarabic ? "الآن" : "Current"}
@@ -456,8 +389,8 @@ export default function PtimeClient() {
                                             className="prayer-time"
                                             style={{
                                                 color: prayer.isCurrent
-                                                    ? (K ? "#ffe088" : "#735c00")
-                                                    : (K ? "#c8e8dc" : "#003527"),
+                                                    ? (K ? "#f3ba42" : "#a64d29")
+                                                    : (K ? "#ffffff" : "#b85d38"),
                                             }}
                                         >
                                             {prayer.time}
@@ -470,56 +403,7 @@ export default function PtimeClient() {
                 </section>
             </main>
 
-            <footer
-                className="footer"
-                style={{
-                    backgroundColor: K ? "#080c0a" : "#e2e8e7",
-                    borderTop: K ? "1px solid rgba(63,73,69,0.3)" : "1px solid #d4dedc",
-                }}
-            >
-                <div className="footer__layout">
-                    <div className="footer__copyright" suppressHydrationWarning style={{ color: K ? "#4d6b62" : "#5c726c" }}>
-                        &copy; {now ? Year : ""} {isarabic ? "موسى محمد. جميع الحقوق محفوظة." : "Musa Mohammed. All rights reserved."}
-                    </div>
-                    <div className="footer__links">
-                        <Link
-                            className="footer__link"
-                            href="/guides"
-                            style={{ color: K ? "#4d6b62" : "#5c726c" }}
-                        >
-                            {isarabic ? "الأدلة والشروحات" : "Guides"}
-                        </Link>
-                        <Link
-                            className="footer__link"
-                            href="/faq"
-                            style={{ color: K ? "#4d6b62" : "#5c726c" }}
-                        >
-                            {isarabic ? "الأسئلة الشائعة" : "FAQ"}
-                        </Link>
-                        <Link
-                            className="footer__link"
-                            href="/Priacypolicy"
-                            style={{ color: K ? "#4d6b62" : "#5c726c" }}
-                        >
-                            {isarabic ? "سياسة الخصوصية" : "Privacy Policy"}
-                        </Link>
-                        <Link
-                            className="footer__link"
-                            href="/terms"
-                            style={{ color: K ? "#4d6b62" : "#5c726c" }}
-                        >
-                            {isarabic ? "شروط الخدمة" : "Terms of Service"}
-                        </Link>
-                        <Link
-                            className="footer__link"
-                            href="/Contact"
-                            style={{ color: K ? "#4d6b62" : "#5c726c" }}
-                        >
-                            {isarabic ? "تواصل معنا" : "Contact Us"}
-                        </Link>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

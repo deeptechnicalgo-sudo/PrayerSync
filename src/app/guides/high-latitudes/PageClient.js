@@ -13,13 +13,14 @@ export default function HighLatitudesPage() {
     const { isarabic } = useData2();
     const [activeMethod, setActiveMethod] = useState("middle-of-night");
 
-    const bg = K ? "#0f1412" : "#f5faf9";
-    const text = K ? "#c8e8dc" : "#2c463f";
-    const cardBg = K ? "#111915" : "#ffffff";
-    const cardBorder = K ? "rgba(63,73,69,0.35)" : "#e2ede9";
-    const accent = K ? "#95d3ba" : "#003829";
-    const subText = K ? "#7a9e90" : "#5a7a72";
-    const highlightBg = K ? "#162520" : "#eef8f3";
+    const bg = K ? "#0b0f19" : "#faf7f2";
+    const text = K ? "#ccd6e6" : "#4a3c31";
+    const title = K ? "#ffffff" : "#241a15";
+    const cardBg = K ? "#121a2b" : "#ffffff";
+    const cardBorder = K ? "#1c273e" : "#ece4d9";
+    const accent = K ? "#f3ba42" : "#b85d38";
+    const subText = K ? "#8b9cb5" : "#7c6b5e";
+    const highlightBg = K ? "#0c121e" : "#f6f0e8";
 
     const problemCountries = [
         { flag: "🇳🇴", country_en: "Norway", country_ar: "النرويج", lat: "58–71°N", issue_en: "Midnight sun in summer, polar night in winter", issue_ar: "شمس منتصف الليل صيفاً، وليل قطبي شتاءً" },
@@ -127,7 +128,7 @@ export default function HighLatitudesPage() {
                     <div style={{ display: "inline-block", background: "#6366f122", border: "1px solid #6366f144", borderRadius: "8px", padding: "4px 12px", fontSize: "12px", fontWeight: "700", color: "#818cf8", marginBottom: "16px", letterSpacing: "0.5px" }}>
                         {isarabic ? "🌐 خطوط العرض العليا" : "🌐 HIGH LATITUDE GUIDE"}
                     </div>
-                    <h1 style={{ fontSize: "2.4rem", fontWeight: "800", color: K ? "#ffffff" : "#001a13", lineHeight: 1.2, marginBottom: "16px" }}>
+                    <h1 style={{ fontSize: "2.4rem", fontWeight: "800", color: title, lineHeight: 1.2, marginBottom: "16px" }}>
                         {isarabic
                             ? "مواقيت الصلاة في خطوط العرض العليا"
                             : "Prayer Times at High Latitudes"}
@@ -140,7 +141,7 @@ export default function HighLatitudesPage() {
                 </div>
 
                 {/* Why it's a problem */}
-                <section style={{ background: K ? "#1a0505" : "#fff5f5", border: `1px solid ${K ? "rgba(239,68,68,0.3)" : "#fca5a5"}`, borderRadius: "14px", padding: "24px", marginBottom: "36px" }}>
+                <section style={{ background: K ? "#1c1318" : "#fff5f5", border: `1px solid ${K ? "rgba(239,68,68,0.3)" : "#fca5a5"}`, borderRadius: "14px", padding: "24px", marginBottom: "36px" }}>
                     <h2 style={{ color: "#ef4444", fontSize: "1.2rem", fontWeight: "700", marginTop: 0, marginBottom: "12px" }}>
                         {isarabic ? "⚠️ لماذا تختفي مواقيت الصلاة؟" : "⚠️ Why Do Prayer Times Disappear?"}
                     </h2>
@@ -158,7 +159,7 @@ export default function HighLatitudesPage() {
 
                 {/* Affected Countries */}
                 <section style={{ marginBottom: "36px" }}>
-                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: K ? "#ffffff" : "#001a13", marginBottom: "20px" }}>
+                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: title, marginBottom: "20px" }}>
                         {isarabic ? "🌍 الدول المتأثرة" : "🌍 Affected Countries & Regions"}
                     </h2>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "14px" }}>
@@ -181,7 +182,7 @@ export default function HighLatitudesPage() {
 
                 {/* High Latitude Methods */}
                 <section style={{ marginBottom: "40px" }}>
-                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: K ? "#ffffff" : "#001a13", marginBottom: "8px" }}>
+                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: title, marginBottom: "8px" }}>
                         {isarabic ? "الطرق المعتمدة عالمياً" : "Globally Recognized Calculation Methods"}
                     </h2>
                     <p style={{ color: subText, marginBottom: "20px", fontSize: "14px" }}>
@@ -213,7 +214,7 @@ export default function HighLatitudesPage() {
                                 {isarabic ? method.desc_ar : method.desc_en}
                             </p>
                             <div style={{ background: highlightBg, borderRadius: "10px", padding: "14px", border: `1px solid ${cardBorder}` }}>
-                                <div style={{ fontWeight: "600", color: K ? "#ffe088" : "#5c3c00", marginBottom: "6px", fontSize: "13px" }}>
+                                <div style={{ fontWeight: "600", color: accent, marginBottom: "6px", fontSize: "13px" }}>
                                     📐 {isarabic ? "مثال:" : "Example:"}
                                 </div>
                                 <div style={{ color: text, fontSize: "14px", lineHeight: "1.6" }}>
@@ -226,7 +227,7 @@ export default function HighLatitudesPage() {
 
                 {/* Practical Tips */}
                 <section style={{ marginBottom: "40px" }}>
-                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: K ? "#ffffff" : "#001a13", marginBottom: "20px" }}>
+                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: title, marginBottom: "20px" }}>
                         {isarabic ? "💡 نصائح عملية للمسلمين في المناطق المتأثرة" : "💡 Practical Tips for Muslims in Affected Regions"}
                     </h2>
                     <div style={{ display: "grid", gap: "14px" }}>
@@ -247,8 +248,8 @@ export default function HighLatitudesPage() {
                 </section>
 
                 {/* Settings CTA */}
-                <div style={{ background: `linear-gradient(135deg, ${K ? "#0d1a2e" : "#eef4ff"}, ${K ? "#111925" : "#e0eaff"})`, border: `1px solid ${K ? "rgba(99,102,241,0.3)" : "#a5b4fc"}`, borderRadius: "16px", padding: "28px", textAlign: "center" }}>
-                    <h3 style={{ color: "#6366f1", fontSize: "1.2rem", fontWeight: "700", marginTop: 0, marginBottom: "12px" }}>
+                <div style={{ background: highlightBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "28px", textAlign: "center" }}>
+                    <h3 style={{ color: title, fontSize: "1.2rem", fontWeight: "700", marginTop: 0, marginBottom: "12px" }}>
                         {isarabic ? "اضبط طريقة خطوط العرض العليا في PrayerSync" : "Set Your High Latitude Method in PrayerSync"}
                     </h3>
                     <p style={{ color: subText, marginBottom: "20px", fontSize: "14px" }}>
@@ -257,7 +258,7 @@ export default function HighLatitudesPage() {
                             : "PrayerSync supports all high latitude methods. Change the setting from the Settings page."}
                     </p>
                     <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
-                        <Link href="/Settings" style={{ display: "inline-block", background: "#6366f1", color: "#ffffff", padding: "11px 24px", borderRadius: "8px", textDecoration: "none", fontWeight: "700", fontSize: "13px" }}>
+                        <Link href="/Settings" style={{ display: "inline-block", background: accent, color: K ? "#0b0f19" : "#ffffff", padding: "11px 24px", borderRadius: "8px", textDecoration: "none", fontWeight: "700", fontSize: "13px" }}>
                             {isarabic ? "⚙️ افتح الإعدادات" : "⚙️ Open Settings"}
                         </Link>
                         <Link href="/guides" style={{ display: "inline-block", background: "transparent", border: `1px solid ${cardBorder}`, color: subText, padding: "11px 24px", borderRadius: "8px", textDecoration: "none", fontWeight: "600", fontSize: "13px" }}>

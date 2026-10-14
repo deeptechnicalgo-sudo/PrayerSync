@@ -20,16 +20,16 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f5faf9" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f1412" },
+    { media: "(prefers-color-scheme: light)", color: "#faf7f2" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0f19" },
   ],
 };
 
 export const metadata = {
   metadataBase: new URL("https://prayer-sync.vercel.app"),
   title: {
-    default: "PrayerSync - Islamic Prayer Times & Smart Calendar Sync",
-    template: "%s | PrayerSync",
+    default: "PrayerConnect - Islamic Prayer Times & Smart Calendar Sync",
+    template: "%s | PrayerConnect",
   },
   description: "Accurate Islamic prayer times, astronomical calculation methods (MWL, ISNA, Umm al-Qura), and seamless automatic synchronization with Google Calendar, Apple Calendar, and Microsoft Outlook.",
   keywords: [
@@ -48,9 +48,9 @@ export const metadata = {
     "Muslim calendar sync",
     "prayer reminder app"
   ],
-  authors: [{ name: "PrayerSync Team", url: "https://prayer-sync.vercel.app" }],
+  authors: [{ name: "PrayerConnect Team", url: "https://prayer-sync.vercel.app" }],
   creator: "Musa Mohammed",
-  publisher: "PrayerSync",
+  publisher: "PrayerConnect",
   robots: {
     index: true,
     follow: true,
@@ -67,14 +67,14 @@ export const metadata = {
     locale: "en_US",
     alternateLocale: "ar_SA",
     url: "https://prayer-sync.vercel.app",
-    siteName: "PrayerSync",
-    title: "PrayerSync - Islamic Prayer Times & Smart Calendar Sync",
-    description: "PrayerSync helps you sync local prayer times with Google Calendar and Outlook, making it easier to organize your daily schedule around your prayers.",
+    siteName: "PrayerConnect",
+    title: "PrayerConnect - Islamic Prayer Times & Smart Calendar Sync",
+    description: "PrayerConnect helps you sync local prayer times with Google Calendar and Outlook, making it easier to organize your daily schedule around your prayers.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "PrayerSync - Islamic Prayer Times & Smart Calendar Sync",
-    description: "PrayerSync helps you sync local prayer times with Google Calendar and Outlook, making it easier to organize your daily schedule around your prayers.",
+    title: "PrayerConnect - Islamic Prayer Times & Smart Calendar Sync",
+    description: "PrayerConnect helps you sync local prayer times with Google Calendar and Outlook, making it easier to organize your daily schedule around your prayers.",
   },
   alternates: {
     canonical: "https://prayer-sync.vercel.app",

@@ -48,44 +48,51 @@ export function DataProvider({ children }) {
 
     useEffect(() => {
         try {
-            const savedK = localStorage.getItem("prayersync_darkmode");
-            if (savedK !== null) setk(savedK === "true");
+            const savedK = localStorage.getItem("prayerconnect_darkmode") ?? localStorage.getItem("prayersync_darkmode");
+            if (savedK !== null) {
+                const isDark = savedK === "true";
+                setk(isDark);
+                if (typeof document !== "undefined") {
+                    document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+                    document.documentElement.classList.toggle("dark", isDark);
+                }
+            }
 
-            const savedNightLight = localStorage.getItem("prayersync_nightlight");
+            const savedNightLight = localStorage.getItem("prayerconnect_nightlight") ?? localStorage.getItem("prayersync_nightlight");
             if (savedNightLight !== null) setNightLight(savedNightLight === "true");
 
-            const saved12H = localStorage.getItem("prayersync_12hours");
+            const saved12H = localStorage.getItem("prayerconnect_12hours") ?? localStorage.getItem("prayersync_12hours");
             if (saved12H !== null) setIs12Hours(saved12H === "true");
 
-            const savedMonthEver = localStorage.getItem("prayersync_monthever");
+            const savedMonthEver = localStorage.getItem("prayerconnect_monthever") ?? localStorage.getItem("prayersync_monthever");
             if (savedMonthEver !== null) setMonthEverState(savedMonthEver === "true");
 
-            const savedEventBusy = localStorage.getItem("prayersync_eventbusy");
+            const savedEventBusy = localStorage.getItem("prayerconnect_eventbusy") ?? localStorage.getItem("prayersync_eventbusy");
             if (savedEventBusy !== null) setEventBusyState(savedEventBusy === "true");
 
-            const savedMethod = localStorage.getItem("prayersync_calcmethod");
+            const savedMethod = localStorage.getItem("prayerconnect_calcmethod") ?? localStorage.getItem("prayersync_calcmethod");
             if (savedMethod !== null) setCalcMethodState(Number(savedMethod));
 
-            const savedSchool = localStorage.getItem("prayersync_asrschool");
+            const savedSchool = localStorage.getItem("prayerconnect_asrschool") ?? localStorage.getItem("prayersync_asrschool");
             if (savedSchool !== null) setAsrSchoolState(Number(savedSchool));
 
-            const savedPreBuffer = localStorage.getItem("prayersync_prebuffer");
+            const savedPreBuffer = localStorage.getItem("prayerconnect_prebuffer") ?? localStorage.getItem("prayersync_prebuffer");
             if (savedPreBuffer !== null) setPreBufferState(Number(savedPreBuffer));
 
-            const savedPostBuffer = localStorage.getItem("prayersync_postbuffer");
+            const savedPostBuffer = localStorage.getItem("prayerconnect_postbuffer") ?? localStorage.getItem("prayersync_postbuffer");
             if (savedPostBuffer !== null) setPostBufferState(Number(savedPostBuffer));
 
-            const savedExportRange = localStorage.getItem("prayersync_exportrange");
+            const savedExportRange = localStorage.getItem("prayerconnect_exportrange") ?? localStorage.getItem("prayersync_exportrange");
             if (savedExportRange !== null) setExportRangeState(savedExportRange);
 
-            const savedSelectedPrayers = localStorage.getItem("prayersync_selectedprayers");
+            const savedSelectedPrayers = localStorage.getItem("prayerconnect_selectedprayers") ?? localStorage.getItem("prayersync_selectedprayers");
             if (savedSelectedPrayers !== null) {
                 try {
                     setSelectedPrayersState(JSON.parse(savedSelectedPrayers));
                 } catch (e) {}
             }
 
-            const savedOffsets = localStorage.getItem("prayersync_minuteoffsets");
+            const savedOffsets = localStorage.getItem("prayerconnect_minuteoffsets") ?? localStorage.getItem("prayersync_minuteoffsets");
             if (savedOffsets !== null) {
                 try {
                     setMinuteOffsetsState(JSON.parse(savedOffsets));
@@ -99,7 +106,12 @@ export function DataProvider({ children }) {
 
     const toggleTheme = (val) => {
         setk(val);
+        if (typeof document !== "undefined") {
+            document.documentElement.setAttribute("data-theme", val ? "dark" : "light");
+            document.documentElement.classList.toggle("dark", val);
+        }
         try {
+            localStorage.setItem("prayerconnect_darkmode", String(val));
             localStorage.setItem("prayersync_darkmode", String(val));
         } catch (e) {}
     };
@@ -107,6 +119,7 @@ export function DataProvider({ children }) {
     const toggleNightLight = (val) => {
         setNightLight(val);
         try {
+            localStorage.setItem("prayerconnect_nightlight", String(val));
             localStorage.setItem("prayersync_nightlight", String(val));
         } catch (e) {}
     };
@@ -114,6 +127,7 @@ export function DataProvider({ children }) {
     const toggle12Hours = (val) => {
         setIs12Hours(val);
         try {
+            localStorage.setItem("prayerconnect_12hours", String(val));
             localStorage.setItem("prayersync_12hours", String(val));
         } catch (e) {}
     };
@@ -121,6 +135,7 @@ export function DataProvider({ children }) {
     const setMonth = (val) => {
         setMonthEverState(val);
         try {
+            localStorage.setItem("prayerconnect_monthever", String(val));
             localStorage.setItem("prayersync_monthever", String(val));
         } catch (e) {}
     };
@@ -128,6 +143,7 @@ export function DataProvider({ children }) {
     const setEventBusy = (val) => {
         setEventBusyState(val);
         try {
+            localStorage.setItem("prayerconnect_eventbusy", String(val));
             localStorage.setItem("prayersync_eventbusy", String(val));
         } catch (e) {}
     };
@@ -136,6 +152,7 @@ export function DataProvider({ children }) {
         const num = Number(val);
         setCalcMethodState(num);
         try {
+            localStorage.setItem("prayerconnect_calcmethod", String(num));
             localStorage.setItem("prayersync_calcmethod", String(num));
         } catch (e) {}
     };
@@ -144,6 +161,7 @@ export function DataProvider({ children }) {
         const num = Number(val);
         setAsrSchoolState(num);
         try {
+            localStorage.setItem("prayerconnect_asrschool", String(num));
             localStorage.setItem("prayersync_asrschool", String(num));
         } catch (e) {}
     };
@@ -152,6 +170,7 @@ export function DataProvider({ children }) {
         const num = Number(val);
         setPreBufferState(num);
         try {
+            localStorage.setItem("prayerconnect_prebuffer", String(num));
             localStorage.setItem("prayersync_prebuffer", String(num));
         } catch (e) {}
     };
@@ -160,6 +179,7 @@ export function DataProvider({ children }) {
         const num = Number(val);
         setPostBufferState(num);
         try {
+            localStorage.setItem("prayerconnect_postbuffer", String(num));
             localStorage.setItem("prayersync_postbuffer", String(num));
         } catch (e) {}
     };
@@ -167,6 +187,7 @@ export function DataProvider({ children }) {
     const setExportRange = (val) => {
         setExportRangeState(val);
         try {
+            localStorage.setItem("prayerconnect_exportrange", String(val));
             localStorage.setItem("prayersync_exportrange", String(val));
         } catch (e) {}
     };
@@ -175,6 +196,7 @@ export function DataProvider({ children }) {
         const updated = { ...selectedPrayers, [prayerKey]: isSelected };
         setSelectedPrayersState(updated);
         try {
+            localStorage.setItem("prayerconnect_selectedprayers", JSON.stringify(updated));
             localStorage.setItem("prayersync_selectedprayers", JSON.stringify(updated));
         } catch (e) {}
     };
@@ -183,6 +205,7 @@ export function DataProvider({ children }) {
         const updated = { ...minuteOffsets, [prayerKey]: offsetMinutes };
         setMinuteOffsetsState(updated);
         try {
+            localStorage.setItem("prayerconnect_minuteoffsets", JSON.stringify(updated));
             localStorage.setItem("prayersync_minuteoffsets", JSON.stringify(updated));
         } catch (e) {}
     };

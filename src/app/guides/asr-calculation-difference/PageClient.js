@@ -13,13 +13,14 @@ export default function AsrCalculationPage() {
     const { isarabic } = useData2();
     const [expanded, setExpanded] = useState(null);
 
-    const bg = K ? "#0f1412" : "#f5faf9";
-    const text = K ? "#c8e8dc" : "#2c463f";
-    const cardBg = K ? "#111915" : "#ffffff";
-    const cardBorder = K ? "rgba(63,73,69,0.35)" : "#e2ede9";
-    const accent = K ? "#95d3ba" : "#003829";
-    const subText = K ? "#7a9e90" : "#5a7a72";
-    const highlightBg = K ? "#162520" : "#eef8f3";
+    const bg = K ? "#0b0f19" : "#faf7f2";
+    const text = K ? "#ccd6e6" : "#4a3c31";
+    const title = K ? "#ffffff" : "#241a15";
+    const cardBg = K ? "#121a2b" : "#ffffff";
+    const cardBorder = K ? "#1c273e" : "#ece4d9";
+    const accent = K ? "#f3ba42" : "#b85d38";
+    const subText = K ? "#8b9cb5" : "#7c6b5e";
+    const highlightBg = K ? "#0c121e" : "#f6f0e8";
 
     const methods = [
         {
@@ -105,7 +106,7 @@ export default function AsrCalculationPage() {
                     <div style={{ display: "inline-block", background: "#f59e0b22", border: "1px solid #f59e0b44", borderRadius: "8px", padding: "4px 12px", fontSize: "12px", fontWeight: "700", color: "#f59e0b", marginBottom: "16px", letterSpacing: "0.5px" }}>
                         {isarabic ? "🕌 فقه ومواقيت" : "🕌 JURISPRUDENCE & ASTRONOMY"}
                     </div>
-                    <h1 style={{ fontSize: "2.4rem", fontWeight: "800", color: K ? "#ffffff" : "#001a13", lineHeight: 1.2, marginBottom: "16px" }}>
+                    <h1 style={{ fontSize: "2.4rem", fontWeight: "800", color: title, lineHeight: 1.2, marginBottom: "16px" }}>
                         {isarabic
                             ? "الفرق الفقهي والفلكي في حساب وقت صلاة العصر"
                             : "The Jurisprudential & Astronomical Difference in Asr Prayer Time"}
@@ -119,12 +120,12 @@ export default function AsrCalculationPage() {
 
                 {/* Two Methods */}
                 <section style={{ marginBottom: "40px" }}>
-                    <h2 style={{ fontSize: "1.6rem", fontWeight: "700", color: K ? "#ffffff" : "#001a13", marginBottom: "24px" }}>
+                    <h2 style={{ fontSize: "1.6rem", fontWeight: "700", color: title, marginBottom: "24px" }}>
                         {isarabic ? "الطريقتان الفقهيتان" : "The Two Jurisprudential Methods"}
                     </h2>
                     <div style={{ display: "grid", gap: "20px" }}>
                         {methods.map((method) => (
-                            <div key={method.id} style={{ background: cardBg, border: `2px solid ${method.color}44`, borderRadius: "14px", padding: "24px" }}>
+                            <div key={method.id} style={{ background: cardBg, border: `1px solid ${cardBorder}`, borderRadius: "14px", padding: "24px" }}>
                                 <div style={{ display: "flex", alignItems: "flex-start", gap: "16px", marginBottom: "16px", flexWrap: "wrap" }}>
                                     <div>
                                         <h3 style={{ margin: 0, color: method.color, fontSize: "1.15rem", fontWeight: "700" }}>
@@ -146,8 +147,8 @@ export default function AsrCalculationPage() {
                                         {isarabic ? method.rule_ar : method.rule_en}
                                     </p>
                                 </div>
-                                <div style={{ background: K ? "#0b1810" : "#f7fdf9", border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "14px" }}>
-                                    <div style={{ fontWeight: "600", color: K ? "#ffe088" : "#5c3c00", marginBottom: "6px", fontSize: "13px" }}>
+                                <div style={{ background: highlightBg, border: `1px solid ${cardBorder}`, borderRadius: "10px", padding: "14px" }}>
+                                    <div style={{ fontWeight: "600", color: accent, marginBottom: "6px", fontSize: "13px" }}>
                                         {isarabic ? "📐 مثال عملي:" : "📐 Practical Example:"}
                                     </div>
                                     <p style={{ margin: 0, color: text, fontSize: "14px", lineHeight: "1.6" }}>
@@ -166,7 +167,7 @@ export default function AsrCalculationPage() {
 
                 {/* Comparison Table */}
                 <section style={{ marginBottom: "40px" }}>
-                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: K ? "#ffffff" : "#001a13", marginBottom: "8px" }}>
+                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: title, marginBottom: "8px" }}>
                         {isarabic ? "🌍 الفارق الزمني حسب خط العرض" : "🌍 Time Difference by Latitude"}
                     </h2>
                     <p style={{ color: subText, marginBottom: "20px", fontSize: "14px" }}>
@@ -194,7 +195,7 @@ export default function AsrCalculationPage() {
                                         <td style={{ padding: "12px 16px", borderBottom: `1px solid ${cardBorder}`, color: text }}>{row.lat}</td>
                                         <td style={{ padding: "12px 16px", borderBottom: `1px solid ${cardBorder}`, color: "#10b981", textAlign: "center", fontWeight: "600" }}>{row.std}</td>
                                         <td style={{ padding: "12px 16px", borderBottom: `1px solid ${cardBorder}`, color: "#f59e0b", textAlign: "center", fontWeight: "600" }}>{row.hanafi}</td>
-                                        <td style={{ padding: "12px 16px", borderBottom: `1px solid ${cardBorder}`, color: K ? "#ffe088" : "#c05500", textAlign: "center", fontWeight: "700" }}>{row.diff}</td>
+                                        <td style={{ padding: "12px 16px", borderBottom: `1px solid ${cardBorder}`, color: accent, textAlign: "center", fontWeight: "700" }}>{row.diff}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -204,7 +205,7 @@ export default function AsrCalculationPage() {
 
                 {/* FAQ */}
                 <section style={{ marginBottom: "40px" }}>
-                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: K ? "#ffffff" : "#001a13", marginBottom: "24px" }}>
+                    <h2 style={{ fontSize: "1.5rem", fontWeight: "700", color: title, marginBottom: "24px" }}>
                         {isarabic ? "أسئلة شائعة" : "Frequently Asked Questions"}
                     </h2>
                     {faqs.map((faq, i) => (
@@ -212,7 +213,7 @@ export default function AsrCalculationPage() {
                             <button
                                 type="button"
                                 onClick={() => setExpanded(expanded === i ? null : i)}
-                                style={{ width: "100%", textAlign: "left", background: cardBg, padding: "18px 20px", cursor: "pointer", color: accent, fontWeight: "600", fontSize: "14.5px", border: "none", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px" }}
+                                style={{ width: "100%", textAlign: "left", background: cardBg, padding: "18px 20px", cursor: "pointer", color: title, fontWeight: "600", fontSize: "14.5px", border: "none", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px" }}
                             >
                                 {isarabic ? faq.q_ar : faq.q_en}
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, transform: expanded === i ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s" }}>
@@ -229,8 +230,8 @@ export default function AsrCalculationPage() {
                 </section>
 
                 {/* CTA */}
-                <div style={{ background: `linear-gradient(135deg, ${K ? "#1a1200" : "#fef8e7"}, ${K ? "#1a1500" : "#fdf3cc"})`, border: `1px solid ${K ? "rgba(255,224,136,0.2)" : "#f0d070"}`, borderRadius: "16px", padding: "28px", textAlign: "center" }}>
-                    <h3 style={{ color: "#f59e0b", fontSize: "1.2rem", fontWeight: "700", marginTop: 0, marginBottom: "12px" }}>
+                <div style={{ background: highlightBg, border: `1px solid ${cardBorder}`, borderRadius: "16px", padding: "28px", textAlign: "center" }}>
+                    <h3 style={{ color: title, fontSize: "1.2rem", fontWeight: "700", marginTop: 0, marginBottom: "12px" }}>
                         {isarabic ? "غيّر طريقة حساب العصر في PrayerSync" : "Change Your Asr Method in PrayerSync"}
                     </h3>
                     <p style={{ color: subText, marginBottom: "20px", fontSize: "14px" }}>
@@ -239,7 +240,7 @@ export default function AsrCalculationPage() {
                             : "PrayerSync supports both methods. Go to Settings to switch your Asr calculation preference."}
                     </p>
                     <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
-                        <Link href="/Settings" style={{ display: "inline-block", background: "#f59e0b", color: "#1a0a00", padding: "11px 24px", borderRadius: "8px", textDecoration: "none", fontWeight: "700", fontSize: "13px" }}>
+                        <Link href="/Settings" style={{ display: "inline-block", background: accent, color: K ? "#0b0f19" : "#ffffff", padding: "11px 24px", borderRadius: "8px", textDecoration: "none", fontWeight: "700", fontSize: "13px" }}>
                             {isarabic ? "⚙️ الإعدادات" : "⚙️ Open Settings"}
                         </Link>
                         <Link href="/guides" style={{ display: "inline-block", background: "transparent", border: `1px solid ${cardBorder}`, color: subText, padding: "11px 24px", borderRadius: "8px", textDecoration: "none", fontWeight: "600", fontSize: "13px" }}>

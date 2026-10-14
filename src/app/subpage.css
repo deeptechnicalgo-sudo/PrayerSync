@@ -8,8 +8,35 @@
 
 body, html {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    color: #2c463f;
+    color: var(--sub-text, #4a3c31);
+    background-color: var(--sub-bg, #faf7f2);
     min-height: 100vh;
+}
+
+:root {
+    --sub-bg: #faf7f2;
+    --sub-card: #ffffff;
+    --sub-border: #ece4d9;
+    --sub-title: #241a15;
+    --sub-text: #4a3c31;
+    --sub-muted: #8c7d70;
+    --sub-accent: #b85d38;
+    --sub-accent-hover: #a34f2d;
+    --sub-accent-text: #ffffff;
+    --sub-inset: #f6f0e8;
+}
+
+[data-theme="dark"], .dark {
+    --sub-bg: #0b0f19;
+    --sub-card: #121a2b;
+    --sub-border: #1c273e;
+    --sub-title: #ffffff;
+    --sub-text: #ccd6e6;
+    --sub-muted: #8b9cb5;
+    --sub-accent: #f3ba42;
+    --sub-accent-hover: #dfa732;
+    --sub-accent-text: #0b0f19;
+    --sub-inset: #0c121e;
 }
 
 .subpage-wrapper {
@@ -17,6 +44,8 @@ body, html {
     width: 100%;
     display: flex;
     flex-direction: column;
+    background-color: var(--sub-bg);
+    color: var(--sub-text);
     transition: background-color 0.25s ease, color 0.25s ease;
 }
 
@@ -26,7 +55,8 @@ body, html {
     align-items: center;
     gap: 12px;
     padding: 20px 32px;
-    border-bottom: 1px solid #edf2f1;
+    border-bottom: 1px solid var(--sub-border);
+    background: transparent;
     transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
@@ -37,9 +67,9 @@ body, html {
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     font-size: 13px;
     font-weight: 600;
-    color: #003829;
-    background: #f4f7f6;
-    border: 1px solid #e1e8e6;
+    color: var(--sub-title);
+    background: var(--sub-card);
+    border: 1px solid var(--sub-border);
     border-radius: 8px;
     padding: 8px 16px;
     cursor: pointer;
@@ -52,8 +82,8 @@ body, html {
 }
 
 .subpage-back-btn:hover {
-    background: #e2ece9;
-    color: #001f16;
+    background: var(--sub-inset);
+    color: var(--sub-accent);
     transform: translateY(-1px);
 }
 
@@ -74,7 +104,7 @@ body, html {
     font-family: 'Libre Caslon Text', serif;
     font-size: clamp(24px, 4.5vw, 32px);
     font-weight: 700;
-    color: #003829;
+    color: var(--sub-title);
     margin-bottom: 8px;
     line-height: 1.25;
     word-break: break-word;
@@ -83,7 +113,7 @@ body, html {
 
 .subpage-subtitle {
     font-size: clamp(13px, 2vw, 14px);
-    color: #8c9e99;
+    color: var(--sub-muted);
     margin-bottom: 28px;
     line-height: 1.5;
 }
@@ -98,13 +128,13 @@ body, html {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #8c9e99;
+    color: var(--sub-muted);
     margin-bottom: 12px;
 }
 
 .subpage-card {
-    background: #f9fbfb;
-    border: 1px solid #edf2f1;
+    background: var(--sub-card);
+    border: 1px solid var(--sub-border);
     border-radius: 14px;
     padding: 20px 24px;
     display: flex;
@@ -115,7 +145,7 @@ body, html {
 
 .subpage-body {
     font-size: 14px;
-    color: #4a6660;
+    color: var(--sub-text);
     line-height: 1.7;
     margin-bottom: 12px;
 }
@@ -130,7 +160,7 @@ body, html {
 
 .subpage-list li {
     font-size: 14px;
-    color: #4a6660;
+    color: var(--sub-text);
     line-height: 1.6;
     padding-inline-start: 20px;
     position: relative;
@@ -140,19 +170,19 @@ body, html {
     content: '•';
     position: absolute;
     inset-inline-start: 0;
-    color: #b19e68;
+    color: var(--sub-accent);
     font-weight: 700;
     font-size: 16px;
 }
 
 .subpage-strong {
     font-weight: 700;
-    color: #003829;
+    color: var(--sub-title);
 }
 
 .subpage-divider {
     height: 1px;
-    background: #edf2f1;
+    background: var(--sub-border);
     margin: 24px 0;
 }
 
@@ -162,7 +192,7 @@ body, html {
     align-items: center;
     justify-content: space-between;
     padding: 16px 0;
-    border-bottom: 1px solid #edf2f1;
+    border-bottom: 1px solid var(--sub-border);
 }
 
 .settings-row:last-child {
@@ -178,12 +208,12 @@ body, html {
 .settings-label-title {
     font-size: 15px;
     font-weight: 600;
-    color: #1a2e29;
+    color: var(--sub-title);
 }
 
 .settings-label-desc {
     font-size: 12px;
-    color: #8c9e99;
+    color: var(--sub-muted);
 }
 
 /* ── Contact specific ── */
@@ -199,9 +229,9 @@ body, html {
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     font-size: 14px;
     font-weight: 700;
-    color: #003829;
-    background: #f0f7f4;
-    border: 1px solid #c8ddd8;
+    color: var(--sub-accent);
+    background: var(--sub-inset);
+    border: 1px solid var(--sub-border);
     border-radius: 8px;
     padding: 10px 16px;
     display: inline-flex;
@@ -213,7 +243,7 @@ body, html {
 
 .contact-email:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 56, 41, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .contact-copy-btn {
@@ -226,6 +256,9 @@ body, html {
     align-items: center;
     gap: 6px;
     cursor: pointer;
+    background: var(--sub-card);
+    border: 1px solid var(--sub-border);
+    color: var(--sub-title);
     transition: all 0.2s ease;
 }
 
@@ -240,13 +273,13 @@ body, html {
     font-family: 'Libre Caslon Text', serif;
     font-size: 28px;
     font-weight: 700;
-    color: #003829;
+    color: var(--sub-title);
     margin-bottom: 10px;
 }
 
 .not-found-body {
     font-size: 14px;
-    color: #6e827c;
+    color: var(--sub-muted);
     margin-bottom: 28px;
     line-height: 1.6;
 }
@@ -258,8 +291,8 @@ body, html {
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     font-size: 14px;
     font-weight: 600;
-    color: #ffffff;
-    background: #003829;
+    color: var(--sub-accent-text);
+    background: var(--sub-accent);
     border: none;
     border-radius: 10px;
     padding: 12px 24px;
@@ -268,7 +301,7 @@ body, html {
 }
 
 .not-found-btn:hover {
-    background: #002c20;
+    background: var(--sub-accent-hover);
     transform: translateY(-1px);
 }
 
@@ -305,5 +338,3 @@ body, html {
         gap: 12px;
     }
 }
-
-

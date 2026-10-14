@@ -17,25 +17,25 @@ export default function NotFound() {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      backgroundColor: "#0d1411",
-      color: "#e2ede8",
+      backgroundColor: "#0b0f19",
+      color: "#ccd6e6",
       fontFamily: "var(--font-geist-sans), system-ui, -apple-system, sans-serif",
       padding: "2rem",
       textAlign: "center"
     }}>
       <div style={{
         maxWidth: "580px",
-        background: "rgba(255, 255, 255, 0.04)",
-        border: "1px solid rgba(149, 211, 186, 0.2)",
+        background: "rgba(255, 255, 255, 0.03)",
+        border: "1px solid #1c273e",
         borderRadius: "16px",
         padding: "3rem 2rem",
-        boxShadow: "0 20px 40px rgba(0, 0, 0, 0.4)"
+        boxShadow: "0 20px 40px rgba(0, 0, 0, 0.5)"
       }}>
         <div style={{ fontSize: "3.5rem", marginBottom: "1rem" }}>🧭</div>
         <h1 style={{
           fontSize: "2rem",
           fontWeight: "700",
-          color: "#95d3ba",
+          color: "#f3ba42",
           marginBottom: "0.5rem"
         }}>
           404 - Page Not Found
@@ -43,7 +43,7 @@ export default function NotFound() {
         <h2 style={{
           fontSize: "1.25rem",
           fontWeight: "600",
-          color: "#ffe088",
+          color: "#ffffff",
           marginBottom: "1.25rem"
         }}>
           عذراً، الصفحة المطلوبة غير متوفرة
@@ -51,15 +51,15 @@ export default function NotFound() {
         <p style={{
           fontSize: "0.95rem",
           lineHeight: "1.6",
-          color: "#9eb6ad",
+          color: "#8b9cb5",
           marginBottom: "1rem"
         }}>
-          The page you requested could not be found or has been moved. Use the quick navigation below to return to PrayerSync services.
+          The page you requested could not be found or has been moved. Use the quick navigation below to return to PrayerConnect services.
         </p>
         <p style={{
           fontSize: "0.95rem",
           lineHeight: "1.6",
-          color: "#9eb6ad",
+          color: "#8b9cb5",
           marginBottom: "2rem",
           direction: "rtl"
         }}>
@@ -70,8 +70,8 @@ export default function NotFound() {
             href="/"
             style={{
               display: "inline-block",
-              background: "#95d3ba",
-              color: "#081410",
+              background: "#f3ba42",
+              color: "#0b0f19",
               fontWeight: "600",
               padding: "12px 22px",
               borderRadius: "8px",
@@ -86,9 +86,9 @@ export default function NotFound() {
             href="/PTime"
             style={{
               display: "inline-block",
-              background: "rgba(149, 211, 186, 0.15)",
-              border: "1px solid #95d3ba",
-              color: "#95d3ba",
+              background: "rgba(243, 186, 66, 0.12)",
+              border: "1px solid #f3ba42",
+              color: "#f3ba42",
               fontWeight: "600",
               padding: "12px 22px",
               borderRadius: "8px",
@@ -103,8 +103,8 @@ export default function NotFound() {
             style={{
               display: "inline-block",
               background: "transparent",
-              border: "1px solid rgba(255, 255, 255, 0.2)",
-              color: "#e2ede8",
+              border: "1px solid #1c273e",
+              color: "#ccd6e6",
               fontWeight: "600",
               padding: "12px 22px",
               borderRadius: "8px",

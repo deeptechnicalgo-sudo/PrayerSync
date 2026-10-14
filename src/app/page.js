@@ -270,9 +270,9 @@ export default function Home() {
         const lines = [
             "BEGIN:VCALENDAR",
             "VERSION:2.0",
-            "PRODID:-//PrayerSync//EN",
+            "PRODID:-//PrayerConnect//EN",
             "CALSCALE:GREGORIAN",
-            `X-WR-CALNAME:PrayerSync - ${activeLocation}`,
+            `X-WR-CALNAME:PrayerConnect - ${activeLocation}`,
             "REFRESH-INTERVAL;VALUE=DURATION:PT6H",
         ];
 
@@ -282,7 +282,7 @@ export default function Home() {
             const endDate = new Date(ev.start.getTime() + durationMinutes * 60000);
             lines.push(
                 "BEGIN:VEVENT",
-                `UID:${idx}-${ev.start.getTime()}@prayer-sync.vercel.app`,
+                `UID:${idx}-${ev.start.getTime()}@prayerconnect.app`,
                 `DTSTAMP:${toUTCICSDate(new Date())}`,
                 `DTSTART:${toFloatingICSDate(ev.start)}`,
                 `DTEND:${toFloatingICSDate(endDate)}`,
@@ -425,7 +425,7 @@ export default function Home() {
                 title: ev.title,
                 start: toLocalISOString(ev.start),
                 end: toLocalISOString(ev.end || new Date(ev.start.getTime() + (postBuffer || 30) * 60000)),
-                description: `${ev.title} (${ev.raw}) - PrayerSync\\n🧭 Qibla: https://qiblafinder.withgoogle.com\\n📖 Adhkar: https://sunnah.com/hisn`,
+                description: `${ev.title} (${ev.raw}) - PrayerConnect\\n🧭 Qibla: https://qiblafinder.withgoogle.com\\n📖 Adhkar: https://sunnah.com/hisn`,
                 location: sel2 || gpsCoords?.cityName || "My Location",
                 timeZone: tz,
             }));
@@ -499,6 +499,32 @@ export default function Home() {
         return `${hours}:${minStr} ${ampm}`;
     }
 
+    function getCurrentPrayerKey(timings) {
+        if (!timings) return "Asr";
+        const nowTime = new Date();
+        const prayerOrder = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+        let curr = null;
+        for (let i = prayerOrder.length - 1; i >= 0; i--) {
+            const key = prayerOrder[i];
+            const raw = timings[key];
+            if (raw) {
+                const clean = raw.split(" ")[0];
+                const [h, m] = clean.split(":").map(Number);
+                if (!isNaN(h) && !isNaN(m)) {
+                    const d = new Date();
+                    d.setHours(h, m, 0, 0);
+                    if (nowTime >= d) {
+                        curr = key;
+                        break;
+                    }
+                }
+            }
+        }
+        return curr || "Asr";
+    }
+
+    const currentPrayerKey = getCurrentPrayerKey(PrayerData.data?.timings);
+
     const prayerList = [
         { key: "Fajr", name: isarabic ? "الفجر" : "Fajr", displayTime: formatPrayerDisplayTime(PrayerData.data?.timings?.Fajr, offsetFajr) },
         { key: "Dhuhr", name: isarabic ? "الظهر" : "Dhuhr", displayTime: formatPrayerDisplayTime(PrayerData.data?.timings?.Dhuhr, offsetDhuhr) },
@@ -509,28 +535,34 @@ export default function Home() {
 
     const countryName = selecter ? (isarabic ? (countries.getName(selecter, "ar") || selecter) : countries.getName(selecter, "en")) : "";
     const activeCity = sel2 || (gpsCoords ? gpsCoords.cityName : "");
-    const locationText = activeCity ? (countryName ? `${activeCity}, ${countryName}` : activeCity) : (isarabic ? "يرجى تحديد الموقع" : "Choose location");
+    const locationText = activeCity ? (countryName ? `${activeCity}, ${countryName}` : activeCity) : (isarabic ? "الرياض، المملكة العربية السعودية" : "Riyadh, Saudi Arabia");
+    const formattedDateBadge = now ? date.toLocaleDateString(isarabic ? "ar" : "en-US", { month: "long", day: "numeric", year: "numeric" }) : "October 26, 2023";
 
     return (
-        <div className="app-wrapper" dir={isarabic ? "rtl" : "ltr"} style={{ backgroundColor: K ? "#0f1412" : "#f5faf9", minHeight: "100vh" }}>
+        <div className="app-wrapper" dir={isarabic ? "rtl" : "ltr"} style={{ backgroundColor: K ? "#0b0f19" : "#faf7f2", minHeight: "100vh" }}>
             <Header currentPath="/" />
 
             <main className="hero-section">
-                <h1 className="hero-title" style={{ color: K ? "#95d3ba" : "#003829" }}>
-                    {isarabic ? "أضف أوقات الصلاة إلى التقويم بذكاء واحترافية." : "Add prayer times to your Calendar with Smart Sync."}
+                <h1 className="hero-title" style={{ color: K ? "#ffffff" : "#241a15" }}>
+                    {isarabic ? "زامن رحلتك الروحية مع تقويمك." : "Synchronize your spiritual journey."}
                 </h1>
-                <p className="hero-subtitle" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
+                <p className="hero-subtitle" style={{ color: K ? "#94a3b8" : "#70645d" }}>
                     {isarabic
-                        ? "تحديد تلقائي للموقع عبر GPS أو يدوي، تغذية تقويم متجددة، وحماية أوقات الصلاة من الاجتماعات."
-                        : "Auto-detect location with GPS or select manually, live updating calendar feeds, and work meeting protection."}
+                        ? "حمّل مواقيت الصلاة المحلية مباشرة إلى تقويمك في Google أو Outlook. تأكد من أنك لن تفوت وقت صلاة أينما كنت."
+                        : "Download your local prayer times directly to your Outlook or Google Calendar. Ensure you never miss a moment of reflection, no matter where your day takes you."}
                 </p>
             </main>
 
+            {/* Advertisement Leaderboard */}
+            <div className="ad-leaderboard">
+                {isarabic ? "مساحة إعلانية - بانر رئيسي" : "ADVERTISEMENT - LEADERBOARD"}
+            </div>
+
             <div className="dashboard-container">
-                <div className="location-card" style={{ backgroundColor: K ? "#0b0f0d" : "#f4f7f6", border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e1e8e6" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-                        <h2 className="location-card-title" style={{ color: K ? "#95d3ba" : "#003829", margin: 0 }}>
-                            {isarabic ? "الموقع والمزامنة" : "Location & Sync"}
+                <div className="location-card" style={{ backgroundColor: K ? "#121a2b" : "#ffffff", border: K ? "1px solid #1c273e" : "1px solid #ece4d9", boxShadow: K ? "0 10px 40px rgba(0,0,0,0.4)" : "0 10px 30px rgba(90, 60, 40, 0.04)" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
+                        <h2 className="location-card-title" style={{ color: K ? "#ffffff" : "#241a15", margin: 0 }}>
+                            {isarabic ? "حدد موقعك" : "Find Your Location"}
                         </h2>
                         <button
                             type="button"
@@ -544,9 +576,9 @@ export default function Home() {
                                 borderRadius: "20px",
                                 fontSize: "12px",
                                 fontWeight: "700",
-                                backgroundColor: gpsCoords ? (K ? "rgba(16, 185, 129, 0.2)" : "#d1fae5") : (K ? "#1a2520" : "#ffffff"),
-                                color: gpsCoords ? (K ? "#6ee7b7" : "#065f46") : (K ? "#95d3ba" : "#003829"),
-                                border: gpsCoords ? "1px solid #10b981" : (K ? "1px solid rgba(149, 211, 186, 0.4)" : "1px solid #c8d6d2"),
+                                backgroundColor: gpsCoords ? (K ? "rgba(243, 186, 66, 0.2)" : "#faede0") : (K ? "#151e30" : "#f6f0e8"),
+                                color: gpsCoords ? (K ? "#f3ba42" : "#8e4324") : (K ? "#cbd5e1" : "#70645d"),
+                                border: gpsCoords ? (K ? "1px solid #f3ba42" : "1px solid #c8764b") : (K ? "1px solid #1e293b" : "1px solid #ebe1d5"),
                                 cursor: isDetectingLocation ? "wait" : "pointer"
                             }}
                         >
@@ -554,22 +586,27 @@ export default function Home() {
                             <span>
                                 {isDetectingLocation
                                     ? (isarabic ? "جاري التحديد..." : "Locating...")
-                                    : (gpsCoords ? (isarabic ? "موقعي الحالي ✓" : "GPS Active ✓") : (isarabic ? "تحديد موقعي تلقائياً" : "Auto-Detect GPS"))}
+                                    : (gpsCoords ? (isarabic ? "موقعي الحالي ✓" : "GPS Active ✓") : (isarabic ? "تحديد الموقع تلقائياً" : "Auto-Detect GPS"))}
                             </span>
                         </button>
                     </div>
 
                     {locationNotice && (
-                        <div style={{ fontSize: "12px", color: K ? "#ffe088" : "#854d0e", marginBottom: "10px", padding: "6px 10px", borderRadius: "6px", backgroundColor: K ? "rgba(250, 204, 21, 0.1)" : "#fef9c3" }}>
+                        <div style={{ fontSize: "12px", color: K ? "#f3ba42" : "#8d5738", marginBottom: "10px", padding: "6px 10px", borderRadius: "6px", backgroundColor: K ? "rgba(243, 186, 66, 0.1)" : "#f5ede4" }}>
                             ℹ️ {locationNotice}
                         </div>
                     )}
 
                     <div className="input-group">
-                        <span className="input-label" style={{ color: K ? "#5a7a70" : "#8c9e99" }}>
-                            {isarabic ? "الدولة (يدوي أو تلقائي)" : "Country (Manual or Auto)"}
+                        <span className="input-label" style={{ color: K ? "#8290a6" : "#8a7d75" }}>
+                            {isarabic ? "اختر الدولة" : "SELECT COUNTRY"}
                         </span>
                         <div className="select-wrapper" style={{ width: "100%", minWidth: "100%" }}>
+                            <svg className="select-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: K ? "#f3ba42" : "#b85d38" }}>
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
                             <select
                                 value={selecter}
                                 onChange={(e) => {
@@ -580,9 +617,9 @@ export default function Home() {
                                 style={{
                                     width: "100%",
                                     minWidth: "100%",
-                                    backgroundColor: K ? "#0f1412" : "#ffffff",
-                                    color: K ? "#95d3ba" : "#2c463f",
-                                    borderColor: K ? "rgba(63,73,69,0.4)" : "#e1e8e6",
+                                    backgroundColor: K ? "#0c121e" : "#f6f0e8",
+                                    color: K ? "#e2e8f0" : "#241a15",
+                                    borderColor: K ? "#1c273e" : "#ebe1d5",
                                 }}
                             >
                                 <option value="">{isarabic ? "اختر الدولة..." : "Choose a country..."}</option>
@@ -592,10 +629,23 @@ export default function Home() {
                     </div>
 
                     <div className="input-group">
-                        <span className="input-label" style={{ color: K ? "#5a7a70" : "#8c9e99" }}>
-                            {isarabic ? "المدينة / المنطقة" : "City / State"}
+                        <span className="input-label" style={{ color: K ? "#8290a6" : "#8a7d75" }}>
+                            {isarabic ? "اختر المدينة / الولاية" : "SELECT STATE/CITY"}
                         </span>
                         <div className="select-wrapper" style={{ width: "100%", minWidth: "100%" }}>
+                            <svg className="select-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: K ? "#f3ba42" : "#b85d38" }}>
+                                <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                                <line x1="9" y1="22" x2="9" y2="22.01"></line>
+                                <line x1="15" y1="22" x2="15.01"></line>
+                                <line x1="9" y1="18" x2="9" y2="18.01"></line>
+                                <line x1="15" y1="18" x2="15.01"></line>
+                                <line x1="9" y1="14" x2="9" y2="14.01"></line>
+                                <line x1="15" y1="14" x2="15.01"></line>
+                                <line x1="9" y1="10" x2="9" y2="10.01"></line>
+                                <line x1="15" y1="10" x2="15.01"></line>
+                                <line x1="9" y1="6" x2="9" y2="6.01"></line>
+                                <line x1="15" y1="6" x2="15.01"></line>
+                            </svg>
                             <select
                                 value={sel2}
                                 onChange={(e) => {
@@ -606,9 +656,9 @@ export default function Home() {
                                 style={{
                                     width: "100%",
                                     minWidth: "100%",
-                                    backgroundColor: K ? "#0f1412" : "#ffffff",
-                                    color: K ? "#95d3ba" : "#2c463f",
-                                    borderColor: K ? "rgba(63,73,69,0.4)" : "#e1e8e6",
+                                    backgroundColor: K ? "#0c121e" : "#f6f0e8",
+                                    color: K ? "#e2e8f0" : "#241a15",
+                                    borderColor: K ? "#1c273e" : "#ebe1d5",
                                 }}
                             >
                                 <option value="">{isarabic ? "اختر المدينة..." : "Choose a city..."}</option>
@@ -625,8 +675,8 @@ export default function Home() {
                                 marginTop: "6px",
                                 marginBottom: "6px",
                                 fontSize: "13px",
-                                backgroundColor: syncMessage.type === "success" ? (K ? "rgba(16, 185, 129, 0.15)" : "#d1fae5") : (K ? "rgba(239, 68, 68, 0.15)" : "#fee2e2"),
-                                color: syncMessage.type === "success" ? (K ? "#6ee7b7" : "#065f46") : (K ? "#fca5a5" : "#991b1b"),
+                                backgroundColor: syncMessage.type === "success" ? (K ? "rgba(243, 186, 66, 0.15)" : "#faede0") : (K ? "rgba(239, 68, 68, 0.15)" : "#fee2e2"),
+                                color: syncMessage.type === "success" ? (K ? "#f3ba42" : "#8e4324") : (K ? "#fca5a5" : "#991b1b"),
                             }}
                         >
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -646,13 +696,13 @@ export default function Home() {
                             justifyContent: "center",
                             gap: "10px",
                             padding: "14px",
-                            borderRadius: "12px",
-                            backgroundColor: events ? (K ? "#95d3ba" : "#003829") : (K ? "#1a2520" : "#cdd8d5"),
-                            color: events ? (K ? "#0b0f0d" : "#ffffff") : (K ? "#3d5a52" : "#8c9e99"),
+                            borderRadius: "10px",
+                            backgroundColor: events ? (K ? "#f0bb3e" : "#b85d38") : (K ? "#151e30" : "#e5dbcf"),
+                            color: events ? (K ? "#0b0f19" : "#ffffff") : (K ? "#64748b" : "#8a7d75"),
                             fontSize: "15px",
                             fontWeight: "700",
                             cursor: events ? "pointer" : "not-allowed",
-                            boxShadow: events ? "0 4px 14px rgba(0, 56, 41, 0.2)" : "none",
+                            boxShadow: events ? (K ? "0 4px 18px rgba(240, 187, 62, 0.35)" : "0 4px 16px rgba(184, 93, 56, 0.35)") : "none",
                             transition: "all 0.2s ease"
                         }}
                     >
@@ -661,16 +711,16 @@ export default function Home() {
                             <line x1="16" y1="2" x2="16" y2="6"></line>
                             <line x1="8" y1="2" x2="8" y2="6"></line>
                             <line x1="3" y1="10" x2="21" y2="10"></line>
-                            <path d="M8 14h8M12 14v4"></path>
+                            <path d="M9 16l2 2 4-4"></path>
                         </svg>
-                        <span>{isarabic ? "إضافة / مزامنة مع التقويم" : "Add / Sync to Calendar"}</span>
+                        <span>{isarabic ? "إضافة إلى التقويم" : "Add to Calendar"}</span>
                     </button>
 
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "14px", padding: "0 4px" }}>
-                        <span style={{ fontSize: "12px", color: K ? "#6b8a7e" : "#8c9e99" }}>
+                        <span style={{ fontSize: "12px", color: K ? "#8290a6" : "#8a7d75" }}>
                             {eventBusy !== false ? (isarabic ? "🔒 محجوز كـ مشغول" : "🔒 Marked as Busy") : (isarabic ? "🔓 متاح" : "🔓 Available")} • {preBuffer > 0 ? `+${preBuffer}m prep` : "0m prep"}
                         </span>
-                        <Link href="/Settings" style={{ fontSize: "12px", fontWeight: "700", color: K ? "#95d3ba" : "#003829", textDecoration: "underline" }}>
+                        <Link href="/Settings" style={{ fontSize: "12px", fontWeight: "700", color: K ? "#f3ba42" : "#8e4324", textDecoration: "underline" }}>
                             {isarabic ? "تعديل التفضيلات ⚙️" : "Preferences ⚙️"}
                         </Link>
                     </div>
@@ -679,64 +729,104 @@ export default function Home() {
                 <div
                     className="Prayertime"
                     style={{
-                        backgroundColor: K ? "#0b0f0d" : "#f4f7f6",
-                        border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e1e8e6",
+                        backgroundColor: K ? "#121a2b" : "#ffffff",
+                        border: K ? "1px solid #1c273e" : "1px solid #ece4d9",
+                        boxShadow: K ? "0 10px 40px rgba(0,0,0,0.4)" : "0 10px 30px rgba(90, 60, 40, 0.04)",
                     }}
                 >
                     <div className="schedule-header">
                         <div className="header-left">
-                            <h2 className="schedule-title" style={{ color: K ? "#95d3ba" : "#003829" }}>
-                                {isarabic ? "مواقيت الصلاة اليوم" : "Today's Schedule"}
+                            <h2 className="schedule-title" style={{ color: K ? "#ffffff" : "#241a15" }}>
+                                {isarabic ? "جدول اليوم" : "Today's Schedule"}
                             </h2>
-                            <div className="location-container" style={{ color: K ? "#5a7a70" : "#5c726c" }}>
-                                <svg className="location-icon" viewBox="0 0 12 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <div className="location-container" style={{ color: K ? "#8290a6" : "#70645d" }}>
+                                <svg className="location-icon" viewBox="0 0 12 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style={{ color: K ? "#f3ba42" : "#b85d38" }}>
                                     <path d="M6 0C2.68629 0 0 2.68629 0 6C0 9.75 6 14 6 14C6 14 12 9.75 12 6C12 2.68629 9.31371 0 6 0ZM6 8.25C4.75736 8.25 3.75 7.24264 3.75 6C3.75 4.75736 4.75736 3.75 6 3.75C7.24264 3.75 8.25 4.75736 8.25 6C8.25 7.24264 7.24264 8.25 6 8.25Z" />
                                 </svg>
-                                <span className="location-text" style={{ color: K ? "#5a7a70" : "#5c726c" }}>{locationText}</span>
+                                <span className="location-text" style={{ color: K ? "#8290a6" : "#70645d" }}>{locationText}</span>
                             </div>
                         </div>
                         <div
                             className="date-badge"
                             suppressHydrationWarning
                             style={{
-                                backgroundColor: K ? "#1a2520" : "#e3ebec",
-                                color: K ? "#95d3ba" : "#2c463f",
+                                backgroundColor: K ? "#151e30" : "#f5ede4",
+                                color: K ? "#cbd5e1" : "#8d5738",
+                                borderColor: K ? "#23314d" : "#ece4d9",
                             }}
                         >
-                            {now ? `${Month} ${Day}, ${Year}` : ""}
+                            {formattedDateBadge}
                         </div>
                     </div>
 
-                    <div className="schedule-divider" style={{ backgroundColor: K ? "rgba(63,73,69,0.3)" : undefined }}></div>
+                    <div className="schedule-divider" style={{ backgroundColor: K ? "#1c273e" : "#ece4d9" }}></div>
 
                     <div className="prayer-list">
-                        {prayerList.map((prayer) => (
-                            <div
-                                key={prayer.key}
-                                className="prayer-card"
-                                suppressHydrationWarning
-                                style={{
-                                    backgroundColor: K ? "#111915" : "#ffffff",
-                                }}
-                            >
-                                <span
-                                    className="prayer-name"
+                        {prayerList.map((prayer) => {
+                            const isCurrent = prayer.key === currentPrayerKey;
+                            return (
+                                <div
+                                    key={prayer.key}
+                                    className={`prayer-card ${isCurrent ? "current" : ""}`}
+                                    suppressHydrationWarning
                                     style={{
-                                        color: K ? "#95d3ba" : "#003829",
-                                        fontWeight: 600,
+                                        backgroundColor: isCurrent
+                                            ? (K ? "#162137" : "#faede0")
+                                            : (K ? "#0c121e" : "#f6f0ea"),
+                                        border: isCurrent
+                                            ? (K ? "1px solid #f3ba42" : "1px solid #c8764b")
+                                            : (K ? "1px solid #182236" : "1px solid transparent"),
+                                        boxShadow: isCurrent
+                                            ? (K ? "0 0 16px rgba(243, 186, 66, 0.2)" : "0 4px 16px rgba(184, 93, 56, 0.12)")
+                                            : "none",
                                     }}
                                 >
-                                    {prayer.name}
-                                </span>
-                                <div className="prayer-time-container">
-                                    <span className="prayer-time" style={{ color: K ? "#c8e8dc" : "#0e1f1a" }}>
-                                        {prayer.displayTime}
+                                    <span
+                                        className="prayer-name"
+                                        style={{
+                                            color: isCurrent
+                                                ? (K ? "#e2e8f0" : "#8d4427")
+                                                : (K ? "#94a3b8" : "#241a15"),
+                                            fontWeight: isCurrent ? 700 : 600,
+                                        }}
+                                    >
+                                        {prayer.name}
                                     </span>
+                                    <div className="prayer-time-container">
+                                        {isCurrent && (
+                                            <span
+                                                className="current-badge"
+                                                style={{
+                                                    backgroundColor: K ? "#f3ba42" : "#a64d29",
+                                                    color: K ? "#0b0f19" : "#ffffff",
+                                                }}
+                                            >
+                                                {isarabic ? "الحالية" : "CURRENT"}
+                                            </span>
+                                        )}
+                                        <span
+                                            className="prayer-time"
+                                            style={{
+                                                color: isCurrent
+                                                    ? (K ? "#f3ba42" : "#a64d29")
+                                                    : (K ? "#ffffff" : "#b85d38"),
+                                            }}
+                                        >
+                                            {prayer.displayTime}
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
+
+                {/* Advertisement Sidebar */}
+                <aside className="ad-sidebar">
+                    <span className="ad-sidebar-text">
+                        {isarabic ? "مساحة إعلانية - شريط جانبي" : "ADVERTISEMENT - SIDEBAR"}
+                    </span>
+                </aside>
             </div>
 
             {showSyncModal && (
@@ -747,29 +837,29 @@ export default function Home() {
                     <div
                         className="sync-modal-content"
                         style={{
-                            backgroundColor: K ? "#0b0f0d" : "#ffffff",
-                            boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
-                            border: K ? "1px solid rgba(149, 211, 186, 0.3)" : "1px solid #e1e8e6"
+                            backgroundColor: K ? "#121a2b" : "#ffffff",
+                            boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+                            border: K ? "1px solid #1c273e" : "1px solid #ece4d9"
                         }}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-                            <h3 style={{ fontSize: "18px", fontWeight: "700", color: K ? "#95d3ba" : "#003829", margin: 0 }}>
+                            <h3 style={{ fontSize: "18px", fontWeight: "700", color: K ? "#ffffff" : "#241a15", margin: 0 }}>
                                 📅 {isarabic ? "اختر طريقة إضافة التقويم" : "Choose Calendar Option"}
                             </h3>
                             <button
                                 onClick={() => setShowSyncModal(false)}
-                                style={{ background: "none", border: "none", color: K ? "#89938e" : "#6e827c", fontSize: "20px", cursor: "pointer", fontWeight: "bold" }}
+                                style={{ background: "none", border: "none", color: K ? "#94a3b8" : "#70645d", fontSize: "20px", cursor: "pointer", fontWeight: "bold" }}
                             >
                                 ×
                             </button>
                         </div>
 
                         <div style={{ marginBottom: "20px" }}>
-                            <label style={{ fontSize: "12px", fontWeight: "700", color: K ? "#89938e" : "#5c726c", display: "block", marginBottom: "8px" }}>
+                            <label style={{ fontSize: "12px", fontWeight: "700", color: K ? "#8290a6" : "#8a7d75", display: "block", marginBottom: "8px" }}>
                                 {isarabic ? "نطاق الأيام:" : "Export Range:"}
                             </label>
-                            <div className="toggle-group" style={{ backgroundColor: K ? "#111915" : "#eef5f7", width: "100%", display: "flex" }}>
+                            <div className="toggle-group" style={{ backgroundColor: K ? "#0c121e" : "#f6f0e8", width: "100%", display: "flex", border: K ? "1px solid #1c273e" : "1px solid #ebe1d5" }}>
                                 {[
                                     { id: "today", labelEn: "Today", labelAr: "اليوم" },
                                     { id: "7days", labelEn: "7 Days", labelAr: "٧ أيام" },
@@ -783,10 +873,12 @@ export default function Home() {
                                         onClick={() => setExportRange(r.id)}
                                         style={{
                                             flex: 1,
-                                            padding: "6px",
+                                            padding: "8px 6px",
                                             fontSize: "12px",
-                                            backgroundColor: exportRange === r.id ? (K ? "#1a2520" : "#ffffff") : "transparent",
-                                            color: exportRange === r.id ? (K ? "#95d3ba" : "#003829") : (K ? "#89938e" : "#6e827c"),
+                                            fontWeight: "700",
+                                            backgroundColor: exportRange === r.id ? (K ? "#f3ba42" : "#b85d38") : "transparent",
+                                            color: exportRange === r.id ? (K ? "#0b0f19" : "#ffffff") : (K ? "#94a3b8" : "#70645d"),
+                                            borderRadius: "8px",
                                         }}
                                     >
                                         {isarabic ? r.labelAr : r.labelEn}
@@ -802,9 +894,9 @@ export default function Home() {
                                 width: "100%",
                                 padding: "14px",
                                 borderRadius: "12px",
-                                backgroundColor: K ? "#1a2520" : "#ffffff",
-                                color: K ? "#95d3ba" : "#003829",
-                                border: K ? "1px solid rgba(149, 211, 186, 0.4)" : "1px solid #c8d6d2",
+                                backgroundColor: K ? "#151e30" : "#ffffff",
+                                color: K ? "#ffffff" : "#241a15",
+                                border: K ? "1px solid #1e293b" : "1px solid #ebe1d5",
                                 fontWeight: "700",
                                 fontSize: "14px",
                                 cursor: "pointer",
@@ -823,7 +915,7 @@ export default function Home() {
                             </svg>
                             <div style={{ textAlign: isarabic ? "right" : "left", flex: 1 }}>
                                 <div>{isSyncing ? (isarabic ? "جاري المزامنة..." : "Syncing...") : (isarabic ? "مزامنة مباشرة مع Google Calendar" : "Sync directly to Google Calendar")}</div>
-                                <div style={{ fontSize: "11px", fontWeight: "normal", color: K ? "#89938e" : "#6e827c" }}>{isarabic ? "إضافة فورية إلى حسابك المسجل" : "Instant 1-click sync to your account"}</div>
+                                <div style={{ fontSize: "11px", fontWeight: "normal", color: K ? "#94a3b8" : "#70645d" }}>{isarabic ? "إضافة فورية إلى حسابك المسجل" : "Instant 1-click sync to your account"}</div>
                             </div>
                         </button>
 
@@ -833,9 +925,9 @@ export default function Home() {
                                 width: "100%",
                                 padding: "14px",
                                 borderRadius: "12px",
-                                backgroundColor: K ? "#1a2520" : "#ffffff",
-                                color: K ? "#95d3ba" : "#003829",
-                                border: K ? "1px solid rgba(149, 211, 186, 0.4)" : "1px solid #c8d6d2",
+                                backgroundColor: K ? "#151e30" : "#ffffff",
+                                color: K ? "#ffffff" : "#241a15",
+                                border: K ? "1px solid #1e293b" : "1px solid #ebe1d5",
                                 fontWeight: "700",
                                 fontSize: "14px",
                                 cursor: "pointer",
@@ -849,22 +941,22 @@ export default function Home() {
                             <span style={{ fontSize: "20px" }}>📥</span>
                             <div style={{ textAlign: isarabic ? "right" : "left", flex: 1 }}>
                                 <div>{isarabic ? "تنزيل ملف تقويم (.ics)" : "Download Calendar File (.ics)"}</div>
-                                <div style={{ fontSize: "11px", fontWeight: "normal", color: K ? "#89938e" : "#6e827c" }}>{isarabic ? "متوافق مع Apple وOutlook وGoogle" : "Compatible with Outlook, Apple & Google"}</div>
+                                <div style={{ fontSize: "11px", fontWeight: "normal", color: K ? "#94a3b8" : "#70645d" }}>{isarabic ? "متوافق مع Apple وOutlook وGoogle" : "Compatible with Outlook, Apple & Google"}</div>
                             </div>
                         </button>
 
                         <div
                             style={{
-                                padding: "12px",
+                                padding: "14px",
                                 borderRadius: "12px",
-                                backgroundColor: K ? "#111915" : "#eef5f7",
-                                border: K ? "1px solid rgba(149, 211, 186, 0.3)" : "1px solid #dde4e6"
+                                backgroundColor: K ? "#0c121e" : "#f6f0e8",
+                                border: K ? "1px solid #1c273e" : "1px solid #ebe1d5"
                             }}
                         >
-                            <div style={{ fontSize: "12px", fontWeight: "700", color: K ? "#95d3ba" : "#003829", marginBottom: "6px", display: "flex", alignItems: "center", gap: "6px" }}>
+                            <div style={{ fontSize: "12px", fontWeight: "700", color: K ? "#f3ba42" : "#8e4324", marginBottom: "6px", display: "flex", alignItems: "center", gap: "6px" }}>
                                 <span>📡</span> {isarabic ? "تغذية تلقائية دائمة (Webcal - بدون أذونات)" : "Live Auto-Updating Feed (Zero-Permission)"}
                             </div>
-                            <div style={{ fontSize: "11px", color: K ? "#89938e" : "#5c726c", marginBottom: "8px" }}>
+                            <div style={{ fontSize: "11px", color: K ? "#94a3b8" : "#70645d", marginBottom: "10px" }}>
                                 {isarabic ? "اشترك مرة واحدة لتحديث المواعيد تلقائياً كل شهر." : "Subscribe once for rolling automated updates."}
                             </div>
                             <button
@@ -878,14 +970,15 @@ export default function Home() {
                                 }}
                                 style={{
                                     width: "100%",
-                                    padding: "8px",
+                                    padding: "10px",
                                     borderRadius: "8px",
-                                    backgroundColor: K ? "#95d3ba" : "#003829",
-                                    color: K ? "#0b0f0d" : "#ffffff",
+                                    backgroundColor: K ? "#f0bb3e" : "#b85d38",
+                                    color: K ? "#0b0f19" : "#ffffff",
                                     fontWeight: "700",
                                     fontSize: "12px",
                                     cursor: "pointer",
-                                    border: "none"
+                                    border: "none",
+                                    boxShadow: K ? "0 4px 12px rgba(240, 187, 62, 0.25)" : "0 4px 12px rgba(184, 93, 56, 0.25)"
                                 }}
                             >
                                 {copiedFeed ? (isarabic ? "تم نسخ رابط التغذية! ✓" : "Copied Feed URL! ✓") : (isarabic ? "نسخ رابط التغذية المباشر" : "Copy Live Feed URL")}
@@ -906,7 +999,7 @@ export default function Home() {
                             "mainEntity": [
                                 {
                                     "@type": "Question",
-                                    "name": isarabic ? "كيف يتم تحديث مواقيت الصلاة في التقويم تلقائياً على مدار العام؟" : "How does PrayerSync automatically adjust prayer times throughout the year?",
+                                    "name": isarabic ? "كيف يتم تحديث مواقيت الصلاة في التقويم تلقائياً على مدار العام؟" : "How does PrayerConnect automatically adjust prayer times throughout the year?",
                                     "acceptedAnswer": {
                                         "@type": "Answer",
                                         "text": isarabic
@@ -936,7 +1029,7 @@ export default function Home() {
                                 },
                                 {
                                     "@type": "Question",
-                                    "name": isarabic ? "هل يحتفظ موقع PrayerSync بأي بيانات شخصية أو موقعي الجغرافي؟" : "Does PrayerSync store any personal data or location logs?",
+                                    "name": isarabic ? "هل يحتفظ موقع PrayerConnect بأي بيانات شخصية أو موقعي الجغرافي؟" : "Does PrayerConnect store any personal data or location logs?",
                                     "acceptedAnswer": {
                                         "@type": "Answer",
                                         "text": isarabic
@@ -951,59 +1044,59 @@ export default function Home() {
 
                 {/* Section 1: Detailed Synchronization Guide */}
                 <div style={{
-                    backgroundColor: K ? "#0b0f0d" : "#ffffff",
-                    border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e1e8e6",
+                    backgroundColor: K ? "#121a2b" : "#ffffff",
+                    border: K ? "1px solid #1c273e" : "1px solid #ece4d9",
                     borderRadius: "16px",
                     padding: "36px 28px",
                     marginBottom: "32px",
-                    boxShadow: K ? "none" : "0 4px 20px rgba(0, 56, 41, 0.04)"
+                    boxShadow: K ? "none" : "0 4px 20px rgba(184, 93, 56, 0.05)"
                 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
                         <span style={{ fontSize: "28px" }}>📅</span>
                         <div>
-                            <h2 style={{ margin: 0, color: K ? "#95d3ba" : "#003829", fontSize: "1.6rem", fontWeight: "800" }}>
+                            <h2 style={{ margin: 0, color: K ? "#ffffff" : "#241a15", fontSize: "1.6rem", fontWeight: "800" }}>
                                 {isarabic ? "دليل المزامنة الشامل لتقاويم Google و Apple و Outlook" : "Comprehensive Calendar Synchronization Guide"}
                             </h2>
-                            <p style={{ margin: "4px 0 0 0", color: K ? "#89938e" : "#5c726c", fontSize: "14px" }}>
+                            <p style={{ margin: "4px 0 0 0", color: K ? "#8b9cb5" : "#7c6b5e", fontSize: "14px" }}>
                                 {isarabic ? "خطوات بسيطة وسريعة لربط مواقيت الصلاة مع جميع أجهزتك وتطبيقاتك اليومية" : "Step-by-step instructions to integrate prayer schedules seamlessly across all your devices"}
                             </p>
                         </div>
                     </div>
 
-                    <p style={{ color: K ? "#c8e8dc" : "#2c463f", lineHeight: "1.8", fontSize: "15px", marginBottom: "24px" }}>
+                    <p style={{ color: K ? "#ccd6e6" : "#4a3c31", lineHeight: "1.8", fontSize: "15px", marginBottom: "24px" }}>
                         {isarabic
-                            ? "صُمم PrayerSync ليكون حلقة الوصل الذكية بين الحساب الفلكي الدقيق لمواقيت الصلاة، وبين التقويم الرقمي الذي تعتمد عليه في جدول أعمالك اليومي. بدلاً من الاعتماد على التطبيقات التي تتطلب فتحها يدوياً أو تفوتك إشعاراتها، تظهر أوقات الصلاة كأحداث تقويم أساسية تنبهك وتمنع الاجتماعات المتعارضة."
-                            : "PrayerSync bridges the gap between high-precision astronomical prayer calculation and your daily digital workflow. Instead of relying on standalone mobile apps that you must manually remember to open, prayer times populate directly inside your primary calendar, protecting your spiritual obligations during busy workweeks."}
+                            ? "صُمم PrayerConnect ليكون حلقة الوصل الذكية بين الحساب الفلكي الدقيق لمواقيت الصلاة، وبين التقويم الرقمي الذي تعتمد عليه في جدول أعمالك اليومي. بدلاً من الاعتماد على التطبيقات التي تتطلب فتحها يدوياً أو تفوتك إشعاراتها، تظهر أوقات الصلاة كأحداث تقويم أساسية تنبهك وتمنع الاجتماعات المتعارضة."
+                            : "PrayerConnect bridges the gap between high-precision astronomical prayer calculation and your daily digital workflow. Instead of relying on standalone mobile apps that you must manually remember to open, prayer times populate directly inside your primary calendar, protecting your spiritual obligations during busy workweeks."}
                     </p>
 
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
-                        <div style={{ padding: "20px", borderRadius: "12px", backgroundColor: K ? "#111915" : "#f5faf9", border: K ? "1px solid rgba(149, 211, 186, 0.2)" : "1px solid #ddecde" }}>
-                            <div style={{ fontSize: "16px", fontWeight: "700", color: K ? "#ffe088" : "#004d38", marginBottom: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
+                        <div style={{ padding: "20px", borderRadius: "12px", backgroundColor: K ? "#0c121e" : "#f6f0e8", border: K ? "1px solid #1c273e" : "1px solid #ece4d9" }}>
+                            <div style={{ fontSize: "16px", fontWeight: "700", color: K ? "#f3ba42" : "#b85d38", marginBottom: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
                                 <span>📱</span> {isarabic ? "تقويم Apple (iPhone, iPad, Mac)" : "Apple Calendar (iOS & macOS)"}
                             </div>
-                            <ol style={{ margin: 0, paddingInlineStart: "20px", color: K ? "#a0c4b8" : "#4a6660", fontSize: "13px", lineHeight: "1.8" }}>
+                            <ol style={{ margin: 0, paddingInlineStart: "20px", color: K ? "#a3b3cc" : "#5a4b40", fontSize: "13px", lineHeight: "1.8" }}>
                                 <li>{isarabic ? "انسخ رابط التغذية المباشرة (Webcal Feed) من زر المزامنة أعلاه." : "Copy the live Webcal Feed URL from the sync button above."}</li>
                                 <li>{isarabic ? "افتح الإعدادات على جهازك > التقويم > الحسابات > إضافة حساب تقويم مشترك." : "Open Settings > Calendar > Accounts > Add Subscribed Calendar."}</li>
                                 <li>{isarabic ? "الصق الرابط واضغط 'حفظ' لتحديث المواعيد آلياً في الخلفية." : "Paste the link and hit Save for automatic periodic background updates."}</li>
                             </ol>
                         </div>
 
-                        <div style={{ padding: "20px", borderRadius: "12px", backgroundColor: K ? "#111915" : "#f5faf9", border: K ? "1px solid rgba(149, 211, 186, 0.2)" : "1px solid #ddecde" }}>
-                            <div style={{ fontSize: "16px", fontWeight: "700", color: K ? "#ffe088" : "#004d38", marginBottom: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
+                        <div style={{ padding: "20px", borderRadius: "12px", backgroundColor: K ? "#0c121e" : "#f6f0e8", border: K ? "1px solid #1c273e" : "1px solid #ece4d9" }}>
+                            <div style={{ fontSize: "16px", fontWeight: "700", color: K ? "#f3ba42" : "#b85d38", marginBottom: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
                                 <span>🌐</span> {isarabic ? "تقويم Google Calendar" : "Google Calendar (Web & Android)"}
                             </div>
-                            <ol style={{ margin: 0, paddingInlineStart: "20px", color: K ? "#a0c4b8" : "#4a6660", fontSize: "13px", lineHeight: "1.8" }}>
+                            <ol style={{ margin: 0, paddingInlineStart: "20px", color: K ? "#a3b3cc" : "#5a4b40", fontSize: "13px", lineHeight: "1.8" }}>
                                 <li>{isarabic ? "يمكنك النقر على 'مزامنة بضغطة زر مع Google' للإضافة الفورية عبر OAuth." : "Click '1-Click Sync with Google' for instantaneous authenticated insertion."}</li>
                                 <li>{isarabic ? "أو افتح تقويم Google على المتصفح > تقاويم أخرى (+) > من عنوان URL." : "Or open Google Calendar on web > Other Calendars (+) > From URL."}</li>
                                 <li>{isarabic ? "الصق رابط التغذية وسيقوم تقويم Google بتحديث المواعيد تلقائياً." : "Paste the Webcal URL and Google will auto-refresh times rolling forward."}</li>
                             </ol>
                         </div>
 
-                        <div style={{ padding: "20px", borderRadius: "12px", backgroundColor: K ? "#111915" : "#f5faf9", border: K ? "1px solid rgba(149, 211, 186, 0.2)" : "1px solid #ddecde" }}>
-                            <div style={{ fontSize: "16px", fontWeight: "700", color: K ? "#ffe088" : "#004d38", marginBottom: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
+                        <div style={{ padding: "20px", borderRadius: "12px", backgroundColor: K ? "#0c121e" : "#f6f0e8", border: K ? "1px solid #1c273e" : "1px solid #ece4d9" }}>
+                            <div style={{ fontSize: "16px", fontWeight: "700", color: K ? "#f3ba42" : "#b85d38", marginBottom: "10px", display: "flex", alignItems: "center", gap: "8px" }}>
                                 <span>💼</span> {isarabic ? "تقويم Microsoft Outlook و Office 365" : "Microsoft Outlook & Teams"}
                             </div>
-                            <ol style={{ margin: 0, paddingInlineStart: "20px", color: K ? "#a0c4b8" : "#4a6660", fontSize: "13px", lineHeight: "1.8" }}>
+                            <ol style={{ margin: 0, paddingInlineStart: "20px", color: K ? "#a3b3cc" : "#5a4b40", fontSize: "13px", lineHeight: "1.8" }}>
                                 <li>{isarabic ? "في تطبيق Outlook، انتقل إلى عرض التقويم واضغط 'إضافة تقويم'." : "In Outlook, navigate to Calendar view and click 'Add Calendar'."}</li>
                                 <li>{isarabic ? "اختر 'الاشتراك من الويب' (Subscribe from web) والصق الرابط." : "Choose 'Subscribe from web' and insert your custom Webcal link."}</li>
                                 <li>{isarabic ? "تنعكس مواعيد الصلاة فوراً في Microsoft Teams لمنع تعارض الاجتماعات." : "Times reflect in Teams to automatically prevent conflicting meeting bookings."}</li>
@@ -1014,26 +1107,26 @@ export default function Home() {
 
                 {/* Section 2: Astronomical Calculation Methods Explanation */}
                 <div style={{
-                    backgroundColor: K ? "#0b0f0d" : "#ffffff",
-                    border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e1e8e6",
+                    backgroundColor: K ? "#121a2b" : "#ffffff",
+                    border: K ? "1px solid #1c273e" : "1px solid #ece4d9",
                     borderRadius: "16px",
                     padding: "36px 28px",
                     marginBottom: "32px",
-                    boxShadow: K ? "none" : "0 4px 20px rgba(0, 56, 41, 0.04)"
+                    boxShadow: K ? "none" : "0 4px 20px rgba(184, 93, 56, 0.05)"
                 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
                         <span style={{ fontSize: "28px" }}>🕌</span>
                         <div>
-                            <h2 style={{ margin: 0, color: K ? "#95d3ba" : "#003829", fontSize: "1.6rem", fontWeight: "800" }}>
+                            <h2 style={{ margin: 0, color: K ? "#ffffff" : "#241a15", fontSize: "1.6rem", fontWeight: "800" }}>
                                 {isarabic ? "شرح طرق الحساب الفلكية والمعايير الفقهية المعتمدة" : "Astronomical Calculation Methods & Fiqh Standards"}
                             </h2>
-                            <p style={{ margin: "4px 0 0 0", color: K ? "#89938e" : "#5c726c", fontSize: "14px" }}>
+                            <p style={{ margin: "4px 0 0 0", color: K ? "#8b9cb5" : "#7c6b5e", fontSize: "14px" }}>
                                 {isarabic ? "كيف تُحسب زوايا الشفق، وما الفرق بين المنهجيات الفلكية حول العالم؟" : "Understanding solar angles, twilight definitions, and regional astronomical conventions"}
                             </p>
                         </div>
                     </div>
 
-                    <p style={{ color: K ? "#c8e8dc" : "#2c463f", lineHeight: "1.8", fontSize: "15px", marginBottom: "20px" }}>
+                    <p style={{ color: K ? "#ccd6e6" : "#4a3c31", lineHeight: "1.8", fontSize: "15px", marginBottom: "20px" }}>
                         {isarabic
                             ? "تعتمد مواقيت الصلاة الشرعية على موقع الشمس بالنسبة للأفق الأرضي. تختلف المنظمات والهيئات الإسلامية العالمية في تحديد زاوية انخفاض مركز قرص الشمس تحت الأفق لتعريف الفجر الصادق واختفاء الشفق الأحمر أو الأبيض لصلاتي الفجر والعشاء:"
                             : "Islamic prayer times rely on precise celestial mechanics—specifically the sun's altitude relative to the local geometric horizon. Major Islamic institutions apply specific solar depression angles to determine true astronomical dawn (Fajr) and twilight disappearance (Isha):"}
@@ -1042,43 +1135,43 @@ export default function Home() {
                     <div style={{ overflowX: "auto" }}>
                         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px", textAlign: isarabic ? "right" : "left" }}>
                             <thead>
-                                <tr style={{ borderBottom: K ? "2px solid rgba(149, 211, 186, 0.3)" : "2px solid #003829" }}>
-                                    <th style={{ padding: "12px 14px", color: K ? "#ffe088" : "#003829", fontWeight: "700" }}>{isarabic ? "الهيئة / الطريقة الفلكية" : "Authority / Method"}</th>
-                                    <th style={{ padding: "12px 14px", color: K ? "#ffe088" : "#003829", fontWeight: "700" }}>{isarabic ? "زاوية الفجر" : "Fajr Angle"}</th>
-                                    <th style={{ padding: "12px 14px", color: K ? "#ffe088" : "#003829", fontWeight: "700" }}>{isarabic ? "معيار العشاء" : "Isha Parameter"}</th>
-                                    <th style={{ padding: "12px 14px", color: K ? "#ffe088" : "#003829", fontWeight: "700" }}>{isarabic ? "نطاق الاستخدام الشائع" : "Primary Region"}</th>
+                                <tr style={{ borderBottom: K ? "2px solid rgba(243, 186, 66, 0.4)" : "2px solid #b85d38" }}>
+                                    <th style={{ padding: "12px 14px", color: K ? "#f3ba42" : "#b85d38", fontWeight: "700" }}>{isarabic ? "الهيئة / الطريقة الفلكية" : "Authority / Method"}</th>
+                                    <th style={{ padding: "12px 14px", color: K ? "#f3ba42" : "#b85d38", fontWeight: "700" }}>{isarabic ? "زاوية الفجر" : "Fajr Angle"}</th>
+                                    <th style={{ padding: "12px 14px", color: K ? "#f3ba42" : "#b85d38", fontWeight: "700" }}>{isarabic ? "معيار العشاء" : "Isha Parameter"}</th>
+                                    <th style={{ padding: "12px 14px", color: K ? "#f3ba42" : "#b85d38", fontWeight: "700" }}>{isarabic ? "نطاق الاستخدام الشائع" : "Primary Region"}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr style={{ borderBottom: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
-                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#95d3ba" : "#003829" }}>{isarabic ? "جامعة أم القرى (مكة المكرمة)" : "Umm Al-Qura (Makkah)"}</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>18.5°</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>{isarabic ? "٩٠ دقيقة بعد المغرب (١٢٠ في رمضان)" : "90 min after Maghrib (120 in Ramadan)"}</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#89938e" : "#6e827c" }}>{isarabic ? "المملكة العربية السعودية والخليج العربي" : "Saudi Arabia & Arabian Peninsula"}</td>
+                                <tr style={{ borderBottom: K ? "1px solid #1c273e" : "1px solid #eee7de" }}>
+                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#ffffff" : "#241a15" }}>{isarabic ? "جامعة أم القرى (مكة المكرمة)" : "Umm Al-Qura (Makkah)"}</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#ccd6e6" : "#4a3c31" }}>18.5°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#ccd6e6" : "#4a3c31" }}>{isarabic ? "٩٠ دقيقة بعد المغرب (١٢٠ في رمضان)" : "90 min after Maghrib (120 in Ramadan)"}</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#8b9cb5" : "#7c6b5e" }}>{isarabic ? "المملكة العربية السعودية والخليج العربي" : "Saudi Arabia & Arabian Peninsula"}</td>
                                 </tr>
-                                <tr style={{ borderBottom: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
-                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#95d3ba" : "#003829" }}>{isarabic ? "رابطة العالم الإسلامي (MWL)" : "Muslim World League (MWL)"}</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>18.0°</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>17.0°</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#89938e" : "#6e827c" }}>{isarabic ? "أوروبا، الشرق الأقصى، وأجزاء من آسيا" : "Europe, Far East & Global Standard"}</td>
+                                <tr style={{ borderBottom: K ? "1px solid #1c273e" : "1px solid #eee7de" }}>
+                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#ffffff" : "#241a15" }}>{isarabic ? "رابطة العالم الإسلامي (MWL)" : "Muslim World League (MWL)"}</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#ccd6e6" : "#4a3c31" }}>18.0°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#ccd6e6" : "#4a3c31" }}>17.0°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#8b9cb5" : "#7c6b5e" }}>{isarabic ? "أوروبا، الشرق الأقصى، وأجزاء من آسيا" : "Europe, Far East & Global Standard"}</td>
                                 </tr>
-                                <tr style={{ borderBottom: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
-                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#95d3ba" : "#003829" }}>{isarabic ? "الجمعية الإسلامية لأمريكا الشمالية (ISNA)" : "Islamic Society of North America (ISNA)"}</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>15.0°</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>15.0°</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#89938e" : "#6e827c" }}>{isarabic ? "الولايات المتحدة الأمريكية وكندا" : "USA & Canada"}</td>
+                                <tr style={{ borderBottom: K ? "1px solid #1c273e" : "1px solid #eee7de" }}>
+                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#ffffff" : "#241a15" }}>{isarabic ? "الجمعية الإسلامية لأمريكا الشمالية (ISNA)" : "Islamic Society of North America (ISNA)"}</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#ccd6e6" : "#4a3c31" }}>15.0°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#ccd6e6" : "#4a3c31" }}>15.0°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#8b9cb5" : "#7c6b5e" }}>{isarabic ? "الولايات المتحدة الأمريكية وكندا" : "USA & Canada"}</td>
                                 </tr>
-                                <tr style={{ borderBottom: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
-                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#95d3ba" : "#003829" }}>{isarabic ? "الهيئة العامة المصرية للمساحة" : "Egyptian General Authority of Survey"}</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>19.5°</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>17.5°</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#89938e" : "#6e827c" }}>{isarabic ? "مصر، شمال أفريقيا، والشرق الأوسط" : "Egypt, North Africa, Levant"}</td>
+                                <tr style={{ borderBottom: K ? "1px solid #1c273e" : "1px solid #eee7de" }}>
+                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#ffffff" : "#241a15" }}>{isarabic ? "الهيئة العامة المصرية للمساحة" : "Egyptian General Authority of Survey"}</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#ccd6e6" : "#4a3c31" }}>19.5°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#ccd6e6" : "#4a3c31" }}>17.5°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#8b9cb5" : "#7c6b5e" }}>{isarabic ? "مصر، شمال أفريقيا، والشرق الأوسط" : "Egypt, North Africa, Levant"}</td>
                                 </tr>
                                 <tr>
-                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#95d3ba" : "#003829" }}>{isarabic ? "جامعة العلوم الإسلامية بكراتشي" : "Univ. of Islamic Sciences, Karachi"}</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>18.0°</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#c8e8dc" : "#2c463f" }}>18.0°</td>
-                                    <td style={{ padding: "12px 14px", color: K ? "#89938e" : "#6e827c" }}>{isarabic ? "باكستان، الهند، بنغلاديش، وأفغانستان" : "Pakistan, India, Bangladesh"}</td>
+                                    <td style={{ padding: "12px 14px", fontWeight: "600", color: K ? "#ffffff" : "#241a15" }}>{isarabic ? "جامعة العلوم الإسلامية بكراتشي" : "Univ. of Islamic Sciences, Karachi"}</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#ccd6e6" : "#4a3c31" }}>18.0°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#ccd6e6" : "#4a3c31" }}>18.0°</td>
+                                    <td style={{ padding: "12px 14px", color: K ? "#8b9cb5" : "#7c6b5e" }}>{isarabic ? "باكستان، الهند، بنغلاديش، وأفغانستان" : "Pakistan, India, Bangladesh"}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1087,20 +1180,20 @@ export default function Home() {
 
                 {/* Section 3: Privacy, Calendar Security & Work Shield */}
                 <div style={{
-                    backgroundColor: K ? "#0b0f0d" : "#ffffff",
-                    border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e1e8e6",
+                    backgroundColor: K ? "#121a2b" : "#ffffff",
+                    border: K ? "1px solid #1c273e" : "1px solid #ece4d9",
                     borderRadius: "16px",
                     padding: "36px 28px",
                     marginBottom: "32px",
-                    boxShadow: K ? "none" : "0 4px 20px rgba(0, 56, 41, 0.04)"
+                    boxShadow: K ? "none" : "0 4px 20px rgba(184, 93, 56, 0.05)"
                 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
                         <span style={{ fontSize: "28px" }}>🛡️</span>
                         <div>
-                            <h2 style={{ margin: 0, color: K ? "#95d3ba" : "#003829", fontSize: "1.6rem", fontWeight: "800" }}>
+                            <h2 style={{ margin: 0, color: K ? "#ffffff" : "#241a15", fontSize: "1.6rem", fontWeight: "800" }}>
                                 {isarabic ? "الخصوصية الصارمة وحماية التقويم الشخصي وساعات العمل" : "Calendar Privacy, Work Shield & Meeting Protection"}
                             </h2>
-                            <p style={{ margin: "4px 0 0 0", color: K ? "#89938e" : "#5c726c", fontSize: "14px" }}>
+                            <p style={{ margin: "4px 0 0 0", color: K ? "#8b9cb5" : "#7c6b5e", fontSize: "14px" }}>
                                 {isarabic ? "مبدأ انعدام تخزين البيانات (Zero-Data Retention) وكيف نحمي خصوصيتك" : "Why our minimal-permission architecture protects your corporate and personal confidentiality"}
                             </p>
                         </div>
@@ -1108,21 +1201,21 @@ export default function Home() {
 
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "20px" }}>
                         <div>
-                            <h3 style={{ color: K ? "#ffe088" : "#003829", fontSize: "1.1rem", fontWeight: "700", marginBottom: "8px" }}>
+                            <h3 style={{ color: K ? "#f3ba42" : "#b85d38", fontSize: "1.1rem", fontWeight: "700", marginBottom: "8px" }}>
                                 {isarabic ? "🔒 خصوصية الموقع التامة" : "🔒 Zero Location Storage"}
                             </h3>
-                            <p style={{ color: K ? "#a0c4b8" : "#4a6660", lineHeight: "1.7", fontSize: "14px" }}>
+                            <p style={{ color: K ? "#a3b3cc" : "#5a4b40", lineHeight: "1.7", fontSize: "14px" }}>
                                 {isarabic
-                                    ? "على عكس التطبيقات التجارية التي تتبع موقعك وترسل بياناتك لشركات الإعلانات، يعمل PrayerSync بحسابات فورية ومحلية. إحداثياتك لا تُحفظ في قواعد بيانات خارجية ولا تباع لأي طرف ثالث."
-                                    : "Unlike commercial mobile apps that continuously log your background GPS movements for telemetry brokers, PrayerSync runs on local ephemeral computation. Your coordinates are never monetized or stored."}
+                                    ? "على عكس التطبيقات التجارية التي تتبع موقعك وترسل بياناتك لشركات الإعلانات، يعمل PrayerConnect بحسابات فورية ومحلية. إحداثياتك لا تُحفظ في قواعد بيانات خارجية ولا تباع لأي طرف ثالث."
+                                    : "Unlike commercial mobile apps that continuously log your background GPS movements for telemetry brokers, PrayerConnect runs on local ephemeral computation. Your coordinates are never monetized or stored."}
                             </p>
                         </div>
 
                         <div>
-                            <h3 style={{ color: K ? "#ffe088" : "#003829", fontSize: "1.1rem", fontWeight: "700", marginBottom: "8px" }}>
+                            <h3 style={{ color: K ? "#f3ba42" : "#b85d38", fontSize: "1.1rem", fontWeight: "700", marginBottom: "8px" }}>
                                 {isarabic ? "💼 حماية اجتماعات العمل (Smart Work Shield)" : "💼 Smart Corporate Meeting Shield"}
                             </h3>
-                            <p style={{ color: K ? "#a0c4b8" : "#4a6660", lineHeight: "1.7", fontSize: "14px" }}>
+                            <p style={{ color: K ? "#a3b3cc" : "#5a4b40", lineHeight: "1.7", fontSize: "14px" }}>
                                 {isarabic
                                     ? "عند تفعيل خاصية 'مشغول' في إعدادات التقويم، تُحجز فترة الصلاة والاستعداد كفترة انشغال رسمية في أنظمة مثل Google Meet و Teams، مما يمنع زملائك من جدولة اجتماعات فوق وقت الصلاة."
                                     : "When you mark events as 'Busy', your corporate calendar in Google Meet and Microsoft Teams automatically blocks colleagues from booking meetings over prayer and Wudu windows."}
@@ -1130,13 +1223,13 @@ export default function Home() {
                         </div>
 
                         <div>
-                            <h3 style={{ color: K ? "#ffe088" : "#003829", fontSize: "1.1rem", fontWeight: "700", marginBottom: "8px" }}>
+                            <h3 style={{ color: K ? "#f3ba42" : "#b85d38", fontSize: "1.1rem", fontWeight: "700", marginBottom: "8px" }}>
                                 {isarabic ? "🧹 أداة التنظيف وإلغاء المزامنة بضغطة زر" : "🧹 Instant Calendar Wipe & Reset"}
                             </h3>
-                            <p style={{ color: K ? "#a0c4b8" : "#4a6660", lineHeight: "1.7", fontSize: "14px" }}>
+                            <p style={{ color: K ? "#a3b3cc" : "#5a4b40", lineHeight: "1.7", fontSize: "14px" }}>
                                 {isarabic
                                     ? "هل انتقلت إلى مدينة جديدة أو غيرت وظيفتك؟ تتيح لك لوحة الإعدادات زر 'حذف مواقيت الصلاة السابقة' لمسح كافة الأحداث التي أنشأها التطبيق دفعة واحدة دون التأثير على مواعيدك الشخصية الأخرى."
-                                    : "Moved to a new timezone or switched employers? Our Settings dashboard includes a one-click 'Wipe & Reset' tool to remove all PrayerSync events cleanly without touching your personal agendas."}
+                                    : "Moved to a new timezone or switched employers? Our Settings dashboard includes a one-click 'Wipe & Reset' tool to remove all PrayerConnect events cleanly without touching your personal agendas."}
                             </p>
                         </div>
                     </div>
@@ -1144,20 +1237,20 @@ export default function Home() {
 
                 {/* Section 4: Frequently Asked Questions (FAQ) */}
                 <div style={{
-                    backgroundColor: K ? "#0b0f0d" : "#ffffff",
-                    border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e1e8e6",
+                    backgroundColor: K ? "#121a2b" : "#ffffff",
+                    border: K ? "1px solid #1c273e" : "1px solid #ece4d9",
                     borderRadius: "16px",
                     padding: "36px 28px",
                     marginBottom: "32px",
-                    boxShadow: K ? "none" : "0 4px 20px rgba(0, 56, 41, 0.04)"
+                    boxShadow: K ? "none" : "0 4px 20px rgba(184, 93, 56, 0.05)"
                 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
                         <span style={{ fontSize: "28px" }}>❓</span>
                         <div>
-                            <h2 style={{ margin: 0, color: K ? "#95d3ba" : "#003829", fontSize: "1.6rem", fontWeight: "800" }}>
+                            <h2 style={{ margin: 0, color: K ? "#ffffff" : "#241a15", fontSize: "1.6rem", fontWeight: "800" }}>
                                 {isarabic ? "الأسئلة الشائعة (Frequently Asked Questions)" : "Frequently Asked Questions (FAQ)"}
                             </h2>
-                            <p style={{ margin: "4px 0 0 0", color: K ? "#89938e" : "#5c726c", fontSize: "14px" }}>
+                            <p style={{ margin: "4px 0 0 0", color: K ? "#8b9cb5" : "#7c6b5e", fontSize: "14px" }}>
                                 {isarabic ? "إجابات مفصلة لأهم التساؤلات الفنية والفقهية حول مزامنة التقويم" : "Answers to common technical, Fiqh, and synchronization questions"}
                             </p>
                         </div>
@@ -1174,7 +1267,7 @@ export default function Home() {
                             {
                                 q_ar: "هل يمكنني مزامنة صلوات معينة فقط (كالظهر والعصر) لتقويم العمل؟",
                                 q_en: "Can I selectively sync only specific prayers, like Dhuhr and Asr, for my work calendar?",
-                                a_ar: "نعم تماماً! يوفر PrayerSync ميزة 'الجدولة الانتقائية' من لوحة الإعدادات، حيث يمكنك إلغاء تفعيل الفجر والمغرب والعشاء من تقويم العمل والاحتفاظ فقط بصلاتي الظهر والعصر لحماية وقت عملك من الاجتماعات المتداخلة.",
+                                a_ar: "نعم تماماً! يوفر PrayerConnect ميزة 'الجدولة الانتقائية' من لوحة الإعدادات، حيث يمكنك إلغاء تفعيل الفجر والمغرب والعشاء من تقويم العمل والاحتفاظ فقط بصلاتي الظهر والعصر لحماية وقت عملك من الاجتماعات المتداخلة.",
                                 a_en: "Yes! In the Settings dashboard under 'Smart Work Shield', you can selectively toggle off Fajr, Maghrib, or Isha and sync only Dhuhr and Asr to protect your office hours from meeting conflicts."
                             },
                             {
@@ -1185,7 +1278,7 @@ export default function Home() {
                             },
                             {
                                 q_ar: "كيف يتعامل التطبيق مع التوقيت الصيفي (Daylight Saving Time)؟",
-                                q_en: "Does PrayerSync automatically account for Daylight Saving Time (DST)?",
+                                q_en: "Does PrayerConnect automatically account for Daylight Saving Time (DST)?",
                                 a_ar: "نعم، يتم ضبط إزاحات التوقيت الصيفي تلقائياً وفق التوقيت المحلي لبلدك ومنطقتك الزمنية (IANA Timezone)، وتتم الحسابات الفلكية للشمس وفق الإحداثيات الدقيقة بصرف النظر عن تقديم أو تأخير الساعة.",
                                 a_en: "Yes. Our engine uses standard IANA timezone databases and local solar transit equations, ensuring that DST transitions are seamlessly applied without any manual clock corrections."
                             },
@@ -1193,7 +1286,7 @@ export default function Home() {
                                 q_ar: "لماذا تختلف مواقيت الصلاة أحياناً بدقائق معدودة بين مساجد نفس المدينة؟",
                                 q_en: "Why do prayer times sometimes differ by a few minutes between local mosques?",
                                 a_ar: "يعود ذلك إما لاختلاف طريقة الحساب الفلكية المعتمدة (كزوايا الفجر والعشاء)، أو لاختلاف مذهب حساب وقت صلاة العصر (بين الجمهور والحنفية)، أو لإضافة دقائق أمان محلية (Offsets). يمكنك ضبط هذه الفروق يدوياً بدقة الدقيقة عبر صفحة الإعدادات.",
-                                a_en: "Slight variances typically stem from differing twilight depression angles, Asr jurisprudence (standard vs Hanafi), or local administrative mosque buffers. PrayerSync allows you to fine-tune minute offsets per prayer in Settings."
+                                a_en: "Slight variances typically stem from differing twilight depression angles, Asr jurisprudence (standard vs Hanafi), or local administrative mosque buffers. PrayerConnect allows you to fine-tune minute offsets per prayer in Settings."
                             }
                         ].map((faq, idx) => (
                             <div
@@ -1201,14 +1294,14 @@ export default function Home() {
                                 style={{
                                     padding: "20px",
                                     borderRadius: "12px",
-                                    backgroundColor: K ? "#111915" : "#f5faf9",
-                                    border: K ? "1px solid rgba(63, 73, 69, 0.25)" : "1px solid #e1e8e6"
+                                    backgroundColor: K ? "#0c121e" : "#f6f0e8",
+                                    border: K ? "1px solid #1c273e" : "1px solid #ece4d9"
                                 }}
                             >
-                                <h3 style={{ margin: "0 0 8px 0", color: K ? "#ffe088" : "#004d38", fontSize: "1.1rem", fontWeight: "700" }}>
+                                <h3 style={{ margin: "0 0 8px 0", color: K ? "#f3ba42" : "#b85d38", fontSize: "1.1rem", fontWeight: "700" }}>
                                     {isarabic ? faq.q_ar : faq.q_en}
                                 </h3>
-                                <p style={{ margin: 0, color: K ? "#a0c4b8" : "#4a6660", lineHeight: "1.7", fontSize: "14px" }}>
+                                <p style={{ margin: 0, color: K ? "#a3b3cc" : "#5a4b40", lineHeight: "1.7", fontSize: "14px" }}>
                                     {isarabic ? faq.a_ar : faq.a_en}
                                 </p>
                             </div>
@@ -1218,19 +1311,19 @@ export default function Home() {
 
                 {/* Section 5: Featured Specialized Guides Hub */}
                 <div style={{
-                    backgroundColor: K ? "#0b0f0d" : "#ffffff",
-                    border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e1e8e6",
+                    backgroundColor: K ? "#121a2b" : "#ffffff",
+                    border: K ? "1px solid #1c273e" : "1px solid #ece4d9",
                     borderRadius: "16px",
                     padding: "36px 28px",
                     marginBottom: "40px",
-                    boxShadow: K ? "none" : "0 4px 20px rgba(0, 56, 41, 0.04)"
+                    boxShadow: K ? "none" : "0 4px 20px rgba(184, 93, 56, 0.05)"
                 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", flexWrap: "wrap", gap: "12px" }}>
                         <div>
-                            <h2 style={{ margin: 0, color: K ? "#95d3ba" : "#003829", fontSize: "1.6rem", fontWeight: "800" }}>
-                                📚 {isarabic ? "أدلة وشروحات PrayerSync التخصصية" : "Specialized In-Depth Knowledge Guides"}
+                            <h2 style={{ margin: 0, color: K ? "#ffffff" : "#241a15", fontSize: "1.6rem", fontWeight: "800" }}>
+                                📚 {isarabic ? "أدلة وشروحات PrayerConnect التخصصية" : "Specialized In-Depth Knowledge Guides"}
                             </h2>
-                            <p style={{ margin: "4px 0 0 0", color: K ? "#89938e" : "#5c726c", fontSize: "14px" }}>
+                            <p style={{ margin: "4px 0 0 0", color: K ? "#8b9cb5" : "#7c6b5e", fontSize: "14px" }}>
                                 {isarabic ? "مقالات فلكية وتقنية تفصيلية لتوسيع معرفتك بأوقات الصلاة والإنتاجية الإسلامية" : "Deep-dive astronomical and productivity articles written for Muslims worldwide"}
                             </p>
                         </div>
@@ -1239,8 +1332,8 @@ export default function Home() {
                             style={{
                                 padding: "10px 18px",
                                 borderRadius: "8px",
-                                backgroundColor: K ? "#95d3ba" : "#003829",
-                                color: K ? "#0b0f0d" : "#ffffff",
+                                backgroundColor: K ? "#f3ba42" : "#b85d38",
+                                color: K ? "#0b0f19" : "#ffffff",
                                 textDecoration: "none",
                                 fontWeight: "700",
                                 fontSize: "13px"
@@ -1294,20 +1387,20 @@ export default function Home() {
                                 style={{
                                     padding: "18px",
                                     borderRadius: "12px",
-                                    backgroundColor: K ? "#111915" : "#f5faf9",
-                                    border: K ? "1px solid rgba(149, 211, 186, 0.2)" : "1px solid #ddecde",
+                                    backgroundColor: K ? "#0c121e" : "#f6f0e8",
+                                    border: K ? "1px solid #1c273e" : "1px solid #ece4d9",
                                     textDecoration: "none",
                                     display: "block",
                                     transition: "transform 0.2s, border-color 0.2s"
                                 }}
                             >
-                                <div style={{ fontSize: "14px", fontWeight: "700", color: K ? "#95d3ba" : "#003829", marginBottom: "6px" }}>
+                                <div style={{ fontSize: "14px", fontWeight: "700", color: K ? "#f3ba42" : "#b85d38", marginBottom: "6px" }}>
                                     {isarabic ? guide.title_ar : guide.title_en}
                                 </div>
-                                <div style={{ fontSize: "12px", color: K ? "#89938e" : "#5c726c", lineHeight: "1.6" }}>
+                                <div style={{ fontSize: "12px", color: K ? "#8b9cb5" : "#7c6b5e", lineHeight: "1.6" }}>
                                     {isarabic ? guide.desc_ar : guide.desc_en}
                                 </div>
-                                <div style={{ marginTop: "10px", fontSize: "12px", fontWeight: "700", color: K ? "#ffe088" : "#854d0e" }}>
+                                <div style={{ marginTop: "10px", fontSize: "12px", fontWeight: "700", color: K ? "#f3ba42" : "#b85d38" }}>
                                     {isarabic ? "قراءة المقال ←" : "Read Article →"}
                                 </div>
                             </Link>

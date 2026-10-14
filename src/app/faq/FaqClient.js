@@ -15,13 +15,13 @@ export default function FaqClient() {
     const { isarabic } = useData2();
     const [openIdx, setOpenIdx] = useState(0);
 
-    const bg = K ? "#0f1412" : "#f5faf9";
-    const text = K ? "#c8e8dc" : "#2c463f";
-    const cardBg = K ? "#111915" : "#ffffff";
-    const cardBorder = K ? "rgba(63,73,69,0.35)" : "#e2ede9";
-    const accent = K ? "#95d3ba" : "#003829";
-    const subText = K ? "#7a9e90" : "#5a7a72";
-    const highlightBg = K ? "#162520" : "#eef8f3";
+    const bg = K ? "#0b0f19" : "#faf7f2";
+    const text = K ? "#ccd6e6" : "#4a3c31";
+    const cardBg = K ? "#121a2b" : "#ffffff";
+    const cardBorder = K ? "#1c273e" : "#ece4d9";
+    const accent = K ? "#f3ba42" : "#b85d38";
+    const subText = K ? "#8b9cb5" : "#7c6b5e";
+    const highlightBg = K ? "#0c121e" : "#f6f0e8";
 
     return (
         <div
@@ -64,8 +64,8 @@ export default function FaqClient() {
                             display: "inline-block",
                             padding: "4px 12px",
                             borderRadius: "16px",
-                            backgroundColor: K ? "rgba(149, 211, 186, 0.15)" : "#e1f5ee",
-                            color: K ? "#95d3ba" : "#004d38",
+                            backgroundColor: K ? "rgba(243, 186, 66, 0.15)" : "#f6ede4",
+                            color: accent,
                             fontSize: "12px",
                             fontWeight: "700",
                             marginBottom: "12px",
@@ -75,7 +75,7 @@ export default function FaqClient() {
                     </div>
                     <h1
                         style={{
-                            color: K ? "#95d3ba" : "#003829",
+                            color: K ? "#ffffff" : "#241a15",
                             fontSize: "2.4rem",
                             fontWeight: "800",
                             lineHeight: 1.25,
@@ -153,7 +153,7 @@ export default function FaqClient() {
                                                     margin: 0,
                                                     fontSize: "1.1rem",
                                                     fontWeight: "700",
-                                                    color: K ? "#ffffff" : "#001a13",
+                                                    color: K ? "#ffffff" : "#241a15",
                                                     lineHeight: "1.4",
                                                 }}
                                             >
@@ -283,8 +283,10 @@ export default function FaqClient() {
                     style={{
                         padding: "28px",
                         borderRadius: "16px",
-                        background: `linear-gradient(135deg, ${K ? "#0d2820" : "#eaf7f2"}, ${K ? "#162520" : "#d4f0e4"})`,
-                        border: `1px solid ${K ? "rgba(149,211,186,0.3)" : "#a8d9c8"}`,
+                        background: K
+                            ? "linear-gradient(135deg, #0c121e, #121a2b)"
+                            : "linear-gradient(135deg, #f6ede4, #faf7f2)",
+                        border: `1px solid ${cardBorder}`,
                         textAlign: "center",
                     }}
                 >
@@ -322,7 +324,7 @@ export default function FaqClient() {
                             style={{
                                 display: "inline-block",
                                 background: accent,
-                                color: K ? "#0b0f0d" : "#ffffff",
+                                color: K ? "#0b0f19" : "#ffffff",
                                 padding: "12px 28px",
                                 borderRadius: "8px",
                                 textDecoration: "none",

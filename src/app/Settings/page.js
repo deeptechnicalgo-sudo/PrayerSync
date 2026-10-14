@@ -8,6 +8,7 @@ import { useData, CALCULATION_METHODS } from "../Context/DarklightContext";
 import { useData2 } from "../Context/Arabic";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function SettingsPage() {
     const {
@@ -22,6 +23,19 @@ export default function SettingsPage() {
         selectedPrayers, setSelectedPrayers,
         minuteOffsets, setMinuteOffsets,
     } = useData();
+
+    // Standardized palette tokens matching the site design system
+    const bg = K ? "#0b0f19" : "#faf7f2";
+    const text = K ? "#ccd6e6" : "#4a3c31";
+    const title = K ? "#ffffff" : "#241a15";
+    const accent = K ? "#f3ba42" : "#b85d38";
+    const muted = K ? "#8b9cb5" : "#7c6b5e";
+    const cardBg = K ? "#121a2b" : "#ffffff";
+    const cardBorder = K ? "#1c273e" : "#ece4d9";
+    const inset = K ? "#0c121e" : "#f6f0e8";
+    const insetBorder = K ? "#1c273e" : "#ddd4c8";
+    const activeTabBg = K ? "rgba(243, 186, 66, 0.12)" : "#faede0";
+    const activeTabColor = K ? "#f3ba42" : "#8d4427";
 
     const { isarabic, setArabic } = useData2();
     const { data: session } = useSession();
@@ -225,15 +239,15 @@ export default function SettingsPage() {
     ];
 
     return (
-        <div className="app-wrapper" dir={isarabic ? "rtl" : "ltr"} style={{ backgroundColor: K ? "#0f1412" : "#f5faf9", minHeight: "100vh" }}>
+        <div className="app-wrapper" dir={isarabic ? "rtl" : "ltr"} style={{ backgroundColor: bg, color: text, minHeight: "100vh" }}>
             <Header currentPath="/Settings" />
 
-            <main className="main-content" style={{ backgroundColor: K ? "#0f1412" : "#f5faf9", color: K ? "#c8e8dc" : "#161d1f" }}>
+            <main className="main-content" style={{ backgroundColor: bg, color: text }}>
                 <div className="page-header">
-                    <h1 className="page-title" style={{ color: K ? "#95d3ba" : "#003829" }}>
+                    <h1 className="page-title" style={{ color: title }}>
                         {isarabic ? "مركز الإعدادات والإنتاجية الإسلامية" : "Settings & Islamic Productivity"}
                     </h1>
-                    <p className="page-description" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
+                    <p className="page-description" style={{ color: muted }}>
                         {isarabic
                             ? "تتبع العبادات اليومية، المناسبات الهجرية، حماية أوقات العمل، والتزامن مع Google Calendar."
                             : "Track Sunnah habits, Islamic holidays, protect your calendar during work, and customize Fiqh calculations."}
@@ -252,10 +266,10 @@ export default function SettingsPage() {
                                 className={`mobile-tab-btn ${activeTab === tab.id ? "active" : ""}`}
                                 onClick={() => setActiveTab(tab.id)}
                                 style={{
-                                    backgroundColor: activeTab === tab.id ? (K ? "#1a2520" : "#ffffff") : (K ? "#111915" : "#eef5f7"),
-                                    color: activeTab === tab.id ? (K ? "#95d3ba" : "#003829") : (K ? "#89938e" : "#5c726c"),
-                                    borderColor: activeTab === tab.id ? (K ? "#95d3ba" : "#003829") : (K ? "rgba(63,73,69,0.3)" : "#e1e8e6"),
-                                    boxShadow: activeTab === tab.id ? "0 2px 8px rgba(0,0,0,0.08)" : "none",
+                                    backgroundColor: activeTab === tab.id ? activeTabBg : inset,
+                                    color: activeTab === tab.id ? accent : muted,
+                                    borderColor: activeTab === tab.id ? accent : insetBorder,
+                                    boxShadow: activeTab === tab.id ? (K ? "0 2px 8px rgba(0,0,0,0.3)" : "0 2px 8px rgba(184, 93, 56, 0.12)") : "none",
                                 }}
                             >
                                 <span className="mobile-tab-icon">{tab.icon}</span>
@@ -273,8 +287,9 @@ export default function SettingsPage() {
                                 className={`sidebar-link ${activeTab === "smart" ? "active" : ""}`}
                                 onClick={() => setActiveTab("smart")}
                                 style={{
-                                    backgroundColor: activeTab === "smart" ? (K ? "#1a2520" : "#e2e9ec") : "transparent",
-                                    color: activeTab === "smart" ? (K ? "#95d3ba" : "#003829") : (K ? "#89938e" : undefined),
+                                    backgroundColor: activeTab === "smart" ? activeTabBg : "transparent",
+                                    color: activeTab === "smart" ? accent : muted,
+                                    border: activeTab === "smart" ? `1px solid ${accent}` : "1px solid transparent",
                                     textAlign: isarabic ? "right" : "left",
                                     width: "100%", cursor: "pointer"
                                 }}
@@ -288,8 +303,9 @@ export default function SettingsPage() {
                                 className={`sidebar-link ${activeTab === "habits" ? "active" : ""}`}
                                 onClick={() => setActiveTab("habits")}
                                 style={{
-                                    backgroundColor: activeTab === "habits" ? (K ? "#1a2520" : "#e2e9ec") : "transparent",
-                                    color: activeTab === "habits" ? (K ? "#95d3ba" : "#003829") : (K ? "#89938e" : undefined),
+                                    backgroundColor: activeTab === "habits" ? activeTabBg : "transparent",
+                                    color: activeTab === "habits" ? accent : muted,
+                                    border: activeTab === "habits" ? `1px solid ${accent}` : "1px solid transparent",
                                     textAlign: isarabic ? "right" : "left",
                                     width: "100%", cursor: "pointer"
                                 }}
@@ -303,8 +319,9 @@ export default function SettingsPage() {
                                 className={`sidebar-link ${activeTab === "islamic" ? "active" : ""}`}
                                 onClick={() => setActiveTab("islamic")}
                                 style={{
-                                    backgroundColor: activeTab === "islamic" ? (K ? "#1a2520" : "#e2e9ec") : "transparent",
-                                    color: activeTab === "islamic" ? (K ? "#95d3ba" : "#003829") : (K ? "#89938e" : undefined),
+                                    backgroundColor: activeTab === "islamic" ? activeTabBg : "transparent",
+                                    color: activeTab === "islamic" ? accent : muted,
+                                    border: activeTab === "islamic" ? `1px solid ${accent}` : "1px solid transparent",
                                     textAlign: isarabic ? "right" : "left",
                                     width: "100%", cursor: "pointer"
                                 }}
@@ -318,8 +335,9 @@ export default function SettingsPage() {
                                 className={`sidebar-link ${activeTab === "tasks" ? "active" : ""}`}
                                 onClick={() => setActiveTab("tasks")}
                                 style={{
-                                    backgroundColor: activeTab === "tasks" ? (K ? "#1a2520" : "#e2e9ec") : "transparent",
-                                    color: activeTab === "tasks" ? (K ? "#95d3ba" : "#003829") : (K ? "#89938e" : undefined),
+                                    backgroundColor: activeTab === "tasks" ? activeTabBg : "transparent",
+                                    color: activeTab === "tasks" ? accent : muted,
+                                    border: activeTab === "tasks" ? `1px solid ${accent}` : "1px solid transparent",
                                     textAlign: isarabic ? "right" : "left",
                                     width: "100%", cursor: "pointer"
                                 }}
@@ -333,8 +351,9 @@ export default function SettingsPage() {
                                 className={`sidebar-link ${activeTab === "fiqh" ? "active" : ""}`}
                                 onClick={() => setActiveTab("fiqh")}
                                 style={{
-                                    backgroundColor: activeTab === "fiqh" ? (K ? "#1a2520" : "#e2e9ec") : "transparent",
-                                    color: activeTab === "fiqh" ? (K ? "#95d3ba" : "#003829") : (K ? "#89938e" : undefined),
+                                    backgroundColor: activeTab === "fiqh" ? activeTabBg : "transparent",
+                                    color: activeTab === "fiqh" ? accent : muted,
+                                    border: activeTab === "fiqh" ? `1px solid ${accent}` : "1px solid transparent",
                                     textAlign: isarabic ? "right" : "left",
                                     width: "100%", cursor: "pointer"
                                 }}
@@ -348,8 +367,9 @@ export default function SettingsPage() {
                                 className={`sidebar-link ${activeTab === "family" ? "active" : ""}`}
                                 onClick={() => setActiveTab("family")}
                                 style={{
-                                    backgroundColor: activeTab === "family" ? (K ? "#1a2520" : "#e2e9ec") : "transparent",
-                                    color: activeTab === "family" ? (K ? "#95d3ba" : "#003829") : (K ? "#89938e" : undefined),
+                                    backgroundColor: activeTab === "family" ? activeTabBg : "transparent",
+                                    color: activeTab === "family" ? accent : muted,
+                                    border: activeTab === "family" ? `1px solid ${accent}` : "1px solid transparent",
                                     textAlign: isarabic ? "right" : "left",
                                     width: "100%", cursor: "pointer"
                                 }}
@@ -363,32 +383,34 @@ export default function SettingsPage() {
                                 className={`sidebar-link ${activeTab === "general" ? "active" : ""}`}
                                 onClick={() => setActiveTab("general")}
                                 style={{
-                                    backgroundColor: activeTab === "general" ? (K ? "#1a2520" : "#e2e9ec") : "transparent",
-                                    color: activeTab === "general" ? (K ? "#95d3ba" : "#003829") : (K ? "#89938e" : undefined),
+                                    backgroundColor: activeTab === "general" ? activeTabBg : "transparent",
+                                    color: activeTab === "general" ? accent : muted,
+                                    border: activeTab === "general" ? `1px solid ${accent}` : "1px solid transparent",
                                     textAlign: isarabic ? "right" : "left",
                                     width: "100%", cursor: "pointer"
                                 }}
                             >
                                 <span style={{ fontSize: "18px" }}>⚙️</span>
-                                {isarabic ? "التفضيلات العامة وحساب Google" : "General & Google"}
+                                {isarabic ? "إعدادات عامة والتقويم" : "General & Calendar"}
                             </button>
                         </nav>
                     </div>
 
+                    {/* Main Content Area */}
                     <div className="settings-content">
                         {activeTab === "smart" && (
-                            <section className="settings-section" style={{ backgroundColor: K ? "#0b0f0d" : "#ffffff", border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
-                                <h2 className="section-header" style={{ color: K ? "#95d3ba" : "#003829", borderBottomColor: K ? "rgba(63, 73, 69, 0.3)" : undefined }}>
+                            <section className="settings-section" style={{ backgroundColor: cardBg, border: `1px solid ${cardBorder}` }}>
+                                <h2 className="section-header" style={{ color: title, borderBottomColor: cardBorder }}>
                                     <span>🛡️</span>
-                                    {isarabic ? "الجدولة الذكية وحماية أوقات الصلاة" : "Smart Work & Meeting Protection"}
+                                    {isarabic ? "الجدولة الذكية وحماية أوقات العمل" : "Smart Scheduling & Work Shield"}
                                 </h2>
                                 <div className="settings-group">
                                     <div className="setting-item" style={{ alignItems: "flex-start" }}>
                                         <div className="setting-info">
-                                            <h3 className="setting-title" style={{ color: K ? "#c8e8dc" : "#161d1f" }}>
+                                            <h3 className="setting-title" style={{ color: title }}>
                                                 {isarabic ? "اختيار الصلوات المراد مزامنتها" : "Selective Prayer Syncing"}
                                             </h3>
-                                            <p className="setting-desc" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
+                                            <p className="setting-desc" style={{ color: muted }}>
                                                 {isarabic
                                                     ? "حدد الصلوات التي تريد ظهورها في التقويم (مثال: الظهر والعصر فقط لتقويم العمل)."
                                                     : "Choose which prayers to sync (e.g. sync only Dhuhr & Asr for corporate office hours)."}
@@ -407,9 +429,9 @@ export default function SettingsPage() {
                                                                 fontSize: "13px",
                                                                 fontWeight: "700",
                                                                 cursor: "pointer",
-                                                                backgroundColor: isChecked ? (K ? "#1a2520" : "#003829") : (K ? "rgba(255,255,255,0.05)" : "#eef5f7"),
-                                                                color: isChecked ? (K ? "#95d3ba" : "#ffffff") : (K ? "#89938e" : "#6e827c"),
-                                                                border: isChecked ? (K ? "1px solid #95d3ba" : "1px solid #003829") : "1px solid transparent"
+                                                                backgroundColor: isChecked ? (K ? "rgba(243, 186, 66, 0.15)" : "#b85d38") : inset,
+                                                                color: isChecked ? (K ? "#f3ba42" : "#ffffff") : muted,
+                                                                border: isChecked ? (K ? "1px solid #f3ba42" : "1px solid #b85d38") : "1px solid transparent"
                                                             }}
                                                         >
                                                             {isChecked ? "✓ " : "+ "}
@@ -423,23 +445,23 @@ export default function SettingsPage() {
 
                                     <div className="setting-item">
                                         <div className="setting-info">
-                                            <h3 className="setting-title" style={{ color: K ? "#c8e8dc" : "#161d1f" }}>
+                                            <h3 className="setting-title" style={{ color: title }}>
                                                 {isarabic ? "فترة الاستعداد والوضوء (Pre-Prayer Buffer)" : "Pre-Prayer Preparation Buffer"}
                                             </h3>
-                                            <p className="setting-desc" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
+                                            <p className="setting-desc" style={{ color: muted }}>
                                                 {isarabic
                                                     ? "بدء موعد التقويم قبل الأذان بدقائق للاستعداد والوضوء ومنع الاجتماعات."
                                                     : "Start calendar block minutes before Azan for Wudu and preparation."}
                                             </p>
                                         </div>
-                                        <div className="toggle-group" style={{ backgroundColor: K ? "#111915" : "#eef5f7" }}>
+                                        <div className="toggle-group" style={{ backgroundColor: inset, border: `1px solid ${insetBorder}` }}>
                                             {[0, 5, 10, 15].map((m) => (
                                                 <button
                                                     key={m}
                                                     type="button"
                                                     className={`toggle-btn ${preBuffer === m ? "active" : ""}`}
                                                     onClick={() => setPreBuffer(m)}
-                                                    style={preBuffer === m ? { backgroundColor: K ? "#1a2520" : "#ffffff", color: K ? "#95d3ba" : "#003829" } : { color: K ? "#6b8a7e" : "#6e827c" }}
+                                                    style={preBuffer === m ? { backgroundColor: cardBg, color: accent } : { color: muted }}
                                                 >
                                                     {m === 0 ? (isarabic ? "لا يوجد" : "None") : `+${m}m`}
                                                 </button>
@@ -449,23 +471,23 @@ export default function SettingsPage() {
 
                                     <div className="setting-item">
                                         <div className="setting-info">
-                                            <h3 className="setting-title" style={{ color: K ? "#c8e8dc" : "#161d1f" }}>
+                                            <h3 className="setting-title" style={{ color: title }}>
                                                 {isarabic ? "مدة حجز وقت الصلاة والإقامة" : "Prayer Duration & Iqama Block"}
                                             </h3>
-                                            <p className="setting-desc" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
+                                            <p className="setting-desc" style={{ color: muted }}>
                                                 {isarabic
                                                     ? "إجمالي المدة المحجوزة في التقويم لأداء الصلاة والسنن والأذكار."
                                                     : "Total time reserved in calendar for congregational prayer, Sunnah, and Azkar."}
                                             </p>
                                         </div>
-                                        <div className="toggle-group" style={{ backgroundColor: K ? "#111915" : "#eef5f7" }}>
+                                        <div className="toggle-group" style={{ backgroundColor: inset, border: `1px solid ${insetBorder}` }}>
                                             {[15, 20, 30, 45, 60].map((m) => (
                                                 <button
                                                     key={m}
                                                     type="button"
                                                     className={`toggle-btn ${postBuffer === m ? "active" : ""}`}
                                                     onClick={() => setPostBuffer(m)}
-                                                    style={postBuffer === m ? { backgroundColor: K ? "#1a2520" : "#ffffff", color: K ? "#95d3ba" : "#003829" } : { color: K ? "#6b8a7e" : "#6e827c" }}
+                                                    style={postBuffer === m ? { backgroundColor: cardBg, color: accent } : { color: muted }}
                                                 >
                                                     {m}m
                                                 </button>
@@ -475,10 +497,10 @@ export default function SettingsPage() {
 
                                     <div className="setting-item">
                                         <div className="setting-info">
-                                            <h3 className="setting-title" style={{ color: K ? "#c8e8dc" : "#161d1f" }}>
+                                            <h3 className="setting-title" style={{ color: title }}>
                                                 {isarabic ? "حجز الحالة كـ «مشغول» في التقويم" : "Mark Status as «Busy»"}
                                             </h3>
-                                            <p className="setting-desc" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
+                                            <p className="setting-desc" style={{ color: muted }}>
                                                 {isarabic
                                                     ? "حجز وقت الصلاة في Teams وGoogle Meet لمنع الزملاء من تحديد اجتماعات أثناء الصلاة."
                                                     : "Blocks time in Teams & Google Meet to prevent coworkers from booking meetings over prayer."}
@@ -487,8 +509,8 @@ export default function SettingsPage() {
                                         <Switch
                                             checked={eventBusy !== false}
                                             onChange={(val) => setEventBusy(val)}
-                                            onColor="#003829"
-                                            offColor="#d1dbd8"
+                                            onColor={K ? "#f3ba42" : "#b85d38"}
+                                            offColor={K ? "#1c273e" : "#ece4d9"}
                                             checkedIcon={false}
                                             uncheckedIcon={false}
                                             height={24}
@@ -500,23 +522,23 @@ export default function SettingsPage() {
                         )}
 
                         {activeTab === "habits" && (
-                            <section className="settings-section" style={{ backgroundColor: K ? "#0b0f0d" : "#ffffff", border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
-                                <h2 className="section-header" style={{ color: K ? "#95d3ba" : "#003829", borderBottomColor: K ? "rgba(63, 73, 69, 0.3)" : undefined }}>
+                            <section className="settings-section" style={{ backgroundColor: cardBg, border: `1px solid ${cardBorder}` }}>
+                                <h2 className="section-header" style={{ color: title, borderBottomColor: cardBorder }}>
                                     <span>📿</span>
                                     {isarabic ? "متابعة السنن الرواتب والأذكار اليومية" : "Sunnah Rawatib & Azkar Tracker"}
                                 </h2>
 
-                                <div style={{ padding: "16px", borderRadius: "14px", backgroundColor: K ? "#111915" : "#eef5f7", marginBottom: "20px" }}>
+                                <div style={{ padding: "16px", borderRadius: "14px", backgroundColor: inset, border: `1px solid ${insetBorder}`, marginBottom: "20px" }}>
                                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-                                        <span style={{ fontSize: "14px", fontWeight: "700", color: K ? "#95d3ba" : "#003829" }}>
+                                        <span style={{ fontSize: "14px", fontWeight: "700", color: title }}>
                                             {isarabic ? `إنجاز عبادات اليوم: ${habitsPercent}%` : `Today's Progress: ${habitsPercent}%`}
                                         </span>
-                                        <span style={{ fontSize: "12px", fontWeight: "700", padding: "3px 10px", borderRadius: "12px", backgroundColor: K ? "rgba(149, 211, 186, 0.2)" : "#d1fae5", color: K ? "#95d3ba" : "#065f46" }}>
+                                        <span style={{ fontSize: "12px", fontWeight: "700", padding: "3px 10px", borderRadius: "12px", backgroundColor: K ? "rgba(243, 186, 66, 0.15)" : "#faede0", color: accent }}>
                                             🔥 {isarabic ? `سلسلة الالتزام: ${habitStreak} أيام` : `Streak: ${habitStreak} Days`}
                                         </span>
                                     </div>
-                                    <div style={{ height: "8px", borderRadius: "4px", backgroundColor: K ? "#1a2520" : "#dde4e6", overflow: "hidden" }}>
-                                        <div style={{ width: `${habitsPercent}%`, height: "100%", backgroundColor: habitsPercent === 100 ? "#10b981" : (K ? "#95d3ba" : "#003829"), transition: "width 0.3s ease" }}></div>
+                                    <div style={{ height: "8px", borderRadius: "4px", backgroundColor: K ? "#162137" : "#ece4d9", overflow: "hidden" }}>
+                                        <div style={{ width: `${habitsPercent}%`, height: "100%", backgroundColor: habitsPercent === 100 ? "#10b981" : accent, transition: "width 0.3s ease" }}></div>
                                     </div>
                                 </div>
 
@@ -546,13 +568,13 @@ export default function SettingsPage() {
                                                         padding: "12px 16px",
                                                         borderRadius: "10px",
                                                         cursor: "pointer",
-                                                        backgroundColor: isDone ? (K ? "rgba(149, 211, 186, 0.15)" : "#e6f4ea") : (K ? "#111915" : "#f8fafc"),
-                                                        border: isDone ? (K ? "1px solid #95d3ba" : "1px solid #34a853") : (K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e2e8f0"),
+                                                        backgroundColor: isDone ? (K ? "rgba(243, 186, 66, 0.12)" : "#faede0") : (K ? "#151e30" : "#ffffff"),
+                                                        border: isDone ? (K ? "1px solid #f3ba42" : "1px solid #b85d38") : `1px solid ${cardBorder}`,
                                                         transition: "all 0.2s"
                                                     }}
                                                 >
                                                     <span style={{ fontSize: "16px" }}>{isDone ? "✅" : "⭕"}</span>
-                                                    <span style={{ fontSize: "13px", fontWeight: isDone ? "700" : "500", textDecoration: isDone ? "line-through" : "none", color: isDone ? (K ? "#95d3ba" : "#137333") : (K ? "#c8e8dc" : "#1e293b") }}>
+                                                    <span style={{ fontSize: "13px", fontWeight: isDone ? "700" : "500", textDecoration: isDone ? "line-through" : "none", color: isDone ? accent : text }}>
                                                         {isarabic ? item.labelAr : item.labelEn}
                                                     </span>
                                                 </div>
@@ -564,12 +586,12 @@ export default function SettingsPage() {
                         )}
 
                         {activeTab === "islamic" && (
-                            <section className="settings-section" style={{ backgroundColor: K ? "#0b0f0d" : "#ffffff", border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
-                                <h2 className="section-header" style={{ color: K ? "#95d3ba" : "#003829", borderBottomColor: K ? "rgba(63, 73, 69, 0.3)" : undefined }}>
+                            <section className="settings-section" style={{ backgroundColor: cardBg, border: `1px solid ${cardBorder}` }}>
+                                <h2 className="section-header" style={{ color: title, borderBottomColor: cardBorder }}>
                                     <span>🌙</span>
                                     {isarabic ? "المناسبات والأعياد الإسلامية بالتقويم الهجري" : "Islamic Events & Hijri Holidays"}
                                 </h2>
-                                <p className="section-description" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
+                                <p className="section-description" style={{ color: muted }}>
                                     {isarabic
                                         ? "دليل المناسبات الدينية وأيام الفضل السنوية لمتابعتها وإضافتها لتقويمك الشخصي."
                                         : "Comprehensive schedule of annual Islamic holidays, recommended fasts, and spiritual seasons."}
@@ -582,8 +604,8 @@ export default function SettingsPage() {
                                             style={{
                                                 padding: "14px",
                                                 borderRadius: "10px",
-                                                backgroundColor: K ? "#111915" : "#eef5f7",
-                                                border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e1e8e6",
+                                                backgroundColor: inset,
+                                                border: `1px solid ${insetBorder}`,
                                                 display: "flex",
                                                 justifyContent: "space-between",
                                                 alignItems: "center",
@@ -592,14 +614,14 @@ export default function SettingsPage() {
                                             }}
                                         >
                                             <div>
-                                                <div style={{ fontSize: "14px", fontWeight: "700", color: K ? "#95d3ba" : "#003829" }}>
+                                                <div style={{ fontSize: "14px", fontWeight: "700", color: title }}>
                                                     {isarabic ? ev.nameAr : ev.nameEn}
                                                 </div>
-                                                <div style={{ fontSize: "12px", color: K ? "#89938e" : "#6e827c", marginTop: "2px" }}>
+                                                <div style={{ fontSize: "12px", color: muted, marginTop: "2px" }}>
                                                     {isarabic ? ev.descAr : ev.descEn}
                                                 </div>
                                             </div>
-                                            <span style={{ fontSize: "12px", fontWeight: "700", padding: "4px 10px", borderRadius: "8px", backgroundColor: K ? "#1a2520" : "#ffffff", color: K ? "#ffe088" : "#854d0e", border: "1px solid rgba(250, 204, 21, 0.4)" }}>
+                                            <span style={{ fontSize: "12px", fontWeight: "700", padding: "4px 10px", borderRadius: "8px", backgroundColor: K ? "rgba(243, 186, 66, 0.15)" : "#faede0", color: accent, border: `1px solid ${K ? "rgba(243, 186, 66, 0.3)" : "#ece4d9"}` }}>
                                                 📅 {ev.hijri}
                                             </span>
                                         </div>
@@ -609,32 +631,32 @@ export default function SettingsPage() {
                         )}
 
                         {activeTab === "tasks" && (
-                            <section className="settings-section" style={{ backgroundColor: K ? "#0b0f0d" : "#ffffff", border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
-                                <h2 className="section-header" style={{ color: K ? "#95d3ba" : "#003829", borderBottomColor: K ? "rgba(63, 73, 69, 0.3)" : undefined }}>
+                            <section className="settings-section" style={{ backgroundColor: cardBg, border: `1px solid ${cardBorder}` }}>
+                                <h2 className="section-header" style={{ color: title, borderBottomColor: cardBorder }}>
                                     <span>📖</span>
                                     {isarabic ? "متابعة تلاوة القرآن والمهام الإيمانية" : "Daily Quran & Spiritual Tasks"}
                                 </h2>
 
-                                <div style={{ padding: "18px", borderRadius: "12px", backgroundColor: K ? "#111915" : "#eef5f7", marginBottom: "20px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+                                <div style={{ padding: "18px", borderRadius: "12px", backgroundColor: inset, border: `1px solid ${insetBorder}`, marginBottom: "20px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
                                     <div>
-                                        <div style={{ fontSize: "15px", fontWeight: "700", color: K ? "#95d3ba" : "#003829" }}>
+                                        <div style={{ fontSize: "15px", fontWeight: "700", color: title }}>
                                             📖 {isarabic ? "ورد التلاوة اليومي" : "Daily Quran Pages Goal"}
                                         </div>
-                                        <div style={{ fontSize: "12px", color: K ? "#89938e" : "#6e827c" }}>
+                                        <div style={{ fontSize: "12px", color: muted }}>
                                             {isarabic ? `الهدف: ${quranTarget} صفحة (جزء كامل)` : `Target: ${quranTarget} pages (1 Juz)`}
                                         </div>
                                     </div>
                                     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                                        <button onClick={() => updateQuranPages(-1)} style={{ width: "32px", height: "32px", borderRadius: "50%", backgroundColor: K ? "#1a2520" : "#ffffff", fontWeight: "bold", cursor: "pointer", border: "1px solid #dde4e6" }}>-</button>
-                                        <span style={{ fontSize: "16px", fontWeight: "800", minWidth: "40px", textAlign: "center", color: K ? "#95d3ba" : "#003829" }}>
+                                        <button onClick={() => updateQuranPages(-1)} style={{ width: "32px", height: "32px", borderRadius: "50%", backgroundColor: cardBg, color: text, fontWeight: "bold", cursor: "pointer", border: `1px solid ${cardBorder}` }}>-</button>
+                                        <span style={{ fontSize: "16px", fontWeight: "800", minWidth: "40px", textAlign: "center", color: accent }}>
                                             {quranPages} {isarabic ? "ص" : "p"}
                                         </span>
-                                        <button onClick={() => updateQuranPages(1)} style={{ width: "32px", height: "32px", borderRadius: "50%", backgroundColor: K ? "#1a2520" : "#ffffff", fontWeight: "bold", cursor: "pointer", border: "1px solid #dde4e6" }}>+</button>
+                                        <button onClick={() => updateQuranPages(1)} style={{ width: "32px", height: "32px", borderRadius: "50%", backgroundColor: cardBg, color: text, fontWeight: "bold", cursor: "pointer", border: `1px solid ${cardBorder}` }}>+</button>
                                     </div>
                                 </div>
 
                                 <div className="settings-group">
-                                    <h3 style={{ fontSize: "15px", fontWeight: "700", color: K ? "#c8e8dc" : "#161d1f", margin: "0 0 10px 0" }}>
+                                    <h3 style={{ fontSize: "15px", fontWeight: "700", color: title, margin: "0 0 10px 0" }}>
                                         ✅ {isarabic ? "قائمة المهام والنوايا الإيمانية" : "Spiritual To-Do List"}
                                     </h3>
 
@@ -646,9 +668,9 @@ export default function SettingsPage() {
                                             placeholder={isarabic ? "أضف نية أو عملاً صالحاً..." : "Add a spiritual task or good deed..."}
                                             style={{
                                                 flex: 1, padding: "10px 14px", borderRadius: "8px",
-                                                backgroundColor: K ? "#111915" : "#ffffff",
-                                                color: K ? "#c8e8dc" : "#161d1f",
-                                                border: K ? "1px solid rgba(63, 73, 69, 0.4)" : "1px solid #dde4e6",
+                                                backgroundColor: cardBg,
+                                                color: text,
+                                                border: `1px solid ${cardBorder}`,
                                                 fontSize: "13px"
                                             }}
                                         />
@@ -656,8 +678,8 @@ export default function SettingsPage() {
                                             type="submit"
                                             style={{
                                                 padding: "10px 18px", borderRadius: "8px",
-                                                backgroundColor: K ? "#95d3ba" : "#003829",
-                                                color: K ? "#0b0f0d" : "#ffffff",
+                                                backgroundColor: accent,
+                                                color: K ? "#0b0f19" : "#ffffff",
                                                 fontWeight: "700", fontSize: "13px", cursor: "pointer", border: "none"
                                             }}
                                         >
@@ -672,13 +694,13 @@ export default function SettingsPage() {
                                                 style={{
                                                     display: "flex", justifyContent: "space-between", alignItems: "center",
                                                     padding: "10px 14px", borderRadius: "8px",
-                                                    backgroundColor: t.done ? (K ? "rgba(149, 211, 186, 0.1)" : "#f0fdf4") : (K ? "#111915" : "#ffffff"),
-                                                    border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #e1e8e6"
+                                                    backgroundColor: t.done ? (K ? "rgba(243, 186, 66, 0.08)" : "#faede0") : cardBg,
+                                                    border: `1px solid ${cardBorder}`
                                                 }}
                                             >
                                                 <div onClick={() => toggleTask(t.id)} style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer", flex: 1 }}>
                                                     <span>{t.done ? "✅" : "⭕"}</span>
-                                                    <span style={{ fontSize: "13px", textDecoration: t.done ? "line-through" : "none", color: t.done ? "#89938e" : (K ? "#c8e8dc" : "#161d1f") }}>
+                                                    <span style={{ fontSize: "13px", textDecoration: t.done ? "line-through" : "none", color: t.done ? muted : text }}>
                                                         {isarabic ? t.text : (t.textEn || t.text)}
                                                     </span>
                                                 </div>
@@ -691,18 +713,18 @@ export default function SettingsPage() {
                         )}
 
                         {activeTab === "fiqh" && (
-                            <section className="settings-section" style={{ backgroundColor: K ? "#0b0f0d" : "#ffffff", border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
-                                <h2 className="section-header" style={{ color: K ? "#95d3ba" : "#003829", borderBottomColor: K ? "rgba(63, 73, 69, 0.3)" : undefined }}>
+                            <section className="settings-section" style={{ backgroundColor: cardBg, border: `1px solid ${cardBorder}` }}>
+                                <h2 className="section-header" style={{ color: title, borderBottomColor: cardBorder }}>
                                     <span>🕌</span>
                                     {isarabic ? "الهيئة الفقهية وطريقة الحساب" : "Fiqh & Calculation Method"}
                                 </h2>
                                 <div className="settings-group">
                                     <div className="setting-item">
                                         <div className="setting-info">
-                                            <h3 className="setting-title" style={{ color: K ? "#c8e8dc" : "#161d1f" }}>
+                                            <h3 className="setting-title" style={{ color: title }}>
                                                 {isarabic ? "طريقة الحساب المعتمدة" : "Calculation Body"}
                                             </h3>
-                                            <p className="setting-desc" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
+                                            <p className="setting-desc" style={{ color: muted }}>
                                                 {isarabic ? "اختر الهيئة أو المنظمة المتبعة لحساب زوايا الفجر والعشاء." : "Select the Islamic authority used for Fajr and Isha angles."}
                                             </p>
                                         </div>
@@ -712,8 +734,9 @@ export default function SettingsPage() {
                                                 onChange={(e) => setCalcMethod(e.target.value)}
                                                 className="select-input"
                                                 style={{
-                                                    backgroundColor: K ? "#111915" : "#ffffff",
-                                                    color: K ? "#95d3ba" : "#003829",
+                                                    backgroundColor: inset,
+                                                    border: `1px solid ${cardBorder}`,
+                                                    color: text,
                                                 }}
                                             >
                                                 {CALCULATION_METHODS.map((m) => (
@@ -727,19 +750,19 @@ export default function SettingsPage() {
 
                                     <div className="setting-item">
                                         <div className="setting-info">
-                                            <h3 className="setting-title" style={{ color: K ? "#c8e8dc" : "#161d1f" }}>
+                                            <h3 className="setting-title" style={{ color: title }}>
                                                 {isarabic ? "فقه صلاة العصر (المذهب)" : "Asr Jurisprudence (School)"}
                                             </h3>
-                                            <p className="setting-desc" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
+                                            <p className="setting-desc" style={{ color: muted }}>
                                                 {isarabic ? "الجمهور (شافعي، مالكي، حنبلي) بمثل الظل، أو الحنفي بمثلي الظل." : "Standard (Shafi'i, Maliki, Hanbali) vs Hanafi."}
                                             </p>
                                         </div>
-                                        <div className="toggle-group" style={{ backgroundColor: K ? "#111915" : "#eef5f7" }}>
+                                        <div className="toggle-group" style={{ backgroundColor: inset, border: `1px solid ${insetBorder}` }}>
                                             <button
                                                 type="button"
                                                 className={`toggle-btn ${asrSchool === 0 ? "active" : ""}`}
                                                 onClick={() => setAsrSchool(0)}
-                                                style={asrSchool === 0 ? { backgroundColor: K ? "#1a2520" : "#ffffff", color: K ? "#95d3ba" : "#003829" } : { color: K ? "#6b8a7e" : "#6e827c" }}
+                                                style={asrSchool === 0 ? { backgroundColor: cardBg, color: accent } : { color: muted }}
                                             >
                                                 {isarabic ? "الجمهور (قياسي)" : "Standard (Shafi'i)"}
                                             </button>
@@ -747,7 +770,7 @@ export default function SettingsPage() {
                                                 type="button"
                                                 className={`toggle-btn ${asrSchool === 1 ? "active" : ""}`}
                                                 onClick={() => setAsrSchool(1)}
-                                                style={asrSchool === 1 ? { backgroundColor: K ? "#1a2520" : "#ffffff", color: K ? "#95d3ba" : "#003829" } : { color: K ? "#6b8a7e" : "#6e827c" }}
+                                                style={asrSchool === 1 ? { backgroundColor: cardBg, color: accent } : { color: muted }}
                                             >
                                                 {isarabic ? "حنفي" : "Hanafi"}
                                             </button>
@@ -756,10 +779,10 @@ export default function SettingsPage() {
 
                                     <div className="setting-item" style={{ alignItems: "flex-start" }}>
                                         <div className="setting-info">
-                                            <h3 className="setting-title" style={{ color: K ? "#c8e8dc" : "#161d1f" }}>
+                                            <h3 className="setting-title" style={{ color: title }}>
                                                 {isarabic ? "التعديل اليدوي بالدقائق (+/- دقيقة)" : "Manual Minute Adjustments (+/- min)"}
                                             </h3>
-                                            <p className="setting-desc" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
+                                            <p className="setting-desc" style={{ color: muted }}>
                                                 {isarabic ? "عدّل دقائق أي صلاة لمطابقة توقيت مسجد حيك بدقة." : "Fine-tune individual prayer times to match your local masjid."}
                                             </p>
                                             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: "10px", marginTop: "14px" }}>
@@ -770,18 +793,18 @@ export default function SettingsPage() {
                                                             key={p.key}
                                                             style={{
                                                                 padding: "10px", borderRadius: "8px",
-                                                                backgroundColor: K ? "#111915" : "#eef5f7",
+                                                                backgroundColor: inset,
                                                                 textAlign: "center",
-                                                                border: K ? "1px solid rgba(63, 73, 69, 0.4)" : "1px solid #dde4e6"
+                                                                border: `1px solid ${cardBorder}`
                                                             }}
                                                         >
-                                                            <div style={{ fontSize: "12px", fontWeight: "700", marginBottom: "6px" }}>
+                                                            <div style={{ fontSize: "12px", fontWeight: "700", marginBottom: "6px", color: title }}>
                                                                 {isarabic ? p.nameAr : p.nameEn}
                                                             </div>
                                                             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px" }}>
-                                                                <button type="button" onClick={() => setMinuteOffsets(p.key, val - 1)} style={{ width: "26px", height: "26px", borderRadius: "50%", backgroundColor: K ? "#1a2520" : "#ffffff", cursor: "pointer", fontWeight: "bold" }}>-</button>
-                                                                <span style={{ fontSize: "13px", fontWeight: "700", minWidth: "28px" }}>{val > 0 ? `+${val}` : val}</span>
-                                                                <button type="button" onClick={() => setMinuteOffsets(p.key, val + 1)} style={{ width: "26px", height: "26px", borderRadius: "50%", backgroundColor: K ? "#1a2520" : "#ffffff", cursor: "pointer", fontWeight: "bold" }}>+</button>
+                                                                <button type="button" onClick={() => setMinuteOffsets(p.key, val - 1)} style={{ width: "26px", height: "26px", borderRadius: "50%", backgroundColor: cardBg, color: text, border: `1px solid ${cardBorder}`, cursor: "pointer", fontWeight: "bold" }}>-</button>
+                                                                <span style={{ fontSize: "13px", fontWeight: "700", minWidth: "28px", color: accent }}>{val > 0 ? `+${val}` : val}</span>
+                                                                <button type="button" onClick={() => setMinuteOffsets(p.key, val + 1)} style={{ width: "26px", height: "26px", borderRadius: "50%", backgroundColor: cardBg, color: text, border: `1px solid ${cardBorder}`, cursor: "pointer", fontWeight: "bold" }}>+</button>
                                                             </div>
                                                         </div>
                                                     );
@@ -794,20 +817,20 @@ export default function SettingsPage() {
                         )}
 
                         {activeTab === "family" && (
-                            <section className="settings-section" style={{ backgroundColor: K ? "#0b0f0d" : "#ffffff", border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
-                                <h2 className="section-header" style={{ color: K ? "#95d3ba" : "#003829", borderBottomColor: K ? "rgba(63, 73, 69, 0.3)" : undefined }}>
+                            <section className="settings-section" style={{ backgroundColor: cardBg, border: `1px solid ${cardBorder}` }}>
+                                <h2 className="section-header" style={{ color: title, borderBottomColor: cardBorder }}>
                                     <span>👨‍👩‍👧‍👦</span>
                                     {isarabic ? "مزامنة العائلة والاشتراك المباشر" : "Family & Webcal Sync"}
                                 </h2>
                                 <div className="settings-group">
-                                    <div style={{ padding: "16px", borderRadius: "12px", backgroundColor: K ? "#111915" : "#eef5f7" }}>
-                                        <div style={{ fontSize: "14px", fontWeight: "700", color: K ? "#95d3ba" : "#003829", marginBottom: "6px" }}>
+                                    <div style={{ padding: "16px", borderRadius: "12px", backgroundColor: inset, border: `1px solid ${insetBorder}` }}>
+                                        <div style={{ fontSize: "14px", fontWeight: "700", color: title, marginBottom: "6px" }}>
                                             👨‍👩‍👧‍👦 {isarabic ? "رابط مزامنة إعدادات العائلة وفريق العمل:" : "Family & Team Preconfigured Link:"}
                                         </div>
-                                        <div style={{ fontSize: "12px", color: K ? "#89938e" : "#5c726c", marginBottom: "10px" }}>
+                                        <div style={{ fontSize: "12px", color: muted, marginBottom: "10px" }}>
                                             {isarabic ? "شارك هذا الرابط مع أفراد عائلتك لضبط مدينتكم ومسجدكم وتوقيتات الصلاة بضغطة واحدة." : "Share this link with family members to synchronize their app to the exact same mosque offsets & city."}
                                         </div>
-                                        <div style={{ padding: "8px", borderRadius: "6px", backgroundColor: K ? "#0b0f0d" : "#ffffff", fontSize: "11px", fontFamily: "monospace", wordBreak: "break-all", color: K ? "#95d3ba" : "#065f46", marginBottom: "10px" }}>
+                                        <div style={{ padding: "8px", borderRadius: "6px", backgroundColor: cardBg, border: `1px solid ${cardBorder}`, fontSize: "11px", fontFamily: "monospace", wordBreak: "break-all", color: accent, marginBottom: "10px" }}>
                                             {familySyncUrl}
                                         </div>
                                         <button
@@ -815,8 +838,8 @@ export default function SettingsPage() {
                                             onClick={() => copyToClipboard(familySyncUrl, "family")}
                                             style={{
                                                 padding: "8px 16px", borderRadius: "8px",
-                                                backgroundColor: K ? "#95d3ba" : "#003829",
-                                                color: K ? "#0b0f0d" : "#ffffff",
+                                                backgroundColor: accent,
+                                                color: K ? "#0b0f19" : "#ffffff",
                                                 fontWeight: "700", fontSize: "13px", cursor: "pointer", border: "none"
                                             }}
                                         >
@@ -824,11 +847,11 @@ export default function SettingsPage() {
                                         </button>
                                     </div>
 
-                                    <div style={{ padding: "16px", borderRadius: "12px", backgroundColor: K ? "#111915" : "#eef5f7" }}>
-                                        <div style={{ fontSize: "14px", fontWeight: "700", color: K ? "#95d3ba" : "#003829", marginBottom: "6px" }}>
+                                    <div style={{ padding: "16px", borderRadius: "12px", backgroundColor: inset, border: `1px solid ${insetBorder}` }}>
+                                        <div style={{ fontSize: "14px", fontWeight: "700", color: title, marginBottom: "6px" }}>
                                             📡 {isarabic ? "رابط الاشتراك التلقائي في التقويم (Webcal Feed):" : "Dynamic Webcal Feed URL:"}
                                         </div>
-                                        <div style={{ padding: "8px", borderRadius: "6px", backgroundColor: K ? "#0b0f0d" : "#ffffff", fontSize: "11px", fontFamily: "monospace", wordBreak: "break-all", color: K ? "#95d3ba" : "#065f46", marginBottom: "10px" }}>
+                                        <div style={{ padding: "8px", borderRadius: "6px", backgroundColor: cardBg, border: `1px solid ${cardBorder}`, fontSize: "11px", fontFamily: "monospace", wordBreak: "break-all", color: accent, marginBottom: "10px" }}>
                                             {webcalUrl}
                                         </div>
                                         <button
@@ -836,8 +859,8 @@ export default function SettingsPage() {
                                             onClick={() => copyToClipboard(webcalUrl, "feed")}
                                             style={{
                                                 padding: "8px 16px", borderRadius: "8px",
-                                                backgroundColor: K ? "#95d3ba" : "#003829",
-                                                color: K ? "#0b0f0d" : "#ffffff",
+                                                backgroundColor: accent,
+                                                color: K ? "#0b0f19" : "#ffffff",
                                                 fontWeight: "700", fontSize: "13px", cursor: "pointer", border: "none"
                                             }}
                                         >
@@ -849,27 +872,27 @@ export default function SettingsPage() {
                         )}
 
                         {activeTab === "general" && (
-                            <section className="settings-section" style={{ backgroundColor: K ? "#0b0f0d" : "#ffffff", border: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #edf2f1" }}>
-                                <h2 className="section-header" style={{ color: K ? "#95d3ba" : "#003829", borderBottomColor: K ? "rgba(63, 73, 69, 0.3)" : undefined }}>
+                            <section className="settings-section" style={{ backgroundColor: cardBg, border: `1px solid ${cardBorder}` }}>
+                                <h2 className="section-header" style={{ color: title, borderBottomColor: cardBorder }}>
                                     <span>⚙️</span>
                                     {isarabic ? "التفضيلات العامة وحساب Google" : "General Preferences & Google Setup"}
                                 </h2>
                                 <div className="settings-group">
                                     <div className="setting-item">
                                         <div className="setting-info">
-                                            <h3 className="setting-title" style={{ color: K ? "#c8e8dc" : "#161d1f" }}>
+                                            <h3 className="setting-title" style={{ color: title }}>
                                                 {isarabic ? "صيغة الوقت" : "Time Format"}
                                             </h3>
-                                            <p className="setting-desc" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
+                                            <p className="setting-desc" style={{ color: muted }}>
                                                 {isarabic ? "اختر طريقة عرض الساعة (١٢ ساعة / ٢٤ ساعة)." : "Select clock display (12 Hour / 24 Hour)."}
                                             </p>
                                         </div>
-                                        <div className="toggle-group" style={{ backgroundColor: K ? "#111915" : "#eef5f7" }}>
+                                        <div className="toggle-group" style={{ backgroundColor: inset, border: `1px solid ${insetBorder}` }}>
                                             <button
                                                 type="button"
                                                 className={`toggle-btn ${is12Hours !== false ? "active" : ""}`}
                                                 onClick={() => setIs12Hours(true)}
-                                                style={is12Hours !== false ? { backgroundColor: K ? "#1a2520" : "#ffffff", color: K ? "#95d3ba" : "#003829" } : { color: K ? "#6b8a7e" : "#6e827c" }}
+                                                style={is12Hours !== false ? { backgroundColor: cardBg, color: accent } : { color: muted }}
                                             >
                                                 {isarabic ? "١٢ ساعة" : "12 Hour"}
                                             </button>
@@ -877,7 +900,7 @@ export default function SettingsPage() {
                                                 type="button"
                                                 className={`toggle-btn ${is12Hours === false ? "active" : ""}`}
                                                 onClick={() => setIs12Hours(false)}
-                                                style={is12Hours === false ? { backgroundColor: K ? "#1a2520" : "#ffffff", color: K ? "#95d3ba" : "#003829" } : { color: K ? "#6b8a7e" : "#6e827c" }}
+                                                style={is12Hours === false ? { backgroundColor: cardBg, color: accent } : { color: muted }}
                                             >
                                                 {isarabic ? "٢٤ ساعة" : "24 Hour"}
                                             </button>
@@ -886,19 +909,19 @@ export default function SettingsPage() {
 
                                     <div className="setting-item">
                                         <div className="setting-info">
-                                            <h3 className="setting-title" style={{ color: K ? "#c8e8dc" : "#161d1f" }}>
+                                            <h3 className="setting-title" style={{ color: title }}>
                                                 {isarabic ? "اللغة" : "Language"}
                                             </h3>
-                                            <p className="setting-desc" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
+                                            <p className="setting-desc" style={{ color: muted }}>
                                                 {isarabic ? "لغة واجهة التطبيق والتقويم." : "Interface language for the application."}
                                             </p>
                                         </div>
-                                        <div className="toggle-group" style={{ backgroundColor: K ? "#111915" : "#eef5f7" }}>
+                                        <div className="toggle-group" style={{ backgroundColor: inset, border: `1px solid ${insetBorder}` }}>
                                             <button
                                                 type="button"
                                                 className={`toggle-btn ${!isarabic ? "active" : ""}`}
                                                 onClick={() => setArabic(false)}
-                                                style={!isarabic ? { backgroundColor: K ? "#1a2520" : "#ffffff", color: K ? "#95d3ba" : "#003829" } : { color: K ? "#6b8a7e" : "#6e827c" }}
+                                                style={!isarabic ? { backgroundColor: cardBg, color: accent } : { color: muted }}
                                             >
                                                 English
                                             </button>
@@ -906,7 +929,7 @@ export default function SettingsPage() {
                                                 type="button"
                                                 className={`toggle-btn ${isarabic ? "active" : ""}`}
                                                 onClick={() => setArabic(true)}
-                                                style={isarabic ? { backgroundColor: K ? "#1a2520" : "#ffffff", color: K ? "#95d3ba" : "#003829" } : { color: K ? "#6b8a7e" : "#6e827c" }}
+                                                style={isarabic ? { backgroundColor: cardBg, color: accent } : { color: muted }}
                                             >
                                                 العربية
                                             </button>
@@ -915,18 +938,18 @@ export default function SettingsPage() {
 
                                     <div className="setting-item">
                                         <div className="setting-info">
-                                            <h3 className="setting-title" style={{ color: K ? "#c8e8dc" : "#161d1f" }}>
+                                            <h3 className="setting-title" style={{ color: title }}>
                                                 {isarabic ? "الوضع الداكن" : "Dark Mode"}
                                             </h3>
-                                            <p className="setting-desc" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
+                                            <p className="setting-desc" style={{ color: muted }}>
                                                 {isarabic ? "التبديل بين الوضع الداكن والفاتح الأنيق." : "Toggle between dark and light themes."}
                                             </p>
                                         </div>
                                         <Switch
                                             checked={Boolean(K)}
                                             onChange={setk}
-                                            onColor="#003829"
-                                            offColor="#d1dbd8"
+                                            onColor={K ? "#f3ba42" : "#b85d38"}
+                                            offColor={K ? "#1c273e" : "#ece4d9"}
                                             checkedIcon={false}
                                             uncheckedIcon={false}
                                             height={24}
@@ -936,16 +959,16 @@ export default function SettingsPage() {
 
                                     <div className="setting-item" style={{ alignItems: "flex-start" }}>
                                         <div className="setting-info">
-                                            <h3 className="setting-title" style={{ color: K ? "#c8e8dc" : "#161d1f" }}>
+                                            <h3 className="setting-title" style={{ color: title }}>
                                                 {isarabic ? "اتصال حساب Google وأدوات التقويم" : "Google Account & Calendar Tools"}
                                             </h3>
-                                            <p className="setting-desc" style={{ color: K ? "#6b8a7e" : "#6e827c" }}>
+                                            <p className="setting-desc" style={{ color: muted }}>
                                                 {isarabic ? "اربط حسابك للمزامنة المباشرة بضغطة زر أو تنظيف المواعيد المكررة." : "Connect your Google account for direct sync or clean up duplicate events."}
                                             </p>
 
                                             {session?.user && (
                                                 <div style={{ marginTop: "12px", display: "flex", alignItems: "center", gap: "10px" }}>
-                                                    <span style={{ fontSize: "13px", fontWeight: "700", color: K ? "#95d3ba" : "#003829" }}>
+                                                    <span style={{ fontSize: "13px", fontWeight: "700", color: accent }}>
                                                         {session.user.name || session.user.email} (Connected ✓)
                                                     </span>
                                                 </div>
@@ -979,9 +1002,9 @@ export default function SettingsPage() {
                                                         onClick={handleWipeAndReset}
                                                         style={{
                                                             padding: "8px 16px", borderRadius: "8px",
-                                                            backgroundColor: K ? "#1a2520" : "#ffffff",
-                                                            color: K ? "#ffe088" : "#854d0e",
-                                                            border: "1px solid #facc15",
+                                                            backgroundColor: cardBg,
+                                                            color: accent,
+                                                            border: `1px solid ${accent}`,
                                                             fontSize: "13px", fontWeight: "700", cursor: "pointer"
                                                         }}
                                                     >
@@ -994,9 +1017,9 @@ export default function SettingsPage() {
                                                     onClick={() => signIn("google")}
                                                     style={{
                                                         padding: "10px 18px", borderRadius: "8px",
-                                                        backgroundColor: K ? "#1a2520" : "#ffffff",
-                                                        color: K ? "#95d3ba" : "#003829",
-                                                        border: K ? "1px solid rgba(149, 211, 186, 0.4)" : "1px solid #c8d6d2",
+                                                        backgroundColor: cardBg,
+                                                        color: accent,
+                                                        border: `1px solid ${cardBorder}`,
                                                         fontWeight: "700", cursor: "pointer"
                                                     }}
                                                 >
@@ -1011,32 +1034,7 @@ export default function SettingsPage() {
                     </div>
                 </div>
             </main>
-
-
-            
-
-
-            <footer className="footer" style={{ backgroundColor: K ? "#080c0a" : "#e2e8e7", borderTop: K ? "1px solid rgba(63, 73, 69, 0.3)" : "1px solid #d4dedc" }}>
-                <div className="footer-content">
-                    <div className="footer-left" style={{ color: K ? "#4d6b62" : "#5c726c" }}>
-                        &copy; {new Date().getFullYear()} {isarabic ? "موسى محمد. جميع الحقوق محفوظة." : "Musa Mohammed. All rights reserved."}
-                    </div>
-                    <div className="footer-right">
-                        <Link href="/guides" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }}>
-                            {isarabic ? "الأدلة والشروحات" : "Guides"}
-                        </Link>
-                        <Link href="/Priacypolicy" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }}>
-                            {isarabic ? "سياسة الخصوصية" : "Privacy Policy"}
-                        </Link>
-                        <Link href="/terms" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }}>
-                            {isarabic ? "شروط الخدمة" : "Terms of Service"}
-                        </Link>
-                        <Link href="/Contact" className="footer-link" style={{ color: K ? "#4d6b62" : "#5c726c" }}>
-                            {isarabic ? "تواصل معنا" : "Contact Us"}
-                        </Link>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

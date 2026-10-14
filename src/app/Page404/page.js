@@ -12,13 +12,23 @@ export default function Page404() {
     const { K } = useData();
     const { isarabic } = useData2();
 
+    const bg = K ? "#0b0f19" : "#faf7f2";
+    const text = K ? "#ccd6e6" : "#4a3c31";
+    const title = K ? "#ffffff" : "#241a15";
+    const accent = K ? "#f3ba42" : "#b85d38";
+    const muted = K ? "#8b9cb5" : "#7c6b5e";
+    const cardBg = K ? "#121a2b" : "#ffffff";
+    const cardBorder = K ? "#1c273e" : "#ece4d9";
+    const inset = K ? "#0c121e" : "#f6f0e8";
+    const insetBorder = K ? "#1c273e" : "#ddd4c8";
+
     return (
         <div
             className="app-wrapper"
             dir={isarabic ? "rtl" : "ltr"}
             style={{
-                backgroundColor: K ? "#0f1412" : "#f5faf9",
-                color: K ? "#c8e8dc" : "#2c463f",
+                backgroundColor: bg,
+                color: text,
                 minHeight: "100vh",
                 display: "flex",
                 flexDirection: "column"
@@ -31,17 +41,17 @@ export default function Page404() {
                     maxWidth: "540px",
                     width: "100%",
                     textAlign: "center",
-                    backgroundColor: K ? "#0b0f0d" : "#ffffff",
-                    border: K ? "1px solid rgba(63, 73, 69, 0.4)" : "1px solid #e1e8e6",
+                    backgroundColor: cardBg,
+                    border: `1px solid ${cardBorder}`,
                     borderRadius: "16px",
                     padding: "48px 24px",
-                    boxShadow: K ? "0 20px 40px rgba(0,0,0,0.5)" : "0 10px 30px rgba(0,56,41,0.06)"
+                    boxShadow: K ? "0 20px 40px rgba(0,0,0,0.5)" : "0 10px 30px rgba(36,26,21,0.06)"
                 }}>
                     <span style={{ fontSize: "3.5rem", display: "block", marginBottom: "16px" }}>🧭</span>
-                    <h1 style={{ color: K ? "#95d3ba" : "#003829", fontSize: "2rem", fontWeight: "800", marginBottom: "12px" }}>
+                    <h1 style={{ color: title, fontSize: "2rem", fontWeight: "800", marginBottom: "12px" }}>
                         {isarabic ? "الصفحة غير موجودة (404)" : "Page Not Found (404)"}
                     </h1>
-                    <p style={{ color: K ? "#8fb8a7" : "#556b63", lineHeight: "1.7", marginBottom: "28px", fontSize: "15px" }}>
+                    <p style={{ color: muted, lineHeight: "1.7", marginBottom: "28px", fontSize: "15px" }}>
                         {isarabic
                             ? "عذراً، الرابط الذي طلبته غير متوفر أو ربما تم نقله. يمكنك العودة إلى الصفحة الرئيسية لمتابعة مواقيت الصلاة، أو استكشاف الأدلة والشروحات التقنية."
                             : "Sorry, the page you are looking for does not exist or has been moved. You can return to the homepage to access prayer times or explore our technical guides."}
@@ -56,8 +66,8 @@ export default function Page404() {
                                 borderRadius: "8px",
                                 fontWeight: "700",
                                 fontSize: "14px",
-                                backgroundColor: K ? "#95d3ba" : "#003829",
-                                color: K ? "#0b0f0d" : "#ffffff",
+                                backgroundColor: accent,
+                                color: K ? "#0b0f19" : "#ffffff",
                                 transition: "all 0.2s"
                             }}
                         >
@@ -72,9 +82,9 @@ export default function Page404() {
                                 borderRadius: "8px",
                                 fontWeight: "700",
                                 fontSize: "14px",
-                                backgroundColor: K ? "#1a2520" : "#eef5f7",
-                                color: K ? "#95d3ba" : "#003829",
-                                border: K ? "1px solid #95d3ba" : "1px solid #c8d6d2",
+                                backgroundColor: inset,
+                                color: title,
+                                border: `1px solid ${insetBorder}`,
                             }}
                         >
                             {isarabic ? "تصفح الأدلة" : "Browse Guides"}

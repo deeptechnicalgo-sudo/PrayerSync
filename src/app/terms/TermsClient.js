@@ -50,8 +50,8 @@ export default function TermsClient() {
             className="app-wrapper"
             dir={isarabic ? "rtl" : "ltr"}
             style={{
-                backgroundColor: K ? "#0f1412" : "#f5faf9",
-                color: K ? "#c8e8dc" : "#2c463f",
+                backgroundColor: K ? "#0b0f19" : "#faf7f2",
+                color: K ? "#ccd6e6" : "#4a3c31",
                 minHeight: "100vh",
                 display: "flex",
                 flexDirection: "column",
@@ -61,13 +61,13 @@ export default function TermsClient() {
 
             <main className="subpage-content" style={{ maxWidth: "860px", margin: "0 auto", padding: "40px 20px", flex: 1, width: "100%", boxSizing: "border-box" }}>
                 <div style={{ marginBottom: "32px", textAlign: isarabic ? "right" : "left" }}>
-                    <h1 className="subpage-title" style={{ color: K ? "#95d3ba" : "#003829", fontSize: "2.4rem", fontWeight: "800", marginBottom: "8px" }}>
+                    <h1 className="subpage-title" style={{ color: K ? "#ffffff" : "#241a15", fontSize: "2.4rem", fontWeight: "800", marginBottom: "8px" }}>
                         {isarabic ? "شروط وأحكام الخدمة" : "Terms of Service"}
                     </h1>
-                    <p className="subpage-subtitle" style={{ color: K ? "#6b8a7e" : "#8c9e99", fontSize: "1.1rem", lineHeight: "1.6" }}>
+                    <p className="subpage-subtitle" style={{ color: K ? "#8b9cb5" : "#7c6b5e", fontSize: "1.1rem", lineHeight: "1.6" }}>
                         {isarabic
-                            ? "تحكم هذه الشروط استخدامك لتطبيق ومنصة PrayerSync وميزات التزامن الفلكي والتقويم."
-                            : "These Terms of Service govern your access to PrayerSync, astronomical calculations, and calendar sync services."}
+                            ? "تحكم هذه الشروط استخدامك لتطبيق ومنصة PrayerConnect وميزات التزامن الفلكي والتقويم."
+                            : "These Terms of Service govern your access to PrayerConnect, astronomical calculations, and calendar sync services."}
                     </p>
                 </div>
 
@@ -77,18 +77,18 @@ export default function TermsClient() {
                             className="subpage-card"
                             key={i}
                             style={{
-                                backgroundColor: K ? "#0b0f0d" : "#ffffff",
-                                borderColor: K ? "rgba(63,73,69,0.3)" : "#edf2f1",
+                                backgroundColor: K ? "#121a2b" : "#ffffff",
+                                borderColor: K ? "#1c273e" : "#ece4d9",
                                 padding: "24px",
                                 borderRadius: "14px",
                                 border: "1px solid",
                                 boxShadow: K ? "none" : "0 4px 12px rgba(0,0,0,0.03)"
                             }}
                         >
-                            <h2 style={{ color: K ? "#ffe088" : "#004d38", fontSize: "1.2rem", fontWeight: "700", marginTop: 0, marginBottom: "10px" }}>
+                            <h2 style={{ color: K ? "#f3ba42" : "#b85d38", fontSize: "1.2rem", fontWeight: "700", marginTop: 0, marginBottom: "10px" }}>
                                 {isarabic ? item.ar_title : item.en_title}
                             </h2>
-                            <p style={{ margin: 0, color: K ? "#a0c4b8" : "#4a6660", lineHeight: "1.7", fontSize: "14px" }}>
+                            <p style={{ margin: 0, color: K ? "#ccd6e6" : "#4a3c31", lineHeight: "1.7", fontSize: "14px" }}>
                                 {isarabic ? item.ar_body : item.en_body}
                             </p>
                         </div>
@@ -99,8 +99,8 @@ export default function TermsClient() {
                     style={{
                         padding: "20px",
                         borderRadius: "12px",
-                        backgroundColor: K ? "#111915" : "#eef5f7",
-                        border: K ? "1px solid rgba(149, 211, 186, 0.2)" : "1px solid #c8ddd8",
+                        backgroundColor: K ? "#0c121e" : "#f6f0e8",
+                        border: K ? "1px solid #1c273e" : "1px solid #ece4d9",
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
@@ -108,7 +108,7 @@ export default function TermsClient() {
                         gap: "12px"
                     }}
                 >
-                    <div style={{ fontSize: "13px", color: K ? "#89938e" : "#5c726c" }}>
+                    <div style={{ fontSize: "13px", color: K ? "#8b9cb5" : "#7c6b5e" }}>
                         {isarabic
                             ? "للاطلاع على كيفية معالجة ملفات تعريف الارتباط والإعلانات، تفضل بزيارة سياسة الخصوصية."
                             : "For full disclosures regarding cookies, advertising, and data safety, review our Privacy Policy."}
@@ -118,8 +118,8 @@ export default function TermsClient() {
                         style={{
                             padding: "8px 16px",
                             borderRadius: "8px",
-                            backgroundColor: K ? "#95d3ba" : "#003829",
-                            color: K ? "#0b0f0d" : "#ffffff",
+                            backgroundColor: K ? "#f3ba42" : "#b85d38",
+                            color: K ? "#0b0f19" : "#ffffff",
                             textDecoration: "none",
                             fontWeight: "700",
                             fontSize: "13px"

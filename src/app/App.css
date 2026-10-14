@@ -19,12 +19,104 @@ html.night-light-active::after {
     z-index: 999999;
 }
 
+:root {
+    /* Light Theme (Warm Cream & Terracotta) */
+    --pc-bg: #faf7f2;
+    --pc-card-bg: #ffffff;
+    --pc-card-border: #ece4d9;
+    --pc-card-shadow: 0 10px 30px rgba(90, 60, 40, 0.04);
+    --pc-input-bg: #f6f0e8;
+    --pc-input-border: #ebe1d5;
+    --pc-input-text: #241a15;
+    --pc-input-icon: #b85d38;
+    --pc-primary: #b85d38;
+    --pc-primary-hover: #a34f2d;
+    --pc-primary-text: #ffffff;
+    --pc-primary-shadow: 0 4px 16px rgba(184, 93, 56, 0.35);
+    --pc-title: #241a15;
+    --pc-subtitle: #70645d;
+    --pc-muted: #8a7d75;
+    --pc-brand: #8e4324;
+    --pc-nav-active: #8e4324;
+    --pc-nav-underline: #b85d38;
+    --pc-nav-inactive: #70645d;
+    --pc-icon-btn-bg: #f0e8df;
+    --pc-icon-btn-border: #e5dbcf;
+    --pc-icon-btn-color: #70645d;
+    --pc-date-badge-bg: #f5ede4;
+    --pc-date-badge-text: #8d5738;
+    --pc-divider: #ece4d9;
+    --pc-divider-accent: #b85d38;
+    --pc-prayer-row-bg: #f6f0ea;
+    --pc-prayer-name: #241a15;
+    --pc-prayer-time: #b85d38;
+    --pc-current-bg: #faede0;
+    --pc-current-border: #c8764b;
+    --pc-current-name: #8d4427;
+    --pc-current-badge-bg: #a64d29;
+    --pc-current-badge-text: #ffffff;
+    --pc-current-time: #a64d29;
+    --pc-ad-bg: #f5eee6;
+    --pc-ad-border: #decbc0;
+    --pc-ad-text: #a6958a;
+    --pc-footer-bg: #faf7f2;
+    --pc-footer-border: #ece4d9;
+    --pc-footer-text: #70645d;
+}
+
+[data-theme="dark"],
+.dark {
+    /* Dark Theme (Midnight Navy & Radiant Gold) */
+    --pc-bg: #0b0f19;
+    --pc-card-bg: #121a2b;
+    --pc-card-border: #1c273e;
+    --pc-card-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    --pc-input-bg: #0c121e;
+    --pc-input-border: #1c273e;
+    --pc-input-text: #e2e8f0;
+    --pc-input-icon: #f3ba42;
+    --pc-primary: #f0bb3e;
+    --pc-primary-hover: #deb133;
+    --pc-primary-text: #0b0f19;
+    --pc-primary-shadow: 0 4px 18px rgba(240, 187, 62, 0.35);
+    --pc-title: #ffffff;
+    --pc-subtitle: #94a3b8;
+    --pc-muted: #8290a6;
+    --pc-brand: #ffffff;
+    --pc-brand-dot: #f3ba42;
+    --pc-nav-active: #f3ba42;
+    --pc-nav-underline: #f3ba42;
+    --pc-nav-inactive: #94a3b8;
+    --pc-icon-btn-bg: #151e30;
+    --pc-icon-btn-border: #1e293b;
+    --pc-icon-btn-color: #94a3b8;
+    --pc-date-badge-bg: #151e30;
+    --pc-date-badge-text: #cbd5e1;
+    --pc-divider: #1c273e;
+    --pc-divider-accent: #f3ba42;
+    --pc-prayer-row-bg: #0c121e;
+    --pc-prayer-name: #94a3b8;
+    --pc-prayer-time: #ffffff;
+    --pc-current-bg: #162137;
+    --pc-current-border: #f3ba42;
+    --pc-current-name: #e2e8f0;
+    --pc-current-badge-bg: #f3ba42;
+    --pc-current-badge-text: #0b0f19;
+    --pc-current-time: #f3ba42;
+    --pc-ad-bg: #0f172a;
+    --pc-ad-border: #1e293b;
+    --pc-ad-text: #475569;
+    --pc-footer-bg: #0b0f19;
+    --pc-footer-border: #182236;
+    --pc-footer-text: #64748b;
+}
+
 body {
-    background-color: #f5faf9;
+    background-color: var(--pc-bg);
     margin: 0;
     padding: 0;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    color: #2c463f;
+    color: var(--pc-title);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -37,6 +129,8 @@ body {
     flex-direction: column;
     min-height: 100vh;
     width: 100%;
+    background-color: var(--pc-bg);
+    transition: background-color 0.25s ease;
 }
 
 .navbar {
@@ -62,10 +156,22 @@ body {
     font-family: 'Libre Caslon Text', serif;
     font-size: 24px;
     font-weight: 700;
-    color: #003829;
+    color: var(--pc-brand);
     text-decoration: none;
     letter-spacing: -0.3px;
     white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s ease;
+}
+
+.navbar-logo-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--pc-brand-dot, var(--pc-primary));
 }
 
 .navbar-nav-desktop {
@@ -86,7 +192,7 @@ body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     font-weight: 600;
-    color: #6e827c;
+    color: var(--pc-nav-inactive);
     text-decoration: none;
     position: relative;
     transition: color 0.2s ease;
@@ -97,7 +203,7 @@ body {
 
 .navbar-link:hover,
 .navbar-link.active {
-    color: #003829;
+    color: var(--pc-nav-active);
 }
 
 .navbar-link.active::after {
@@ -107,7 +213,7 @@ body {
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #b19e68;
+    background-color: var(--pc-nav-underline);
     border-radius: 1px;
 }
 
@@ -115,18 +221,18 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    color: #6e827c;
+    color: var(--pc-nav-inactive);
 }
 
 .navbar-icon-btn {
-    background: none;
-    border: none;
-    color: inherit;
+    background-color: var(--pc-icon-btn-bg);
+    border: 1px solid var(--pc-icon-btn-border);
+    color: var(--pc-icon-btn-color);
     cursor: pointer;
     padding: 8px;
     min-width: 40px;
     min-height: 40px;
-    border-radius: 10px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -134,13 +240,14 @@ body {
 }
 
 .navbar-icon-btn:hover {
-    color: #003829;
-    background-color: rgba(0, 56, 41, 0.05);
+    color: var(--pc-nav-active);
+    border-color: var(--pc-nav-underline);
+    transform: translateY(-1px);
 }
 
 .navbar-icon {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
 }
 
 /* Mobile Hamburger Toggle */
@@ -161,7 +268,7 @@ body {
 }
 
 .navbar-hamburger:hover {
-    background-color: rgba(0, 56, 41, 0.06);
+    background-color: rgba(184, 93, 56, 0.08);
 }
 
 .hamburger-bar {
@@ -270,17 +377,17 @@ body {
 
 .hero-section {
     text-align: center;
-    max-width: 800px;
-    margin: 40px auto 36px auto;
+    max-width: 780px;
+    margin: 44px auto 36px auto;
     padding: 0 20px;
     box-sizing: border-box;
 }
 
 .hero-title {
     font-family: 'Libre Caslon Text', serif;
-    font-size: clamp(26px, 5.2vw, 46px);
+    font-size: clamp(28px, 5.2vw, 48px);
     font-weight: 700;
-    color: #003829;
+    color: var(--pc-title);
     line-height: 1.2;
     margin: 0 0 16px 0;
     letter-spacing: -0.5px;
@@ -291,17 +398,37 @@ body {
 .hero-subtitle {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: clamp(14px, 2vw, 15px);
-    color: #6e827c;
-    line-height: 1.6;
-    max-width: 580px;
+    color: var(--pc-subtitle);
+    line-height: 1.65;
+    max-width: 620px;
     margin: 0 auto;
+}
+
+/* Advertisement Leaderboard */
+.ad-leaderboard {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto 36px auto;
+    padding: 26px 20px;
+    background-color: var(--pc-ad-bg);
+    border: 1px dashed var(--pc-ad-border);
+    border-radius: 12px;
+    text-align: center;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pc-ad-text);
+    box-sizing: border-box;
+    transition: all 0.25s ease;
 }
 
 .dashboard-container {
     display: flex;
     justify-content: center;
     align-items: stretch;
-    gap: 30px;
+    gap: 24px;
     width: 100%;
     max-width: 1100px;
     margin: 0 auto 60px auto;
@@ -311,26 +438,27 @@ body {
 }
 
 .location-card {
-    background-color: #ffffff;
-    border: 1px solid #edf2f1;
+    background-color: var(--pc-card-bg);
+    border: 1px solid var(--pc-card-border);
     border-radius: 20px;
     width: 100%;
-    max-width: 480px;
+    max-width: 380px;
     min-width: 0;
-    flex: 1 1 340px;
-    padding: 40px 36px;
-    box-shadow: 0 10px 40px rgba(0, 56, 41, 0.015);
+    flex: 1 1 300px;
+    padding: 36px 32px;
+    box-shadow: var(--pc-card-shadow);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    transition: all 0.25s ease;
 }
 
 .location-card-title {
     font-family: 'Libre Caslon Text', serif;
     font-size: 26px;
     font-weight: 700;
-    color: #003829;
-    margin: 0 0 28px 0;
+    color: var(--pc-title);
+    margin: 0 0 24px 0;
     line-height: 1.2;
 }
 
@@ -345,9 +473,11 @@ body {
 
 .input-label {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    color: #8c9e99;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--pc-muted);
 }
 
 .select-wrapper {
@@ -364,7 +494,7 @@ body {
     left: 14px;
     width: 16px;
     height: 16px;
-    color: #8c9e99;
+    color: var(--pc-input-icon);
     pointer-events: none;
     z-index: 1;
 }
@@ -376,16 +506,16 @@ body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
     font-weight: 500;
-    color: #2c463f;
-    background-color: #f4f7f6;
-    border: 1px solid #e1e8e6;
+    color: var(--pc-input-text);
+    background-color: var(--pc-input-bg);
+    border: 1px solid var(--pc-input-border);
     border-radius: 10px;
     padding: 12px 36px 12px 42px;
     outline: none;
     cursor: pointer;
     transition: all 0.2s ease;
     appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238c9e99' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%238a7d75' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 14px center;
     background-size: 16px;
@@ -394,21 +524,20 @@ body {
 }
 
 .premium-select:hover {
-    border-color: #b19e68;
-    background-color: #edf2f0;
+    border-color: var(--pc-primary);
 }
 
 .premium-select:focus {
-    border-color: #003829;
-    box-shadow: 0 0 0 3px rgba(0, 56, 41, 0.05);
+    border-color: var(--pc-primary);
+    box-shadow: 0 0 0 3px rgba(184, 93, 56, 0.15);
 }
 
 .calendar-button {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 14px;
-    font-weight: 600;
-    color: #ffffff;
-    background-color: #003829;
+    font-weight: 700;
+    color: var(--pc-primary-text);
+    background-color: var(--pc-primary);
     border: none;
     border-radius: 10px;
     padding: 14px 24px;
@@ -419,15 +548,15 @@ body {
     gap: 10px;
     width: 100%;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 56, 41, 0.1);
+    box-shadow: var(--pc-primary-shadow);
     margin-top: 10px;
     box-sizing: border-box;
 }
 
 .calendar-button:hover {
-    background-color: #002c20;
+    background-color: var(--pc-primary-hover);
     transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(0, 56, 41, 0.15);
+    box-shadow: 0 6px 20px rgba(184, 93, 56, 0.4);
 }
 
 .calendar-button:active {
@@ -435,24 +564,25 @@ body {
 }
 
 .calendar-button:disabled {
-    background-color: #cdd8d5;
-    color: #8c9e99;
+    opacity: 0.5;
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
 }
 
 .Prayertime {
-    background-color: #f4f7f6;
-    border: 1px solid #e1e8e6;
+    background-color: var(--pc-card-bg);
+    border: 1px solid var(--pc-card-border);
     border-radius: 20px;
     width: 100%;
-    max-width: 500px;
-    padding: 40px 36px;
-    box-shadow: 0 10px 40px rgba(0, 56, 41, 0.015);
+    max-width: 480px;
+    padding: 36px 32px;
+    box-shadow: var(--pc-card-shadow);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+    flex: 1 1 340px;
+    transition: all 0.25s ease;
 }
 
 .schedule-header {
@@ -472,7 +602,7 @@ body {
     font-family: 'Libre Caslon Text', serif;
     font-size: 26px;
     font-weight: 700;
-    color: #003829;
+    color: var(--pc-title);
     margin: 0;
     line-height: 1.2;
 }
@@ -481,13 +611,13 @@ body {
     display: flex;
     align-items: center;
     gap: 6px;
-    color: #5c726c;
+    color: var(--pc-subtitle);
 }
 
 .location-icon {
     width: 13px;
     height: 15px;
-    color: #8c9e99;
+    color: var(--pc-input-icon);
     flex-shrink: 0;
 }
 
@@ -495,14 +625,15 @@ body {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     font-weight: 500;
-    color: #5c726c;
+    color: var(--pc-subtitle);
 }
 
 .date-badge {
-    background-color: #e3ebec;
-    color: #2c463f;
-    padding: 8px 16px;
-    border-radius: 12px;
+    background-color: var(--pc-date-badge-bg);
+    color: var(--pc-date-badge-text);
+    border: 1px solid var(--pc-card-border);
+    padding: 7px 16px;
+    border-radius: 20px;
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
     font-weight: 600;
@@ -512,7 +643,7 @@ body {
 .schedule-divider {
     position: relative;
     height: 1px;
-    background-color: #e2e8e7;
+    background-color: var(--pc-divider);
     margin: 20px 0 24px 0;
     width: 100%;
 }
@@ -522,9 +653,9 @@ body {
     position: absolute;
     top: -0.5px;
     left: 0;
-    width: 32%;
+    width: 36%;
     height: 2px;
-    background-color: #b19e68;
+    background-color: var(--pc-divider-accent);
     border-radius: 1px;
 }
 
@@ -546,7 +677,7 @@ body {
 .prayer-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     width: 100%;
 }
 
@@ -554,30 +685,29 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ffffff;
-    border-radius: 10px;
+    background-color: var(--pc-prayer-row-bg);
+    border-radius: 12px;
     padding: 16px 20px;
-    box-shadow: 0 2px 6px rgba(0, 56, 41, 0.01);
-    border-inline-start: 4px solid transparent;
+    border: 1px solid transparent;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     box-sizing: border-box;
 }
 
 .prayer-card.current {
-    border-inline-start: 4px solid #b19e68;
-    box-shadow: 0 4px 16px rgba(177, 158, 104, 0.08);
+    background-color: var(--pc-current-bg);
+    border: 1px solid var(--pc-current-border);
+    box-shadow: 0 4px 16px rgba(184, 93, 56, 0.12);
 }
-
 
 .prayer-name {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    color: #70807c;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--pc-prayer-name);
 }
 
 .prayer-card.current .prayer-name {
-    color: #003829;
+    color: var(--pc-current-name);
     font-weight: 700;
 }
 
@@ -588,34 +718,69 @@ body {
 }
 
 .current-badge {
-    background-color: #eadecc;
-    color: #8b753a;
+    background-color: var(--pc-current-badge-bg);
+    color: var(--pc-current-badge-text);
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 11px;
+    font-weight: 700;
     padding: 3px 10px;
     border-radius: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 }
 
 .prayer-time {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 700;
-    color: #0e1f1a;
+    color: var(--pc-prayer-time);
     letter-spacing: -0.2px;
 }
 
 .prayer-card.current .prayer-time {
-    color: #003829;
+    color: var(--pc-current-time);
+}
+
+/* Advertisement Sidebar */
+.ad-sidebar {
+    width: 140px;
+    min-height: 440px;
+    background-color: var(--pc-ad-bg);
+    border: 1px dashed var(--pc-ad-border);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    transition: all 0.25s ease;
+}
+
+.ad-sidebar-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pc-ad-text);
+    user-select: none;
+}
+
+@media (max-width: 990px) {
+    .ad-sidebar {
+        display: none;
+    }
 }
 
 .footer {
-    background-color: #e2e8e7;
+    background-color: var(--pc-footer-bg);
     width: 100%;
     padding: 32px 20px;
     margin-top: auto;
     box-sizing: border-box;
-    border-top: 1px solid #d4dedc;
+    border-top: 1px solid var(--pc-footer-border);
 }
 
 .footer-content {
@@ -633,7 +798,7 @@ body {
 .footer-left {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
-    color: #5c726c;
+    color: var(--pc-footer-text);
     font-weight: 500;
 }
 
@@ -648,14 +813,14 @@ body {
 .footer-link {
     font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 13px;
-    color: #5c726c;
+    color: var(--pc-footer-text);
     text-decoration: none;
     transition: color 0.2s ease;
     font-weight: 500;
 }
 
 .footer-link:hover {
-    color: #003829;
+    color: var(--pc-primary);
 }
 
 /* Calendar Sync Modal */
@@ -683,6 +848,9 @@ body {
     border-radius: 20px;
     padding: 28px;
     box-sizing: border-box;
+    background-color: var(--pc-card-bg);
+    border: 1px solid var(--pc-card-border);
+    color: var(--pc-title);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 }
 
