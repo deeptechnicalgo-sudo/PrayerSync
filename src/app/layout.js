@@ -26,7 +26,7 @@ export const viewport = {
 };
 
 export const metadata = {
-  metadataBase: new URL("https://prayer-sync.vercel.app"),
+  metadataBase: new URL("https://connect-prayer.vercel.app"),
   title: {
     default: "PrayerConnect - Islamic Prayer Times & Smart Calendar Sync",
     template: "%s | PrayerConnect",
@@ -48,7 +48,7 @@ export const metadata = {
     "Muslim calendar sync",
     "prayer reminder app"
   ],
-  authors: [{ name: "PrayerConnect Team", url: "https://prayer-sync.vercel.app" }],
+  authors: [{ name: "Star Studios", url: "https://connect-prayer.vercel.app" }],
   creator: "Musa Mohammed",
   publisher: "PrayerConnect",
   robots: {
@@ -66,7 +66,7 @@ export const metadata = {
     type: "website",
     locale: "en_US",
     alternateLocale: "ar_SA",
-    url: "https://prayer-sync.vercel.app",
+    url: "https://connect-prayer.vercel.app",
     siteName: "PrayerConnect",
     title: "PrayerConnect - Islamic Prayer Times & Smart Calendar Sync",
     description: "PrayerConnect helps you sync local prayer times with Google Calendar and Outlook, making it easier to organize your daily schedule around your prayers.",
@@ -77,7 +77,7 @@ export const metadata = {
     description: "PrayerConnect helps you sync local prayer times with Google Calendar and Outlook, making it easier to organize your daily schedule around your prayers.",
   },
   alternates: {
-    canonical: "https://prayer-sync.vercel.app",
+    canonical: "https://connect-prayer.vercel.app",
   },
   other: {
     "google-adsense-account": "ca-pub-8383999192768244",
