@@ -32,7 +32,7 @@ export async function POST(req) {
                         const desc = item.description || "";
                         const summary = item.summary || "";
                         if (
-                            desc.includes("PrayerSync") ||
+                            desc.includes("PrayerConnect") ||
                             summary.includes("Prayer") ||
                             summary.includes("صلاة")
                         ) {

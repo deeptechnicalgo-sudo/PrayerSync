@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = "https://prayer-sync.vercel.app";
+  const baseUrl = "https://connect-prayer.vercel.app";
   const now = new Date().toISOString();
 
   const staticRoutes = [

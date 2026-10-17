@@ -92,20 +92,17 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <head>
-        <meta name="google-site-verification" content="zT7e3UUmfhewJqpewwvvSZDYPY4T7bRF7RYSd7PCJ5s" />
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-JVM4SDFJZK"
-        />
 
-        <Script id="google-analytics">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-JVM4SDFJZK');
-          `}
-        </Script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-6YCD8G988J"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments)}
+          gtag('js', new Date());
+
+          gtag('config', 'G-6YCD8G988J');
+        </script>
+
+
       </head>
 
       <body suppressHydrationWarning>

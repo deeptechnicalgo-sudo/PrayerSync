@@ -74,7 +74,7 @@ export async function GET(req) {
         const icsLines = [
             "BEGIN:VCALENDAR",
             "VERSION:2.0",
-            "PRODID:-//PrayerSync//DynamicFeed 2.0//EN",
+            "PRODID:-//PrayerConnect//DynamicFeed 2.0//EN",
             "CALSCALE:GREGORIAN",
             "METHOD:PUBLISH",
             `X-WR-CALNAME:PrayerSync - ${city}`,
@@ -107,7 +107,7 @@ export async function GET(req) {
                 const endDate = new Date(azanDate.getTime() + postBuffer * 60 * 1000);
 
                 const title = prayerNames[prayerKey] || `${prayerKey} Prayer`;
-                const uid = `prayersync-${prayerKey}-${yearNum}-${monthNum + 1}-${dayNum}-${city.replace(/\s+/g, "_")}@prayer-sync.vercel.app`;
+                const uid = `PrayerConnect-${prayerKey}-${yearNum}-${monthNum + 1}-${dayNum}-${city.replace(/\s+/g, "_")}@connect-prayer.vercel.app`;
 
                 const descriptionLines = [
                     `${title} (${cleanTime})`,
@@ -119,7 +119,7 @@ export async function GET(req) {
                     "🧭 Qibla Finder: https://qiblafinder.withgoogle.com",
                     "📖 Daily Adhkar: https://sunnah.com/hisn",
                     "",
-                    "Powered by PrayerSync (https://prayer-sync.vercel.app)"
+                    "Powered by Prayer Connect (https://connect-prayer.vercel.app)"
                 ].filter(Boolean).join("\\n");
 
                 icsLines.push("BEGIN:VEVENT");
@@ -148,7 +148,7 @@ export async function GET(req) {
             status: 200,
             headers: {
                 "Content-Type": "text/calendar; charset=utf-8",
-                "Content-Disposition": `inline; filename="prayersync-${city.toLowerCase()}.ics"`,
+                "Content-Disposition": `inline; filename="PrayerConnect-${city.toLowerCase()}.ics"`,
                 "Cache-Control": "public, max-age=3600, s-maxage=3600",
             },
         });

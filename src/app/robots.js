@@ -19,7 +19,7 @@ export default function robots() {
         crawlDelay: 3,
       },
     ],
-    sitemap: "https://prayer-sync.vercel.app/sitemap.xml",
-    host: "https://prayer-sync.vercel.app",
+    sitemap: "https://connect-prayer.vercel.app/sitemap.xml",
+    host: "https://connect-prayer.vercel.app",
   };
 }
