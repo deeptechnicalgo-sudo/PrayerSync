@@ -93,19 +93,7 @@ export default function RootLayout({ children }) {
     >
       <head>
 
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){window.dataLayer.push(arguments);}
-      window.gtag = gtag;
-      gtag('js', new Date());
-      gtag('config', 'G-6YCD8G988J');
-    `,
-          }}
-        />
+
 
 
       </head>
