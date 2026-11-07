@@ -10,6 +10,9 @@ import { useData2 } from "./Context/Arabic";
 import { useSession, signIn } from "next-auth/react";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Script from "next/script";
+
+
 
 countries.registerLocale(en);
 countries.registerLocale(ar);
@@ -554,9 +557,13 @@ export default function Home() {
             </main>
 
             {/* Advertisement Leaderboard */}
-            <div className="ad-leaderboard">
-                {isarabic ? "مساحة إعلانية - بانر رئيسي" : "ADVERTISEMENT - LEADERBOARD"}
-            </div>
+             <Script
+        src="https://pl32247506.profitableratecpmnetwork.com/131059c08b59872b2ded1676c4c5d562/invoke.js"
+        strategy="afterInteractive"
+        data-cfasync="false"
+      />
+
+      <div id="container-131059c08b59872b2ded1676c4c5d562"></div>
 
             <div className="dashboard-container">
                 <div className="location-card" style={{ backgroundColor: K ? "#121a2b" : "#ffffff", border: K ? "1px solid #1c273e" : "1px solid #ece4d9", boxShadow: K ? "0 10px 40px rgba(0,0,0,0.4)" : "0 10px 30px rgba(90, 60, 40, 0.04)" }}>
