@@ -556,17 +556,8 @@ export default function Home() {
                 </p>
             </main>
 
-            {/* Advertisement Leaderboard */}
-        <script>
-  atOptions = {
-    'key' : '20372870d01de96c1f6ab4233d919d64',
-    'format' : 'iframe',
-    'height' : 50,
-    'width' : 320,
-    'params' : {}
-  };
-</script>
-<script src="https://www.highrevenueformat.com/20372870d01de96c1f6ab4233d919d64/invoke.js"></script>
+   
+     
 
             <div className="dashboard-container">
                 <div className="location-card" style={{ backgroundColor: K ? "#121a2b" : "#ffffff", border: K ? "1px solid #1c273e" : "1px solid #ece4d9", boxShadow: K ? "0 10px 40px rgba(0,0,0,0.4)" : "0 10px 30px rgba(90, 60, 40, 0.04)" }}>
