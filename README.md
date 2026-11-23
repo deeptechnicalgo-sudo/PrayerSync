@@ -1,45 +1,32 @@
-this app is not open sourse you cant download any file 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Prayer Connect 🕌
 
-## Getting Started
+**Prayer Connect** helps Muslims organize their daily schedules around prayer times by connecting Islamic prayer schedules with digital calendars.
 
-First, run the development server:
+### ✨ Features
+- 🕌 Prayer times based on your selected location.
+- 📅 Sync prayer schedules with Google Calendar and Outlook.
+- 🔔 Organize your daily routine around prayer times.
+- 🟢 Automatically mark prayer periods as busy to avoid scheduling conflicts.
+- 🌍 Support for different locations and prayer calculation methods.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 🎯 Purpose
+Prayer Connect was created to solve a simple but important problem: work meetings and daily commitments shouldn't conflict with prayer times.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The goal is to make it easier for Muslims to maintain their prayers while managing their professional schedules.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 🛠️ Built With
+- Next.js
+- React
+- JavaScript
+- Google Calendar API
+- Microsoft Outlook Calendar Integration
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 👨‍💻 Developer
+**Musa Mohammed — Deep Technical Go**
 
-## Learn More
+Independent developer and creator of Prayer Connect.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-"# PrayerSync" 
-"# PrayerSync" 
-"# prayer Connect" 
-"# prayer Connect" 
-"# prayer Connect" 
-"# prayer Connect" 
-"# prayer Connect" 
-"# prayer Connect" 
+**Prayer Connect — Because prayer is part of your schedule, not an interruption to it.**
+see only code no copy no download
